@@ -7,5 +7,5 @@ export default defineConfig({
   build: {
     outDir: 'build',
   },
-  plugins: [tsconfigPaths(), react()],
+  plugins: [react(), tsconfigPaths()],
 });
