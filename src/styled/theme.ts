@@ -3,7 +3,7 @@ export const theme = {
     primary: '#ffffff',
   },
   backgroundColors: {
-    primary: '#535353',
+    primary: 'linear-gradient(to right, #131313, #636363, #131313);',
   },
   fontSizes: {
     small: '1rem',

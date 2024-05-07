@@ -19,6 +19,11 @@ const pulseAnimation = keyframes`
   }
 `;
 
+export const StyledSection = styled.section`
+  height: 350px;
+  margin-bottom: 2rem;
+`;
+
 export const StyledDiv = styled.div`
   height: 100%;
   display: flex;
@@ -28,7 +33,6 @@ export const StyledDiv = styled.div`
 `;
 
 export const StyledImg = styled.img`
-  width: 500px;
-  height: auto;
+  width: 450px;
   animation: ${pulseAnimation} 3s ease-in-out infinite;
 `;

@@ -14,6 +14,6 @@ export const globalStyles = (theme: StyledTheme) => css`
     font-family: 'Roboto', sans-serif;
     color: ${theme.colors.primary};
     font-size: ${theme.fontSizes.medium};
-    background-color: ${theme.backgroundColors.primary};
+    background: ${theme.backgroundColors.primary};
   }
 `;
