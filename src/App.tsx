@@ -1,5 +1,14 @@
+import ApplicationStylesProvider from 'styled/ApplicationStylesProvider';
+import HomePage from 'pages/HomePage';
+
 function App() {
-  return <div>`Hello World` developer style</div>;
+  return (
+    <>
+      <ApplicationStylesProvider>
+        <HomePage />
+      </ApplicationStylesProvider>
+    </>
+  );
 }
 
 export default App;
