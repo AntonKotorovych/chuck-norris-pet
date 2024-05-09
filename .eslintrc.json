@@ -43,6 +43,7 @@
     "semi-style": "error"
   },
   "settings": {
+    "import/ignore": ["node_modules"],
     "react": {
       "version": "detect"
     },

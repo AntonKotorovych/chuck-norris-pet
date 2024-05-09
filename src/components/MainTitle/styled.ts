@@ -5,16 +5,16 @@ const pulseAnimation = keyframes`
   0% {
     transform: scale(1);
   }
-  7% {
+  8% {
     transform: scale(1.05);
   }
-  14% {
+  16% {
     transform: scale(1);
   }
-  21% {
+  24% {
     transform: scale(1.05)
   }
-  28% {
+  32% {
     transform: scale(1)
   }
 `;
