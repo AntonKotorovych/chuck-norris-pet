@@ -35,8 +35,8 @@ export const StyledDiv = withTheme(styled.div<{ theme: StyledTheme }>`
 
   & h1 {
     font-family: 'Poetsen One', sans-serif;
-    -webkit-text-stroke-width: 0.1px;
-    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: ${props => props.theme.colors.secondary};
     text-transform: uppercase;
   }
 `);

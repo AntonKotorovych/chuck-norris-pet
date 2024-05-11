@@ -89,7 +89,7 @@ export const StyledJokeDiv = withTheme(styled.div<{ theme: StyledTheme }>`
   border: 3px ${props => props.theme.borderColor.primary} solid;
   border-radius: 20px;
   background-color: ${props => props.theme.backgroundColorListValue.primary};
-  height: 60%;
+  height: 70%;
   display: flex;
   padding: 2rem;
 `);
