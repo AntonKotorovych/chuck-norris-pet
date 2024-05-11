@@ -4,7 +4,7 @@ export default function MainTitle() {
   return (
     <StyledSection>
       <StyledDiv>
-        <h1>Chuck Norris - Joke Generator</h1>
+        <h1>Chuck Norris Joke Generator</h1>
         <a
           href="https://api.chucknorris.io/"
           target="_blank"

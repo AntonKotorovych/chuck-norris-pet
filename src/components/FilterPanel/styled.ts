@@ -43,13 +43,11 @@ export const StyledSection = styled.section`
   justify-content: space-around;
 `;
 
-const BaseStyledDiv = styled.div<{ theme: StyledTheme }>`
+export const StyledDiv = withTheme(styled.div<{ theme: StyledTheme }>`
   height: 100%;
   width: 23%;
   font-size: ${props => props.theme.fontSizes.small};
-`;
-
-export const StyledDiv = withTheme(BaseStyledDiv);
+`);
 
 export const StyledInputContainer = styled.div`
   height: 100%;
