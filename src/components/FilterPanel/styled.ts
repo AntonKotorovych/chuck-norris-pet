@@ -41,6 +41,9 @@ export const StyledSection = styled.section`
   height: 4rem;
   display: flex;
   justify-content: space-around;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 `;
 
 export const StyledDiv = withTheme(styled.div<{ theme: StyledTheme }>`

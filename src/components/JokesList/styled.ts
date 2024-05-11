@@ -27,7 +27,7 @@ export const StyledListElement = withTheme(styled.li<{ theme: StyledTheme }>`
   box-shadow: ${props => props.theme.shadowStyle.primary};
   border-radius: 50px;
   margin: 2rem 0;
-  height: 15rem;
+  height: 18rem;
   opacity: 0;
   background-color: ${props => props.theme.backgroundColorListItem.primary};
   animation: ${fadeIn} 1.2s ease forwards;
@@ -89,7 +89,7 @@ export const StyledJokeDiv = withTheme(styled.div<{ theme: StyledTheme }>`
   border: 3px ${props => props.theme.borderColor.primary} solid;
   border-radius: 20px;
   background-color: ${props => props.theme.backgroundColorListValue.primary};
-  height: 70%;
+  height: 60%;
   display: flex;
   padding: 2rem;
 `);
