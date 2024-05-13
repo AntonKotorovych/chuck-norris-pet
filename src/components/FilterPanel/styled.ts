@@ -1,6 +1,7 @@
-import { withTheme, CSSObject } from '@emotion/react';
+import { CSSObject } from '@emotion/react';
 import styled from '@emotion/styled';
-import { StyledTheme } from 'styled/theme';
+
+import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 export const customSelectStyles = {
   container: (baseStyles: CSSObject) => ({
@@ -46,11 +47,11 @@ export const StyledSection = styled.section`
   z-index: 100;
 `;
 
-export const StyledDiv = withTheme(styled.div<{ theme: StyledTheme }>`
+export const StyledDiv = styled.div<ThemeProps>`
   height: 100%;
   width: 23%;
   font-size: ${props => props.theme.fontSizes.small};
-`);
+`;
 
 export const StyledInputContainer = styled.div`
   height: 100%;

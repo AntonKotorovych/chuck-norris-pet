@@ -1,6 +1,7 @@
-import { keyframes, withTheme } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { StyledTheme } from 'styled/theme';
+
+import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 const pulseAnimation = keyframes`
   0% {
@@ -25,7 +26,7 @@ export const StyledSection = styled.section`
   margin-bottom: 2rem;
 `;
 
-export const StyledDiv = withTheme(styled.div<{ theme: StyledTheme }>`
+export const StyledDiv = styled.div<ThemeProps>`
   color: ${props => props.theme.colors.third};
   height: 100%;
   display: flex;
@@ -39,7 +40,7 @@ export const StyledDiv = withTheme(styled.div<{ theme: StyledTheme }>`
     -webkit-text-stroke-color: ${props => props.theme.colors.secondary};
     text-transform: uppercase;
   }
-`);
+`;
 
 export const StyledImg = styled.img`
   width: 450px;

@@ -1,6 +1,7 @@
-import { keyframes, withTheme } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { StyledTheme } from 'styled/theme';
+
+import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 const fadeIn = keyframes`
   from {
@@ -22,7 +23,7 @@ export const StyledList = styled.ul`
   list-style: none;
 `;
 
-export const StyledListElement = withTheme(styled.li<{ theme: StyledTheme }>`
+export const StyledListElement = styled.li<ThemeProps>`
   border: 2px ${props => props.theme.borderColor.primary} solid;
   box-shadow: ${props => props.theme.shadowStyle.primary};
   border-radius: 50px;
@@ -31,7 +32,7 @@ export const StyledListElement = withTheme(styled.li<{ theme: StyledTheme }>`
   opacity: 0;
   background-color: ${props => props.theme.backgroundColorListItem.primary};
   animation: ${fadeIn} 1.2s ease forwards;
-`);
+`;
 
 export const StyledDiv = styled.div`
   height: 100%;
@@ -52,16 +53,16 @@ export const StyledButtonDiv = styled.div`
   width: 13%;
 `;
 
-export const StyledSpan = withTheme(styled.span<{ theme: StyledTheme }>`
+export const StyledSpan = styled.span<ThemeProps>`
   font-size: ${props => props.theme.fontSizes.tiny};
-`);
+`;
 
-export const StyledJokeSpan = withTheme(styled.span<{ theme: StyledTheme }>`
+export const StyledJokeSpan = styled.span<ThemeProps>`
   font-style: italic;
   font-weight: bold;
   align-self: center;
   color: ${props => props.theme.colors.third};
-`);
+`;
 
 export const StyledJokeCategoryDiv = styled.div`
   height: 20%;
@@ -69,7 +70,7 @@ export const StyledJokeCategoryDiv = styled.div`
   align-items: center;
 `;
 
-export const StyledFooterDiv = withTheme(styled.div<{ theme: StyledTheme }>`
+export const StyledFooterDiv = styled.div<ThemeProps>`
   height: 15%;
   display: flex;
   justify-content: space-between;
@@ -83,13 +84,13 @@ export const StyledFooterDiv = withTheme(styled.div<{ theme: StyledTheme }>`
       color: ${props => props.theme.colors.third};
     }
   }
-`);
+`;
 
-export const StyledJokeDiv = withTheme(styled.div<{ theme: StyledTheme }>`
+export const StyledJokeDiv = styled.div<ThemeProps>`
   border: 3px ${props => props.theme.borderColor.primary} solid;
   border-radius: 20px;
   background-color: ${props => props.theme.backgroundColorListValue.primary};
   height: 60%;
   display: flex;
   padding: 2rem;
-`);
+`;

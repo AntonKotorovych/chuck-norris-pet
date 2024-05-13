@@ -1,8 +1,8 @@
-import { withTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { StyledTheme } from 'styled/theme';
 
-const StyledInput = styled.input<{ theme: StyledTheme }>`
+import { ThemeProps } from 'types/interfaces/CommonInterfaces';
+
+export const StyledInput = styled.input<ThemeProps>`
   border-radius: 20px;
   height: 100%;
   width: 100%;
@@ -10,5 +10,3 @@ const StyledInput = styled.input<{ theme: StyledTheme }>`
   border: none;
   padding: 0 3.5rem;
 `;
-
-export default withTheme(StyledInput);

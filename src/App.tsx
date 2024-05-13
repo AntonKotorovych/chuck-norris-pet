@@ -3,11 +3,9 @@ import HomePage from 'pages/HomePage';
 
 function App() {
   return (
-    <>
-      <ApplicationStylesProvider>
-        <HomePage />
-      </ApplicationStylesProvider>
-    </>
+    <ApplicationStylesProvider>
+      <HomePage />
+    </ApplicationStylesProvider>
   );
 }
 

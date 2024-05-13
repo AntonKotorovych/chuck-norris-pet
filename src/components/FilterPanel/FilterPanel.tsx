@@ -22,7 +22,8 @@ export default function FilterPanel() {
         <Select
           options={options}
           styles={customSelectStyles}
-          placeholder="Category Selector"></Select>
+          placeholder="Category Selector"
+        />
       </StyledDiv>
       <StyledDiv>
         <StyledInputContainer>
@@ -36,10 +37,10 @@ export default function FilterPanel() {
         </StyledInputContainer>
       </StyledDiv>
       <StyledDiv>
-        <Button>Search</Button>
+        <Button variant="search">Search</Button>
       </StyledDiv>
       <StyledDiv>
-        <Button>Clear Filtering</Button>
+        <Button variant="clear">Clear Filtering</Button>
       </StyledDiv>
     </StyledSection>
   );

@@ -1,6 +1,18 @@
-import { PropsWithChildren } from 'react';
-import StyledButton from './styled';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
+import { StyledButton } from './styled';
 
-export default function Button({ children }: PropsWithChildren) {
-  return <StyledButton>{children}</StyledButton>;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'search' | 'clear';
+}
+
+export default function Button({
+  children,
+  variant,
+  ...props
+}: PropsWithChildren<ButtonProps>) {
+  return (
+    <StyledButton type="button" {...props} variant={variant}>
+      {children}
+    </StyledButton>
+  );
 }

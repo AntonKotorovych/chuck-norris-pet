@@ -1,14 +1,20 @@
-import { withTheme } from '@emotion/react';
-
 import styled from '@emotion/styled';
-import { StyledTheme } from 'styled/theme';
 
-const StyledButton = styled.button<{ theme: StyledTheme }>`
+import { ThemeProps } from 'types/interfaces/CommonInterfaces';
+
+interface Props extends ThemeProps {
+  variant?: 'search' | 'clear';
+}
+
+export const StyledButton = styled.button<Props>`
   border-radius: 20px;
   height: 100%;
   width: 100%;
   font-size: ${props => props.theme.fontSizes.medium};
-  background-color: ${props => props.theme.btnBackgroundColor.primary};
+  background-color: ${props =>
+    props.variant === 'search'
+      ? props.theme.btnBackgroundColor.primary
+      : props.theme.btnBackgroundColor.third};
   color: ${props => props.theme.colors.primary};
   border: none;
   transition: box-shadow 0.2s ease;
@@ -23,5 +29,3 @@ const StyledButton = styled.button<{ theme: StyledTheme }>`
     border: 2px solid ${props => props.theme.colors.secondary};
   }
 `;
-
-export default withTheme(StyledButton);
