@@ -40,6 +40,8 @@ jobs:
       - name: Lint the App
         run: npm run lint
       - name: Build
+        env: 
+          VITE_CHUCK_NORRIS_API: ${{ vars.VITE_CHUCK_NORRIS_API }}
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
