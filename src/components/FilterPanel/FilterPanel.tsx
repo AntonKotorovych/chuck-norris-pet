@@ -1,13 +1,9 @@
-import Select from 'react-select';
+import { useState } from 'react';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import {
-  StyledDiv,
-  StyledInputContainer,
-  StyledSVGButton,
-  StyledSection,
-  customSelectStyles,
-} from './styled';
+import CategorySelect from 'components/CategorySelect';
+
+import { StyledContainer, StyledSection } from './styled';
 
 const options = [
   { value: 'Test category 1', label: 'Test category 1' },
@@ -16,32 +12,29 @@ const options = [
 ];
 
 export default function FilterPanel() {
+  const [showCrossButton, setShowCrossButton] = useState(true);
+
+  const handleCrossButton = () => setShowCrossButton(!showCrossButton);
+
   return (
     <StyledSection>
-      <StyledDiv>
-        <Select
-          options={options}
-          styles={customSelectStyles}
-          placeholder="Category Selector"
+      <StyledContainer>
+        <CategorySelect options={options} placeholder="Category Selector" />
+      </StyledContainer>
+      <StyledContainer>
+        <Input
+          placeholder="Search a joke..."
+          leftIcon="../assets/magnifying-glass.svg"
+          rightIcon={showCrossButton ? '../assets/cross.svg' : ''}
+          onClear={handleCrossButton}
         />
-      </StyledDiv>
-      <StyledDiv>
-        <StyledInputContainer>
-          <StyledSVGButton position="left">
-            <img src="../assets/magnifying-glass.svg" alt="" />
-          </StyledSVGButton>
-          <Input />
-          <StyledSVGButton position="right">
-            <img src="../assets/cross.svg" alt="" />
-          </StyledSVGButton>
-        </StyledInputContainer>
-      </StyledDiv>
-      <StyledDiv>
-        <Button variant="search">Search</Button>
-      </StyledDiv>
-      <StyledDiv>
-        <Button variant="clear">Clear Filtering</Button>
-      </StyledDiv>
+      </StyledContainer>
+      <StyledContainer>
+        <Button variant="main">Search</Button>
+      </StyledContainer>
+      <StyledContainer>
+        <Button variant="secondary">Clear Filtering</Button>
+      </StyledContainer>
     </StyledSection>
   );
 }

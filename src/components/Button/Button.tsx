@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import { StyledButton } from './styled';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'search' | 'clear';
+  variant?: 'main' | 'secondary';
 }
 
 export default function Button({

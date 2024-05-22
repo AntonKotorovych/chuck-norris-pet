@@ -3,16 +3,16 @@ import styled from '@emotion/styled';
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 interface Props extends ThemeProps {
-  variant?: 'search' | 'clear';
+  variant?: 'main' | 'secondary';
 }
 
 export const StyledButton = styled.button<Props>`
-  border-radius: 20px;
+  border-radius: ${props => props.theme.borderRadius.sm};
   height: 100%;
   width: 100%;
   font-size: ${props => props.theme.fontSizes.medium};
   background-color: ${props =>
-    props.variant === 'search'
+    props.variant === 'main'
       ? props.theme.btnBackgroundColor.primary
       : props.theme.btnBackgroundColor.third};
   color: ${props => props.theme.colors.primary};

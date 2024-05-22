@@ -1,90 +1,25 @@
-import { CSSObject } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
-export const customSelectStyles = {
-  container: (baseStyles: CSSObject) => ({
-    ...baseStyles,
-    height: '100%',
-  }),
-
-  control: (baseStyles: CSSObject) => ({
-    ...baseStyles,
-    borderRadius: '20px',
-    height: '100%',
-    '&:hover': {
-      boxShadow: '0 0 25px rgba(0, 0, 0, 0.877)',
-    },
-  }),
-
-  valueContainer: (baseStyles: CSSObject) => ({
-    ...baseStyles,
-    padding: '0 1rem',
-  }),
-
-  menu: (baseStyles: CSSObject) => ({
-    ...baseStyles,
-    backgroundColor: 'black',
-  }),
-
-  option: (baseStyles: CSSObject, state: { isFocused: boolean }) => ({
-    ...baseStyles,
-    backgroundColor: state.isFocused ? 'gray' : 'black',
-    '&:hover': {
-      backgroundColor: 'gray',
-    },
-  }),
-};
-
-export const StyledSection = styled.section`
+export const StyledSection = styled.section<ThemeProps>`
   width: 100%;
-  height: 4rem;
+  margin: auto;
+  height: 3rem;
   display: flex;
+  background-color: ${props => props.theme.filterPanelBackgroundColor.primary};
   justify-content: space-around;
   position: sticky;
-  top: 0;
+  top: 0.5rem;
+  border-radius: ${props => props.theme.borderRadius.lg};
+  height: 5rem;
   z-index: 100;
+  display: flex;
+  align-items: center;
 `;
 
-export const StyledDiv = styled.div<ThemeProps>`
-  height: 100%;
-  width: 23%;
+export const StyledContainer = styled.div<ThemeProps>`
+  height: 60%;
+  width: 18%;
   font-size: ${props => props.theme.fontSizes.small};
-`;
-
-export const StyledInputContainer = styled.div`
-  height: 100%;
-  position: relative;
-`;
-
-interface StyledSVGButtonProps {
-  position?: 'left' | 'right';
-}
-
-export const StyledSVGButton = styled.button<StyledSVGButtonProps>`
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 50%;
-  left: ${props => (props.position === 'left' ? '1rem' : 'auto')};
-  right: ${props => (props.position === 'right' ? '1rem' : 'auto')};
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-
-  & img {
-    width: 100%;
-  }
-
-  &:hover {
-    transform: translateY(-50%) scale(1.4);
-  }
-
-  &:active {
-    transition: none;
-    transform: translateY(-50%) scale(1);
-  }
 `;

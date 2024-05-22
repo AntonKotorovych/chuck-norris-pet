@@ -35,7 +35,7 @@ export const StyledDiv = styled.div<ThemeProps>`
   justify-content: space-between;
 
   & h1 {
-    font-family: 'Poetsen One', sans-serif;
+    font-family: ${props => props.theme.fontFamily.secondary};
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: ${props => props.theme.colors.secondary};
     text-transform: uppercase;

@@ -13,7 +13,7 @@ export const globalStyles = (theme: StyledTheme) => css`
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: ${theme.fontFamily.primary};
     color: ${theme.colors.primary};
     font-size: ${theme.fontSizes.medium};
     background: ${theme.backgroundColor.primary};
