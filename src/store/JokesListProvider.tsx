@@ -30,11 +30,11 @@ export function JokesListProvider({ children }: PropsWithChildren) {
 
       try {
         const randomJoke = await getRandomJoke();
-        setJokesList(prevState => ({
-          ...prevState,
-          isLoading: false,
+        setJokesList({
           response: [randomJoke],
-        }));
+          isLoading: false,
+          error: null,
+        });
       } catch (error) {
         if (error instanceof Error) {
           setJokesList({
