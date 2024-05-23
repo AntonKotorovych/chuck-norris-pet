@@ -25,7 +25,15 @@ export default function JokeItem({ categories, value, url, created }: Props) {
           <StyledSpan>
             Joke category:{' '}
             {categories.map((category, index) => {
-              return `${category}${index !== categories.length - 1 ? ', ' : ''}`;
+              return (
+                <StyledATag
+                  href="https://google.com"
+                  target="_blank"
+                  key={category}>
+                  {category.toUpperCase()}
+                  {index !== categories.length - 1 ? ', ' : ''}
+                </StyledATag>
+              );
             })}
           </StyledSpan>
         </StyledJokeCategory>

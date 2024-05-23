@@ -27,9 +27,13 @@ export const StyledJokeContainer = styled.div`
   margin: auto;
 `;
 
-export const StyledATag = styled.a`
+export const StyledATag = styled.a<ThemeProps>`
   text-decoration: none;
   color: inherit;
+
+  &:hover {
+    color: ${props => props.theme.colors.third};
+  }
 `;
 
 export const StyledSpan = styled.span<ThemeProps>`
@@ -53,15 +57,6 @@ export const StyledFooterDiv = styled.div<ThemeProps>`
   height: 20%;
   display: flex;
   justify-content: space-between;
-
-  & > :first-of-type {
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: scale(1.1);
-      color: ${props => props.theme.colors.third};
-    }
-  }
 `;
 
 export const StyledJokeDiv = styled.div<ThemeProps>`

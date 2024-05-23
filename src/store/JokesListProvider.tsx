@@ -35,7 +35,6 @@ export function JokesListProvider({ children }: PropsWithChildren) {
           isLoading: false,
           response: [randomJoke],
         }));
-        console.log(randomJoke);
       } catch (error) {
         if (error instanceof Error) {
           setJokesList({
