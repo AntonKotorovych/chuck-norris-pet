@@ -1,10 +1,13 @@
 import ApplicationStylesProvider from 'styled/ApplicationStylesProvider';
 import HomePage from 'pages/HomePage';
+import { JokesListProvider } from 'store/JokesListProvider';
 
 function App() {
   return (
     <ApplicationStylesProvider>
-      <HomePage />
+      <JokesListProvider>
+        <HomePage />
+      </JokesListProvider>
     </ApplicationStylesProvider>
   );
 }
