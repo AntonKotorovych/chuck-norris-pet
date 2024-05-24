@@ -23,10 +23,21 @@ export default function JokeItem({ categories, value, url, created }: Props) {
       <StyledJokeContainer>
         <StyledJokeCategory>
           <StyledSpan>
-            Joke category:{' '}
-            {categories.map((category, index) => {
-              return `${category}${index !== categories.length - 1 ? ', ' : ''}`;
-            })}
+            {categories.length === 0 ? (
+              'No Categories'
+            ) : (
+              <>
+                Joke category:{' '}
+                {categories.map(category => (
+                  <StyledATag
+                    href={'https://google.com'}
+                    target="_blank"
+                    key={category}>
+                    {category},{' '}
+                  </StyledATag>
+                ))}
+              </>
+            )}
           </StyledSpan>
         </StyledJokeCategory>
         <StyledJokeDiv>

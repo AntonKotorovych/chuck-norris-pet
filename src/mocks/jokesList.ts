@@ -1,4 +1,4 @@
-export const jokesList = [
+export const JOKES_LIST = [
   {
     id: 1,
     categories: ['Test Category 1', 'Test Category 2'],
@@ -8,7 +8,7 @@ export const jokesList = [
   },
   {
     id: 2,
-    categories: ['Test Category 3'],
+    categories: [],
     created_at: '2020-01-04 08:41:25.355234',
     url: 'https://api.chucknorris.io/jokes/zV2fzxDvRMyEdgSk2jTVKg',
     value: "Chuck Norris' sperm can kick your ass",

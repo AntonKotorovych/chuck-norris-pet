@@ -1,5 +1,5 @@
 import Button from 'components/Button';
-import { jokesList } from 'mocks/jokesList';
+import { JOKES_LIST } from 'mocks/jokesList';
 import JokeItem from './JokeItem';
 
 import { StyledList, StyledSection, StyledButtonContainer } from './styled';
@@ -8,7 +8,7 @@ export default function JokesList() {
   return (
     <StyledSection>
       <StyledList>
-        {jokesList.map(joke => (
+        {JOKES_LIST.map(joke => (
           <JokeItem
             key={joke.id}
             categories={joke.categories}

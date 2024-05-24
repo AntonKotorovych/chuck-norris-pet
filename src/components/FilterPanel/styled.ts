@@ -7,7 +7,7 @@ export const StyledSection = styled.section<ThemeProps>`
   margin: auto;
   height: 3rem;
   display: flex;
-  background-color: ${props => props.theme.filterPanelBackgroundColor.primary};
+  background-color: ${({ theme }) => theme.filterPanelBackgroundColor.primary};
   justify-content: space-around;
   position: sticky;
   top: 0.5rem;

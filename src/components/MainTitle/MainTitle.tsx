@@ -1,6 +1,5 @@
+import { API } from 'constants/API';
 import { StyledDiv, StyledImg, StyledSection } from './styled';
-
-const API = import.meta.env.VITE_CHUCK_NORRIS_API;
 
 export default function MainTitle() {
   return (

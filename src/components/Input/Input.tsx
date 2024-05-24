@@ -14,8 +14,6 @@ export default function Input({
   rightIcon,
   ...rest
 }: Props) {
-  const onClick = () => onClear && onClear();
-
   return (
     <StyledInputContainer>
       {leftIcon && (
@@ -28,7 +26,7 @@ export default function Input({
         <StyledSVGButton
           type="button"
           position={SvgPosition.RIGHT}
-          onClick={onClick}>
+          onClick={onClear}>
           <img src={rightIcon} alt="" />
         </StyledSVGButton>
       )}
