@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
-import Select from 'react-select';
+import Select, { Props as ReactSelectProps } from 'react-select';
 import { useTheme } from '@emotion/react';
 import { StyledTheme } from 'styled/theme';
 import { CategorySelectProps } from 'types/interfaces/CommonInterfaces';
 import { customSelectStyles } from './styled';
 
-export default function CustomSelect(props: CategorySelectProps) {
+type CustomSelectProps = CategorySelectProps & ReactSelectProps;
+
+export default function CustomSelect(props: CustomSelectProps) {
   const theme = useTheme();
 
   const styles = useMemo(
