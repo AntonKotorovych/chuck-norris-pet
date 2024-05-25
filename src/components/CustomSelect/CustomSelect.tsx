@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import Select, { Props as ReactSelectProps } from 'react-select';
 import { useTheme } from '@emotion/react';
 import { StyledTheme } from 'styled/theme';
-import { CategorySelectProps } from 'types/interfaces/CommonInterfaces';
+import { CategorySelectProps } from 'components/CategorySelect/CategorySelect';
 import { customSelectStyles } from './styled';
 
 type CustomSelectProps = CategorySelectProps & ReactSelectProps;

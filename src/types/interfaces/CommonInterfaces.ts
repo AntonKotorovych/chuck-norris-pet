@@ -4,12 +4,7 @@ export interface ThemeProps {
   theme?: StyledTheme;
 }
 
-interface Option {
+export interface Option {
   value: string;
   label: string;
-}
-
-export interface CategorySelectProps {
-  options: Option[];
-  placeholder: string;
 }

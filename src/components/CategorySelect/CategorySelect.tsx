@@ -1,5 +1,10 @@
 import CustomSelect from 'components/CustomSelect';
-import { CategorySelectProps } from 'types/interfaces/CommonInterfaces';
+import { Option } from 'types/interfaces/CommonInterfaces';
+
+export interface CategorySelectProps {
+  options: Option[];
+  placeholder: string;
+}
 
 export default function CategorySelect(props: CategorySelectProps) {
   return <CustomSelect {...props} />;
