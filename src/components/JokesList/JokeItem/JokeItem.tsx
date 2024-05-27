@@ -27,11 +27,8 @@ export default function JokeItem({ categories, value, url, created }: Props) {
               <>
                 Joke category:{' '}
                 {categories.map((category, index) => (
-                  <StyledATag
-                    href={'https://google.com'}
-                    target="_blank"
-                    key={category}>
-                    {category}
+                  <StyledATag href={'#'} target="_blank" key={category}>
+                    {category.toUpperCase()}
                     {index !== categories.length - 1 ? ', ' : ''}
                   </StyledATag>
                 ))}
