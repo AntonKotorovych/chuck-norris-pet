@@ -6,10 +6,10 @@ export interface ThemeProps {
 
 interface Joke {
   categories: string[];
-  created_at: string;
-  icon_url: string;
+  createdAt: string;
+  iconUrl: string;
   id: string;
-  updated_at: string;
+  updatedAt: string;
   url: string;
   value: string;
 }

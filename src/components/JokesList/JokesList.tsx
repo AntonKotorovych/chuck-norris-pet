@@ -19,7 +19,7 @@ export default function JokesList() {
             categories={joke.categories}
             value={joke.value}
             url={joke.url}
-            created={joke.created_at}
+            created={joke.createdAt}
           />
         ))}
       </StyledList>
