@@ -28,10 +28,14 @@ export const StyledJokeContainer = styled.div`
 `;
 
 export const StyledATag = styled.a<ThemeProps>`
+  display: inline-block;
   text-decoration: none;
   color: inherit;
+  transition: transform 0.2s ease;
+  padding: 0 3px;
 
   &:hover {
+    transform: scale(1.05);
     color: ${props => props.theme.colors.third};
   }
 `;
