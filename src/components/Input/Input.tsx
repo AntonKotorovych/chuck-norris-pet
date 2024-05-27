@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react';
 import { StyledInput } from './styled';
 import { StyledInputContainer, StyledSVGButton, SvgPosition } from './styled';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   leftIcon?: string;
   rightIcon?: string;
   onClear?: VoidFunction;
@@ -14,8 +14,6 @@ export default function Input({
   rightIcon,
   ...rest
 }: Props) {
-  const onClick = () => onClear && onClear();
-
   return (
     <StyledInputContainer>
       {leftIcon && (
@@ -28,7 +26,7 @@ export default function Input({
         <StyledSVGButton
           type="button"
           position={SvgPosition.RIGHT}
-          onClick={onClick}>
+          onClick={onClear}>
           <img src={rightIcon} alt="" />
         </StyledSVGButton>
       )}

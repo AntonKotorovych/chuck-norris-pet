@@ -1,7 +1,5 @@
 import { CSSObject } from '@emotion/react';
-
 import { OptionProps } from 'react-select';
-
 import { StyledTheme } from 'styled/theme';
 
 export const customSelectStyles = (theme: StyledTheme) => ({

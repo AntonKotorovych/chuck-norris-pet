@@ -19,3 +19,8 @@ export interface JokesList {
   isLoading: boolean;
   error: Error | null;
 }
+
+export interface Option {
+  value: string;
+  label: string;
+}

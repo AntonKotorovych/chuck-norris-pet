@@ -22,7 +22,7 @@ export enum SvgPosition {
 }
 
 interface StyledSVGButtonProps {
-  position?: SvgPosition.LEFT | SvgPosition.RIGHT;
+  position?: SvgPosition;
 }
 
 export const StyledSVGButton = styled.button<StyledSVGButtonProps>`

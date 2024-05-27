@@ -53,7 +53,7 @@ export const StyledJokeCategory = styled.div`
   align-items: center;
 `;
 
-export const StyledFooterDiv = styled.div<ThemeProps>`
+export const StyledFooterDiv = styled.div`
   height: 20%;
   display: flex;
   justify-content: space-between;
