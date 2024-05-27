@@ -1,9 +1,10 @@
-import CustomSelect from 'components/CustomSelect';
+import CustomSelect, {
+  Props as CustomSelectProps,
+} from 'components/CustomSelect';
 import { Option } from 'types/interfaces/CommonInterfaces';
 
-export interface CategorySelectProps {
+export interface CategorySelectProps extends CustomSelectProps {
   options: Option[];
-  placeholder: string;
 }
 
 export default function CategorySelect(props: CategorySelectProps) {

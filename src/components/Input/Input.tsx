@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react';
 import { StyledInput } from './styled';
 import { StyledInputContainer, StyledSVGButton, SvgPosition } from './styled';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   leftIcon?: string;
   rightIcon?: string;
   onClear?: VoidFunction;
