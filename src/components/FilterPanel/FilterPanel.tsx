@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import CategorySelect from 'components/CategorySelect';
@@ -12,9 +12,19 @@ const options = [
 ];
 
 export default function FilterPanel() {
-  const [showCrossButton, setShowCrossButton] = useState(true);
+  const [searchValue, setSearchValue] = useState('');
+  const [showCrossButton, setShowCrossButton] = useState(false);
 
-  const handleCrossButton = () => setShowCrossButton(!showCrossButton);
+  const handleCrossButton = () => {
+    setSearchValue('');
+    setShowCrossButton(false);
+  };
+
+  const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setSearchValue(newValue);
+    setShowCrossButton(newValue.length > 0);
+  };
 
   return (
     <StyledSection>
@@ -24,9 +34,12 @@ export default function FilterPanel() {
       <StyledContainer>
         <Input
           placeholder="Search a joke..."
+          value={searchValue}
           leftIcon="../assets/magnifying-glass.svg"
           rightIcon={showCrossButton ? '../assets/cross.svg' : ''}
           onClear={handleCrossButton}
+          onChange={handleChangeValue}
+          maxLength={13}
         />
       </StyledContainer>
       <StyledContainer>
