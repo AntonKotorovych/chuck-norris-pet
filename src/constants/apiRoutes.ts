@@ -1,1 +1,1 @@
-export const RANDOM_JOKE = 'jokes/random';
+export const RANDOM_JOKE = '/random';

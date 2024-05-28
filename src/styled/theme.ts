@@ -14,6 +14,10 @@ export const theme = {
   errorBackgroundColor: {
     primary: '#030303',
   },
+  spinnerBorderColor: {
+    primary: '#f3f3f3',
+    secondary: '#3498db',
+  },
   backgroundColor: {
     primary: 'linear-gradient(to right, #131313, #636363, #131313);',
   },

@@ -8,23 +8,23 @@ import {
 import { getRandomJoke } from 'api/getRandomJoke';
 import { JokesList } from 'types/interfaces/CommonInterfaces';
 
-const DEFAULT_JOKES_LIST = {
+const DEFAULT_JOKES_STORE: JokesList = {
   response: null,
   isLoading: false,
   error: null,
 };
 
-const JokesListContext = createContext<JokesList>(DEFAULT_JOKES_LIST);
+const JokesListContext = createContext<JokesList>(DEFAULT_JOKES_STORE);
 
 export const useJokesList = () => useContext(JokesListContext);
 
 export function JokesListProvider({ children }: PropsWithChildren) {
-  const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_LIST);
+  const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
 
   useEffect(() => {
     (async () => {
       setJokesList({
-        ...DEFAULT_JOKES_LIST,
+        ...DEFAULT_JOKES_STORE,
         isLoading: true,
       });
 
