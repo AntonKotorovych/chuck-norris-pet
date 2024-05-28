@@ -8,6 +8,16 @@ export const theme = {
     secondary: '#161616',
     third: '#ff8f33',
   },
+  errorColor: {
+    primary: '#fd1f1f',
+  },
+  errorBackgroundColor: {
+    primary: '#030303',
+  },
+  spinnerBorderColor: {
+    primary: '#f3f3f3',
+    secondary: '#3498db',
+  },
   backgroundColor: {
     primary: 'linear-gradient(to right, #131313, #636363, #131313);',
   },
@@ -19,6 +29,7 @@ export const theme = {
   },
   borderColor: {
     primary: '#0f0f0f',
+    secondary: '#909090',
   },
   borderRadius: {
     sm: '20px',

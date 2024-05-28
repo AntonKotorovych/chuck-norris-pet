@@ -1,20 +1,25 @@
+import { useJokesList } from 'store/JokesListProvider';
 import Button from 'components/Button';
-import { JOKES_LIST } from 'mocks/jokesList';
+import Spinner from 'components/Spinner';
+import Error from 'components/Error';
 import JokeItem from './JokeItem';
-
 import { StyledList, StyledSection, StyledButtonContainer } from './styled';
 
 export default function JokesList() {
+  const { response, isLoading, error } = useJokesList();
+
   return (
     <StyledSection>
       <StyledList>
-        {JOKES_LIST.map(joke => (
+        {isLoading && <Spinner />}
+        {error && <Error title={error.name} message={error.message} />}
+        {response?.map(joke => (
           <JokeItem
             key={joke.id}
             categories={joke.categories}
             value={joke.value}
             url={joke.url}
-            created={joke.created_at}
+            created={joke.createdAt}
           />
         ))}
       </StyledList>

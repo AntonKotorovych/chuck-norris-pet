@@ -1,4 +1,4 @@
-import { API } from 'constants/API';
+import { BASE_API } from 'constants/API';
 import { StyledDiv, StyledImg, StyledSection } from './styled';
 
 export default function MainTitle() {
@@ -6,7 +6,7 @@ export default function MainTitle() {
     <StyledSection>
       <StyledDiv>
         <h1>Chuck Norris Joke Generator</h1>
-        <a href={API} target="_blank" rel="noopener noreferrer">
+        <a href={BASE_API} target="_blank" rel="noopener noreferrer">
           <StyledImg
             src="../assets/chuck.png"
             alt="Chuck Norris pic"
