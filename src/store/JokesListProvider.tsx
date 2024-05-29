@@ -10,8 +10,13 @@ import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
 import { JokesList } from 'types/interfaces/CommonInterfaces';
 
+type fetchJokesFunction = (
+  queryType: QueryType,
+  value: string
+) => Promise<void>;
+
 interface JokesListContextState extends JokesList {
-  fetchJokes: (type: string, value: string) => Promise<void>;
+  fetchJokes: fetchJokesFunction;
 }
 
 const DEFAULT_JOKES_STORE: JokesListContextState = {
@@ -29,7 +34,7 @@ export const useJokesList = () => useContext(JokesListContext);
 export function JokesListProvider({ children }: PropsWithChildren) {
   const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
 
-  const fetchJokes = async (queryType: string, value: string) => {
+  const fetchJokes: fetchJokesFunction = async (queryType, value) => {
     setJokesList({
       ...DEFAULT_JOKES_STORE,
       isLoading: true,

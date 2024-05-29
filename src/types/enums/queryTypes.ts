@@ -1,3 +1,3 @@
 export enum QueryType {
-  SEARCH_BY_QUERY = 'searchByQuery',
+  SEARCH_BY_QUERY,
 }
