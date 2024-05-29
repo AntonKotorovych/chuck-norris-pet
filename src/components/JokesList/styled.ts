@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 export const StyledSection = styled.section`
   margin: 2rem 0;
@@ -14,4 +15,11 @@ export const StyledList = styled.ul`
 export const StyledButtonContainer = styled.div`
   height: 2.5rem;
   width: 13%;
+`;
+
+export const StyledNoJokesContainer = styled.div<ThemeProps>`
+  padding: 3rem;
+  background-color: ${({ theme }) => theme.backgroundColorListItem.primary};
+  border: 3px ${({ theme }) => theme.borderColor.secondary} solid;
+  color: ${({ theme }) => theme.colors.third};
 `;

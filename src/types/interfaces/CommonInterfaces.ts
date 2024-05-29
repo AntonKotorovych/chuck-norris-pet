@@ -4,7 +4,7 @@ export interface ThemeProps {
   theme?: StyledTheme;
 }
 
-interface Joke {
+export interface Joke {
   categories: string[];
   createdAt: string;
   iconUrl: string;
