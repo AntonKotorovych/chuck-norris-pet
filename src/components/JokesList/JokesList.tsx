@@ -16,9 +16,12 @@ const JOKES_ON_PAGE_COUNT = 10;
 
 export default function JokesList() {
   const { response, isLoading, error } = useJokesList();
-  const [showLoadMore, setShowLoadMore] = useState(false);
   const [jokesList, setJokesList] = useState<Joke[] | null>(null);
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
+
+  let showLoadMore = false;
+
+  if (response && jokesList) showLoadMore = response.length > jokesList.length;
 
   const handleLoadMore = () => {
     if (response) {
@@ -26,7 +29,6 @@ export default function JokesList() {
       const moreJokes = response.slice(0, newDisplayCount);
       setJokesList(moreJokes);
       setDisplayCount(newDisplayCount);
-      setShowLoadMore(response.length > newDisplayCount);
     }
   };
 
@@ -34,11 +36,9 @@ export default function JokesList() {
     if (response) {
       if (response.length <= JOKES_ON_PAGE_COUNT) {
         setJokesList(response);
-        setShowLoadMore(false);
       } else {
         const firstTenJokes: Joke[] = response.slice(0, JOKES_ON_PAGE_COUNT);
         setJokesList(firstTenJokes);
-        setShowLoadMore(true);
         setDisplayCount(JOKES_ON_PAGE_COUNT);
       }
     }

@@ -12,7 +12,7 @@ import { JokesList } from 'types/interfaces/CommonInterfaces';
 
 type fetchJokesFunction = (
   queryType: QueryType,
-  value: string
+  query: string
 ) => Promise<void>;
 
 interface JokesListContextState extends JokesList {
@@ -40,48 +40,36 @@ export function JokesListProvider({ children }: PropsWithChildren) {
       isLoading: true,
     });
 
-    if (queryType === QueryType.SEARCH_BY_QUERY) {
-      try {
-        const searchByQueryJokes = await getBySearchJoke(value);
+    try {
+      let response = null;
 
+      switch (queryType) {
+        case QueryType.SEARCH_BY_QUERY: {
+          response = await getBySearchJoke(value);
+          break;
+        }
+        case QueryType.RANDOM_JOKE: {
+          response = await getRandomJoke();
+          break;
+        }
+      }
+
+      setJokesList({
+        ...DEFAULT_JOKES_STORE,
+        response,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
         setJokesList({
           ...DEFAULT_JOKES_STORE,
-          response: searchByQueryJokes,
+          error,
         });
-      } catch (error) {
-        if (error instanceof Error) {
-          setJokesList({
-            ...DEFAULT_JOKES_STORE,
-            error,
-          });
-        }
       }
     }
   };
 
   useEffect(() => {
-    (async () => {
-      setJokesList({
-        ...DEFAULT_JOKES_STORE,
-        isLoading: true,
-      });
-
-      try {
-        const randomJoke = await getRandomJoke();
-        setJokesList({
-          response: [randomJoke],
-          isLoading: false,
-          error: null,
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          setJokesList({
-            ...DEFAULT_JOKES_STORE,
-            error,
-          });
-        }
-      }
-    })();
+    fetchJokes(QueryType.RANDOM_JOKE, '');
   }, []);
 
   return (
