@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Joke } from 'types/interfaces/CommonInterfaces';
+import { useMemo, useState } from 'react';
 import { useJokesList } from 'store/JokesListProvider';
 import Button from 'components/Button';
 import Spinner from 'components/Spinner';
@@ -16,44 +15,44 @@ const JOKES_ON_PAGE_COUNT = 10;
 
 export default function JokesList() {
   const { response, isLoading, error } = useJokesList();
-  const [jokesList, setJokesList] = useState<Joke[] | null>(null);
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
 
-  let showLoadMore = false;
+  const jokesList = useMemo(() => {
+    if (response) {
+      if (response.length <= displayCount) {
+        return response;
+      }
 
-  if (response && jokesList) showLoadMore = response.length > jokesList.length;
+      return response.slice(0, displayCount);
+    }
+
+    return [];
+  }, [response, displayCount]);
+
+  const showLoadMore = useMemo(() => {
+    if (response && jokesList) {
+      return response.length > jokesList.length;
+    }
+    return false;
+  }, [response, jokesList]);
 
   const handleLoadMore = () => {
     if (response) {
       const newDisplayCount = displayCount + JOKES_ON_PAGE_COUNT;
-      const moreJokes = response.slice(0, newDisplayCount);
-      setJokesList(moreJokes);
       setDisplayCount(newDisplayCount);
     }
   };
-
-  useEffect(() => {
-    if (response) {
-      if (response.length <= JOKES_ON_PAGE_COUNT) {
-        setJokesList(response);
-      } else {
-        const firstTenJokes: Joke[] = response.slice(0, JOKES_ON_PAGE_COUNT);
-        setJokesList(firstTenJokes);
-        setDisplayCount(JOKES_ON_PAGE_COUNT);
-      }
-    }
-  }, [response]);
 
   return (
     <StyledSection>
       {isLoading && <Spinner />}
       <StyledList>
         {error && <Error title={error.name} message={error.message} />}
-        {jokesList?.length === 0 && (
+        {jokesList?.length === 0 && !isLoading ? (
           <StyledNoJokesContainer>
             There is no jokes by this query ;)
           </StyledNoJokesContainer>
-        )}
+        ) : null}
         {jokesList?.map(joke => {
           return (
             <JokeItem

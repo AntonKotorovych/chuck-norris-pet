@@ -3,19 +3,26 @@ import { useJokesList } from 'store/JokesListProvider';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import { QueryType } from 'types/enums/queryTypes';
+import {
+  MAX_ALLOWED_CHAR_QUANTITY,
+  MIN_REQUIRED_CHAR_QUANTITY,
+} from './constants';
 import { StyledContainer, StyledNotification } from './styled';
 
 export default function JokeSearchInput() {
   const [searchValue, setSearchValue] = useState('');
-  const [showNotification, setShowNotification] = useState(false);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const { fetchJokes } = useJokesList();
 
+  const trimmedSearchValue = String(searchValue.length).trim();
+
   const handleSearch = () => {
-    if (searchValue.length < 3) {
-      setShowNotification(true);
+    if (+trimmedSearchValue < MIN_REQUIRED_CHAR_QUANTITY) {
+      setIsNotificationVisible(true);
       return;
     }
-    showNotification && setShowNotification(false);
+
+    if (isNotificationVisible) setIsNotificationVisible(false);
 
     fetchJokes(QueryType.SEARCH_BY_QUERY, searchValue);
   };
@@ -26,22 +33,25 @@ export default function JokeSearchInput() {
 
   const handleCrossButton = () => {
     setSearchValue('');
-    setShowNotification(false);
+    setIsNotificationVisible(false);
+    fetchJokes(QueryType.RANDOM_JOKE, '');
   };
 
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-    if (event.target.value.length >= 3) setShowNotification(false);
+    const value = event.target.value;
+    setSearchValue(value);
+
+    if (isNotificationVisible) setIsNotificationVisible(false);
   };
 
-  const showCrossButton = searchValue.length > 0;
+  const showCrossButton = +trimmedSearchValue > 0;
 
   return (
     <>
       <StyledContainer>
-        {showNotification && (
+        {isNotificationVisible && (
           <StyledNotification>
-            Please enter more than 3 characters
+            Please enter more than {MIN_REQUIRED_CHAR_QUANTITY} characters
           </StyledNotification>
         )}
         <Input
@@ -53,7 +63,7 @@ export default function JokeSearchInput() {
           onClear={handleCrossButton}
           onChange={handleChangeValue}
           onKeyDown={handleKeyDown}
-          maxLength={13}
+          maxLength={MAX_ALLOWED_CHAR_QUANTITY}
         />
       </StyledContainer>
       <StyledContainer>

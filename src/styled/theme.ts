@@ -10,6 +10,7 @@ export const theme = {
   },
   errorColor: {
     primary: '#fd1f1f',
+    secondary: '#ff9a64',
   },
   errorBackgroundColor: {
     primary: '#030303',

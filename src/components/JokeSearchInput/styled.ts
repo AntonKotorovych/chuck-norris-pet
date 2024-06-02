@@ -9,7 +9,8 @@ export const StyledContainer = styled.div<ThemeProps>`
 `;
 
 export const StyledNotification = styled.span<ThemeProps>`
-  color: ${({ theme }) => theme.errorColor.primary};
+  color: ${({ theme }) => theme.errorColor.secondary};
+  font-weight: bold;
   position: absolute;
   top: -25px;
 `;

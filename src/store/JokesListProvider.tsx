@@ -12,7 +12,7 @@ import { JokesList } from 'types/interfaces/CommonInterfaces';
 
 type fetchJokesFunction = (
   queryType: QueryType,
-  query: string
+  value: string
 ) => Promise<void>;
 
 interface JokesListContextState extends JokesList {
@@ -45,7 +45,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
 
       switch (queryType) {
         case QueryType.SEARCH_BY_QUERY: {
-          response = await getBySearchJoke(value);
+          response = await getBySearchJoke({ query: value });
           break;
         }
         case QueryType.RANDOM_JOKE: {
