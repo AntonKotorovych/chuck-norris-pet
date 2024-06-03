@@ -18,13 +18,15 @@ type fetchJokesFunction = (
   value: string
 ) => Promise<void>;
 
+interface LoadMoreAPI {
+  loadMore: VoidFunction;
+  jokeList: Joke[];
+  isLoadMoreAllowed: boolean;
+}
+
 interface JokesListContextState extends JokesList {
   fetchJokes: fetchJokesFunction;
-  loadMoreAPI: {
-    loadMore: VoidFunction;
-    jokeList: Joke[];
-    isLoadMoreAllowed: boolean;
-  };
+  loadMoreAPI: LoadMoreAPI;
 }
 
 const DEFAULT_JOKES_STORE: JokesListContextState = {
@@ -49,6 +51,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
 
   const fetchJokes: fetchJokesFunction = async (queryType, value) => {
+    setDisplayCount(JOKES_ON_PAGE_COUNT);
     setJokesList({
       ...DEFAULT_JOKES_STORE,
       isLoading: true,
