@@ -20,7 +20,7 @@ type fetchJokesFunction = (
 
 interface LoadMoreAPI {
   loadMore: VoidFunction;
-  jokeList: Joke[];
+  visibleJokes: Joke[];
   isLoadMoreAllowed: boolean;
 }
 
@@ -36,7 +36,7 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
   fetchJokes: async () => {},
   loadMoreAPI: {
     loadMore: () => {},
-    jokeList: [],
+    visibleJokes: [],
     isLoadMoreAllowed: false,
   },
 };
@@ -90,7 +90,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     setDisplayCount(newDisplayCount);
   };
 
-  const jokeList = useMemo(() => {
+  const visibleJokes = useMemo(() => {
     const { response } = jokesList;
 
     if (response) {
@@ -107,11 +107,11 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   const isLoadMoreAllowed = useMemo(() => {
     const { response } = jokesList;
 
-    if (response && jokeList) {
-      return response.length > jokeList.length;
+    if (response && visibleJokes) {
+      return response.length > visibleJokes.length;
     }
     return false;
-  }, [jokesList, jokeList]);
+  }, [jokesList, visibleJokes]);
 
   useEffect(() => {
     fetchJokes(QueryType.RANDOM_JOKE, '');
@@ -122,7 +122,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
       value={{
         ...jokesList,
         fetchJokes,
-        loadMoreAPI: { loadMore, jokeList, isLoadMoreAllowed },
+        loadMoreAPI: { loadMore, visibleJokes, isLoadMoreAllowed },
       }}>
       {children}
     </JokesListContext.Provider>

@@ -13,19 +13,19 @@ import {
 export default function JokesList() {
   const { isLoading, error, loadMoreAPI } = useJokesList();
 
-  const { loadMore, jokeList, isLoadMoreAllowed } = loadMoreAPI;
+  const { loadMore, visibleJokes, isLoadMoreAllowed } = loadMoreAPI;
 
   return (
     <StyledSection>
       {isLoading && <Spinner />}
       <StyledList>
         {error && <Error title={error.name} message={error.message} />}
-        {jokeList.length === 0 && !isLoading ? (
+        {visibleJokes.length === 0 && !isLoading ? (
           <StyledNoJokesContainer>
             There is no jokes by this query ;)
           </StyledNoJokesContainer>
         ) : null}
-        {jokeList.map(joke => {
+        {visibleJokes.map(joke => {
           return (
             <JokeItem
               key={joke.id}
