@@ -6,10 +6,12 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   leftIcon?: string;
   rightIcon?: string;
   onClear?: VoidFunction;
+  onSearch?: VoidFunction;
 }
 
 export default function Input({
   onClear,
+  onSearch,
   leftIcon,
   rightIcon,
   ...rest
@@ -17,7 +19,10 @@ export default function Input({
   return (
     <StyledInputContainer>
       {leftIcon && (
-        <StyledSVGButton type="button" position={SvgPosition.LEFT}>
+        <StyledSVGButton
+          type="button"
+          position={SvgPosition.LEFT}
+          onClick={onSearch}>
           <img src={leftIcon} alt="" />
         </StyledSVGButton>
       )}

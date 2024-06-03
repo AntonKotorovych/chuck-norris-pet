@@ -23,7 +23,7 @@ export default function JokeItem({ categories, value, url, created }: Props) {
       <StyledJokeContainer>
         <StyledJokeCategory>
           <StyledSpan>
-            {categories.length ? (
+            {categories?.length ? (
               <>
                 Joke category:{' '}
                 {categories.map((category, index) => (

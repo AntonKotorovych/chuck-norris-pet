@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import Button from 'components/Button';
-import Input from 'components/Input';
 import CategorySelect from 'components/CategorySelect';
-
+import JokeSearchInput from 'components/JokeSearchInput';
 import { StyledContainer, StyledSection } from './styled';
 
 const options = [
@@ -12,26 +10,12 @@ const options = [
 ];
 
 export default function FilterPanel() {
-  const [showCrossButton, setShowCrossButton] = useState(true);
-
-  const handleCrossButton = () => setShowCrossButton(!showCrossButton);
-
   return (
     <StyledSection>
       <StyledContainer>
         <CategorySelect options={options} placeholder="Category Selector" />
       </StyledContainer>
-      <StyledContainer>
-        <Input
-          placeholder="Search a joke..."
-          leftIcon="../assets/magnifying-glass.svg"
-          rightIcon={showCrossButton ? '../assets/cross.svg' : ''}
-          onClear={handleCrossButton}
-        />
-      </StyledContainer>
-      <StyledContainer>
-        <Button variant="main">Search</Button>
-      </StyledContainer>
+      <JokeSearchInput />
       <StyledContainer>
         <Button variant="secondary">Clear Filtering</Button>
       </StyledContainer>

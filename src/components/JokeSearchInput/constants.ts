@@ -1,0 +1,2 @@
+export const MIN_REQUIRED_CHAR_QUANTITY = 3;
+export const MAX_ALLOWED_CHAR_QUANTITY = 13;
