@@ -14,17 +14,17 @@ export default function JokeSearchInput() {
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const { fetchJokes } = useJokesList();
 
-  const trimmedSearchValue = String(searchValue.length).trim();
+  const trimmedSearchValue = searchValue.trim();
 
   const handleSearch = () => {
-    if (+trimmedSearchValue < MIN_REQUIRED_CHAR_QUANTITY) {
+    if (trimmedSearchValue.length < MIN_REQUIRED_CHAR_QUANTITY) {
       setIsNotificationVisible(true);
       return;
     }
 
     if (isNotificationVisible) setIsNotificationVisible(false);
 
-    fetchJokes(QueryType.SEARCH_BY_QUERY, searchValue);
+    fetchJokes(QueryType.SEARCH_BY_QUERY, trimmedSearchValue);
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -44,7 +44,7 @@ export default function JokeSearchInput() {
     if (isNotificationVisible) setIsNotificationVisible(false);
   };
 
-  const showCrossButton = +trimmedSearchValue > 0;
+  const showCrossButton = trimmedSearchValue.length > 0;
 
   return (
     <>
