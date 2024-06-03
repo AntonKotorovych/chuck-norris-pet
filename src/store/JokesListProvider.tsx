@@ -3,12 +3,15 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { QueryType } from 'types/enums/queryTypes';
 import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
-import { JokesList } from 'types/interfaces/CommonInterfaces';
+import { Joke, JokesList } from 'types/interfaces/CommonInterfaces';
+
+const JOKES_ON_PAGE_COUNT = 10;
 
 type fetchJokesFunction = (
   queryType: QueryType,
@@ -17,6 +20,11 @@ type fetchJokesFunction = (
 
 interface JokesListContextState extends JokesList {
   fetchJokes: fetchJokesFunction;
+  loadMoreAPI: {
+    loadMore: VoidFunction;
+    jokeList: Joke[];
+    isLoadMoreAllowed: boolean;
+  };
 }
 
 const DEFAULT_JOKES_STORE: JokesListContextState = {
@@ -24,6 +32,11 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
   isLoading: false,
   error: null,
   fetchJokes: async () => {},
+  loadMoreAPI: {
+    loadMore: () => {},
+    jokeList: [],
+    isLoadMoreAllowed: false,
+  },
 };
 
 const JokesListContext =
@@ -33,6 +46,7 @@ export const useJokesList = () => useContext(JokesListContext);
 
 export function JokesListProvider({ children }: PropsWithChildren) {
   const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
+  const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
 
   const fetchJokes: fetchJokesFunction = async (queryType, value) => {
     setJokesList({
@@ -68,12 +82,45 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     }
   };
 
+  const loadMore = () => {
+    const newDisplayCount = displayCount + JOKES_ON_PAGE_COUNT;
+    setDisplayCount(newDisplayCount);
+  };
+
+  const jokeList = useMemo(() => {
+    const { response } = jokesList;
+
+    if (response) {
+      if (response.length <= displayCount) {
+        return response;
+      }
+
+      return response.slice(0, displayCount);
+    }
+
+    return [];
+  }, [jokesList, displayCount]);
+
+  const isLoadMoreAllowed = useMemo(() => {
+    const { response } = jokesList;
+
+    if (response && jokeList) {
+      return response.length > jokeList.length;
+    }
+    return false;
+  }, [jokesList, jokeList]);
+
   useEffect(() => {
     fetchJokes(QueryType.RANDOM_JOKE, '');
   }, []);
 
   return (
-    <JokesListContext.Provider value={{ ...jokesList, fetchJokes }}>
+    <JokesListContext.Provider
+      value={{
+        ...jokesList,
+        fetchJokes,
+        loadMoreAPI: { loadMore, jokeList, isLoadMoreAllowed },
+      }}>
       {children}
     </JokesListContext.Provider>
   );
