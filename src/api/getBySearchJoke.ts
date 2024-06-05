@@ -9,6 +9,7 @@ export async function getBySearchJoke(params: {
     const response = await instance.get(API_ROUTER.SEARCH_JOKE, {
       params,
     });
+
     return response.data.result;
   } catch (error) {
     throw error;

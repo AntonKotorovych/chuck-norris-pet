@@ -21,6 +21,6 @@ export interface JokesList {
 }
 
 export interface Option {
-  value: string;
   label: string;
+  value: string;
 }

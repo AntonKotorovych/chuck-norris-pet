@@ -4,7 +4,7 @@ import CustomSelect, {
 import { Option } from 'types/interfaces/CommonInterfaces';
 
 export interface CategorySelectProps extends CustomSelectProps {
-  options: Option[];
+  options: Option[] | [];
 }
 
 export default function CategorySelect(props: CategorySelectProps) {

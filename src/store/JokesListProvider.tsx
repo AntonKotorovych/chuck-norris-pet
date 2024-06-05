@@ -10,7 +10,8 @@ import useQueryParams from 'hooks/useQueryParams';
 import { QueryType } from 'types/enums/queryTypes';
 import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
-import { Joke, JokesList } from 'types/interfaces/CommonInterfaces';
+import { Joke, JokesList, Option } from 'types/interfaces/CommonInterfaces';
+import { getJokeCategories } from 'api/getJokeCategories';
 
 const JOKES_ON_PAGE_COUNT = 10;
 
@@ -18,6 +19,8 @@ type fetchJokesFunction = (
   queryType: QueryType,
   value: string
 ) => Promise<void>;
+
+type CategoryList = Option[] | [];
 
 interface LoadMoreAPI {
   loadMore: VoidFunction;
@@ -28,6 +31,7 @@ interface LoadMoreAPI {
 interface JokesListContextState extends JokesList {
   fetchJokes: fetchJokesFunction;
   loadMoreAPI: LoadMoreAPI;
+  categoryList: CategoryList;
 }
 
 const DEFAULT_JOKES_STORE: JokesListContextState = {
@@ -40,6 +44,7 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
     visibleJokes: [],
     isLoadMoreAllowed: false,
   },
+  categoryList: [],
 };
 
 const JokesListContext =
@@ -54,6 +59,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     '',
     'query'
   );
+  const [categoryList, setCategoryList] = useState<CategoryList>([]);
 
   const fetchJokes: fetchJokesFunction = async (queryType, value) => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
@@ -128,12 +134,21 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     }
   }, [searchValue]);
 
+  useEffect(() => {
+    (async () => {
+      const response = await getJokeCategories();
+
+      setCategoryList(response);
+    })();
+  }, []);
+
   return (
     <JokesListContext.Provider
       value={{
         ...jokesList,
         fetchJokes,
         loadMoreAPI: { loadMore, visibleJokes, isLoadMoreAllowed },
+        categoryList,
       }}>
       {children}
     </JokesListContext.Provider>
