@@ -50,7 +50,7 @@ export const useJokesList = () => useContext(JokesListContext);
 export function JokesListProvider({ children }: PropsWithChildren) {
   const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
-  const [paramsState, onChangeParams, onRemoveParams] = useQueryParams(
+  const [searchValue, onChangeParams, onRemoveParams] = useQueryParams(
     '',
     'query'
   );
@@ -121,12 +121,12 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   }, [jokesList, visibleJokes]);
 
   useEffect(() => {
-    if (paramsState) {
-      fetchJokes(QueryType.SEARCH_BY_QUERY, paramsState);
+    if (searchValue) {
+      fetchJokes(QueryType.SEARCH_BY_QUERY, searchValue);
     } else {
       fetchJokes(QueryType.RANDOM_JOKE, '');
     }
-  }, [paramsState]);
+  }, [searchValue]);
 
   return (
     <JokesListContext.Provider

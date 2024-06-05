@@ -1,5 +1,10 @@
 import { useState } from 'react';
 
+interface QueryParams {
+  key: string;
+  value: string;
+}
+
 export default function useQueryParams(
   initialState: string,
   paramsName: string
@@ -7,32 +12,31 @@ export default function useQueryParams(
   const search = new URLSearchParams(window.location.search);
   const existingValue = search.get(paramsName);
 
-  const [paramsState, setParamsState] = useState<string>(
+  const [searchValue, setSearchValue] = useState<string>(
     existingValue ? existingValue : initialState
   );
 
-  const generateUrl = (
-    queryParams?: string,
-    homePage = window.location.pathname
-  ): string => homePage + (queryParams ? `?${queryParams}` : '');
+  const updateUrl = (queryParams?: QueryParams): void => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    if (queryParams) searchParams.set(queryParams.key, queryParams.value);
+
+    const newUrl =
+      window.location.pathname +
+      (queryParams ? `?${searchParams.toString()}` : '');
+
+    window.history.pushState({}, '', newUrl);
+  };
 
   const onChangeParams = (state: string) => {
-    setParamsState(state);
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set(paramsName, state);
-
-    const newUrl = generateUrl(searchParams.toString());
-    window.history.pushState({}, '', newUrl);
+    setSearchValue(state);
+    updateUrl({ key: paramsName, value: state });
   };
 
   const onRemoveParams = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.delete(paramsName);
-
-    const newUrl = generateUrl();
-    window.history.pushState({}, '', newUrl);
-    setParamsState('');
+    updateUrl();
+    setSearchValue('');
   };
 
-  return [paramsState, onChangeParams, onRemoveParams];
+  return [searchValue, onChangeParams, onRemoveParams];
 }

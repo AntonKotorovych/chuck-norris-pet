@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useJokesList } from 'store/JokesListProvider';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -13,6 +13,12 @@ export default function JokeSearchInput() {
   const [searchValue, setSearchValue] = useState('');
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const { fetchJokes } = useJokesList();
+
+  const queryValue = new URLSearchParams(window.location.search).get('query');
+
+  useEffect(() => {
+    queryValue ? setSearchValue(queryValue) : setSearchValue('');
+  }, [queryValue]);
 
   const trimmedSearchValue = searchValue.trim();
 

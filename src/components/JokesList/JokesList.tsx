@@ -20,7 +20,7 @@ export default function JokesList() {
       {isLoading && <Spinner />}
       <StyledList>
         {error && <Error title={error.name} message={error.message} />}
-        {visibleJokes.length === 0 && !isLoading ? (
+        {visibleJokes.length === 0 && !isLoading && !error ? (
           <StyledNoJokesContainer>
             There is no jokes by this query ;)
           </StyledNoJokesContainer>
