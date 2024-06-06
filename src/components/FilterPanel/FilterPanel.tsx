@@ -7,7 +7,8 @@ import { Option } from 'types/interfaces/CommonInterfaces';
 import { StyledContainer, StyledSection } from './styled';
 
 export default function FilterPanel() {
-  const { fetchJokes, categoryList, changeCategory } = useJokesList();
+  const { fetchJokes, categoryList, changeCategory, selectedCategory } =
+    useJokesList();
 
   const handleOnClear = () => fetchJokes(QueryType.RANDOM_JOKE, '');
 
@@ -18,7 +19,7 @@ export default function FilterPanel() {
     <StyledSection>
       <StyledContainer>
         <CategorySelect
-          value={{ label: 'CELEBRITY', value: 'CELEBRITY' }}
+          value={selectedCategory}
           options={categoryList}
           placeholder="Category Selector"
           onChange={handleOnChangeCategory}

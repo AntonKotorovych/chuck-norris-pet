@@ -36,6 +36,7 @@ interface JokesListContextState extends JokesList {
   loadMoreAPI: LoadMoreAPI;
   categoryList: CategoryList;
   changeCategory: ChangeCategoryFunction;
+  selectedCategory: Option | null;
 }
 
 const DEFAULT_JOKES_STORE: JokesListContextState = {
@@ -50,6 +51,7 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
   },
   categoryList: [],
   changeCategory: () => {},
+  selectedCategory: null,
 };
 
 const JokesListContext =
@@ -63,7 +65,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   const [searchValue, onChangeParams, onRemoveParams, isCategoryParam] =
     useQueryParams('', 'query');
   const [categoryList, setCategoryList] = useState<CategoryList>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Option | null>(null);
 
   const fetchJokes: FetchJokesFunction = async (queryType, value) => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
@@ -82,9 +84,9 @@ export function JokesListProvider({ children }: PropsWithChildren) {
           break;
         }
         case QueryType.RANDOM_JOKE: {
+          setSelectedCategory(null);
           onRemoveParams();
           response = await getRandomJoke();
-          console.log(response, 'randomJoke');
           break;
         }
         case QueryType.RANDOM_CATEGORY_JOKE: {
@@ -92,7 +94,6 @@ export function JokesListProvider({ children }: PropsWithChildren) {
           response = await getRandomCategoryJoke({
             category: value,
           });
-          console.log(response, 'randomCategoryJoke');
           break;
         }
       }
@@ -140,7 +141,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   }, [jokesList, visibleJokes]);
 
   const changeCategory: ChangeCategoryFunction = async category => {
-    setSelectedCategory(category.value);
+    setSelectedCategory(category);
     fetchJokes(QueryType.RANDOM_CATEGORY_JOKE, category.value.toLowerCase());
   };
 
@@ -159,8 +160,6 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     })();
   }, []);
 
-  console.log(selectedCategory);
-
   return (
     <JokesListContext.Provider
       value={{
@@ -169,7 +168,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
         loadMoreAPI: { loadMore, visibleJokes, isLoadMoreAllowed },
         categoryList,
         changeCategory,
-        // selectedCategory,
+        selectedCategory,
       }}>
       {children}
     </JokesListContext.Provider>
