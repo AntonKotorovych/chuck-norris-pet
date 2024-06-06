@@ -12,13 +12,16 @@ import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
 import { Joke, JokesList, Option } from 'types/interfaces/CommonInterfaces';
 import { getJokeCategories } from 'api/getJokeCategories';
+import { getRandomCategoryJoke } from 'api/getRandomCategoryJoke';
 
 const JOKES_ON_PAGE_COUNT = 10;
 
-type fetchJokesFunction = (
+type FetchJokesFunction = (
   queryType: QueryType,
   value: string
 ) => Promise<void>;
+
+type ChangeCategoryFunction = (category: Option) => void;
 
 type CategoryList = Option[] | [];
 
@@ -29,9 +32,10 @@ interface LoadMoreAPI {
 }
 
 interface JokesListContextState extends JokesList {
-  fetchJokes: fetchJokesFunction;
+  fetchJokes: FetchJokesFunction;
   loadMoreAPI: LoadMoreAPI;
   categoryList: CategoryList;
+  changeCategory: ChangeCategoryFunction;
 }
 
 const DEFAULT_JOKES_STORE: JokesListContextState = {
@@ -45,6 +49,7 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
     isLoadMoreAllowed: false,
   },
   categoryList: [],
+  changeCategory: () => {},
 };
 
 const JokesListContext =
@@ -55,13 +60,12 @@ export const useJokesList = () => useContext(JokesListContext);
 export function JokesListProvider({ children }: PropsWithChildren) {
   const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
-  const [searchValue, onChangeParams, onRemoveParams] = useQueryParams(
-    '',
-    'query'
-  );
+  const [searchValue, onChangeParams, onRemoveParams, isCategoryParam] =
+    useQueryParams('', 'query');
   const [categoryList, setCategoryList] = useState<CategoryList>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const fetchJokes: fetchJokesFunction = async (queryType, value) => {
+  const fetchJokes: FetchJokesFunction = async (queryType, value) => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
     setJokesList({
       ...DEFAULT_JOKES_STORE,
@@ -80,6 +84,15 @@ export function JokesListProvider({ children }: PropsWithChildren) {
         case QueryType.RANDOM_JOKE: {
           onRemoveParams();
           response = await getRandomJoke();
+          console.log(response, 'randomJoke');
+          break;
+        }
+        case QueryType.RANDOM_CATEGORY_JOKE: {
+          onChangeParams(value, 'category');
+          response = await getRandomCategoryJoke({
+            category: value,
+          });
+          console.log(response, 'randomCategoryJoke');
           break;
         }
       }
@@ -126,10 +139,15 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     return false;
   }, [jokesList, visibleJokes]);
 
+  const changeCategory: ChangeCategoryFunction = async category => {
+    setSelectedCategory(category.value);
+    fetchJokes(QueryType.RANDOM_CATEGORY_JOKE, category.value.toLowerCase());
+  };
+
   useEffect(() => {
     if (searchValue) {
       fetchJokes(QueryType.SEARCH_BY_QUERY, searchValue);
-    } else {
+    } else if (!isCategoryParam) {
       fetchJokes(QueryType.RANDOM_JOKE, '');
     }
   }, [searchValue]);
@@ -137,10 +155,11 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     (async () => {
       const response = await getJokeCategories();
-
       setCategoryList(response);
     })();
   }, []);
+
+  console.log(selectedCategory);
 
   return (
     <JokesListContext.Provider
@@ -149,6 +168,8 @@ export function JokesListProvider({ children }: PropsWithChildren) {
         fetchJokes,
         loadMoreAPI: { loadMore, visibleJokes, isLoadMoreAllowed },
         categoryList,
+        changeCategory,
+        // selectedCategory,
       }}>
       {children}
     </JokesListContext.Provider>

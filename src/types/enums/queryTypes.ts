@@ -1,4 +1,5 @@
 export enum QueryType {
   SEARCH_BY_QUERY,
   RANDOM_JOKE,
+  RANDOM_CATEGORY_JOKE,
 }
