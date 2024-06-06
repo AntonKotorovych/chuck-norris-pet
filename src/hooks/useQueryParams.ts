@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useGetQueryParams from './useGetQueryParams';
 
 interface QueryParams {
   key: string;
@@ -9,8 +10,7 @@ export default function useQueryParams(
   initialState: string,
   paramsName: string
 ): [string, (state: string) => void, VoidFunction] {
-  const search = new URLSearchParams(window.location.search);
-  const existingValue = search.get(paramsName);
+  const existingValue = useGetQueryParams(paramsName);
 
   const [searchValue, setSearchValue] = useState<string>(
     existingValue ? existingValue : initialState

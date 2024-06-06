@@ -1,4 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
+import useGetQueryParams from 'hooks/useGetQueryParams';
 import { useJokesList } from 'store/JokesListProvider';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -14,7 +15,7 @@ export default function JokeSearchInput() {
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const { fetchJokes } = useJokesList();
 
-  const queryValue = new URLSearchParams(window.location.search).get('query');
+  const queryValue = useGetQueryParams('query');
 
   useEffect(() => {
     queryValue ? setSearchValue(queryValue) : setSearchValue('');
