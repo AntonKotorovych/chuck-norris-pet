@@ -1,21 +1,20 @@
 import { useState } from 'react';
+import useGetQueryParams from './useGetQueryParams';
 
 interface QueryParams {
   key: string;
   value: string;
 }
 
+interface ChangeParamsFunction {
+  (state: string, paramsKey?: string): void;
+}
+
 export default function useQueryParams(
   initialState: string,
   paramsName: string
-): [
-  string,
-  (state: string, paramsKey?: string) => void,
-  VoidFunction,
-  boolean,
-] {
-  const search = new URLSearchParams(window.location.search);
-  const existingValue = search.get(paramsName);
+): [string, ChangeParamsFunction, VoidFunction, boolean] {
+  const existingValue = useGetQueryParams(paramsName);
 
   const [searchValue, setSearchValue] = useState<string>(
     existingValue ? existingValue : initialState
@@ -35,7 +34,10 @@ export default function useQueryParams(
     window.history.pushState({}, '', newUrl);
   };
 
-  const onChangeParams = (state: string, paramsKey: string = paramsName) => {
+  const onChangeParams: ChangeParamsFunction = (
+    state,
+    paramsKey = paramsName
+  ) => {
     onRemoveParams();
     if (paramsKey === paramsName) {
       setIsCategory(false);
