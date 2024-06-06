@@ -1,6 +1,8 @@
+import { useJokesList } from 'store/JokesListProvider';
 import Button from 'components/Button';
 import CategorySelect from 'components/CategorySelect';
 import JokeSearchInput from 'components/JokeSearchInput';
+import { QueryType } from 'types/enums/queryTypes';
 import { StyledContainer, StyledSection } from './styled';
 
 const options = [
@@ -10,6 +12,10 @@ const options = [
 ];
 
 export default function FilterPanel() {
+  const { fetchJokes } = useJokesList();
+
+  const handleOnClear = () => fetchJokes(QueryType.RANDOM_JOKE, '');
+
   return (
     <StyledSection>
       <StyledContainer>
@@ -17,7 +23,9 @@ export default function FilterPanel() {
       </StyledContainer>
       <JokeSearchInput />
       <StyledContainer>
-        <Button variant="secondary">Clear Filtering</Button>
+        <Button variant="secondary" onClick={handleOnClear}>
+          Clear Filtering
+        </Button>
       </StyledContainer>
     </StyledSection>
   );

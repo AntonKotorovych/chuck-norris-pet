@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import useQueryParams from 'hooks/useQueryParams';
 import { QueryType } from 'types/enums/queryTypes';
 import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
@@ -49,6 +50,10 @@ export const useJokesList = () => useContext(JokesListContext);
 export function JokesListProvider({ children }: PropsWithChildren) {
   const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
+  const [searchValue, onChangeParams, onRemoveParams] = useQueryParams(
+    '',
+    'query'
+  );
 
   const fetchJokes: fetchJokesFunction = async (queryType, value) => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
@@ -62,10 +67,12 @@ export function JokesListProvider({ children }: PropsWithChildren) {
 
       switch (queryType) {
         case QueryType.SEARCH_BY_QUERY: {
+          onChangeParams(value);
           response = await getBySearchJoke({ query: value });
           break;
         }
         case QueryType.RANDOM_JOKE: {
+          onRemoveParams();
           response = await getRandomJoke();
           break;
         }
@@ -114,8 +121,12 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   }, [jokesList, visibleJokes]);
 
   useEffect(() => {
-    fetchJokes(QueryType.RANDOM_JOKE, '');
-  }, []);
+    if (searchValue) {
+      fetchJokes(QueryType.SEARCH_BY_QUERY, searchValue);
+    } else {
+      fetchJokes(QueryType.RANDOM_JOKE, '');
+    }
+  }, [searchValue]);
 
   return (
     <JokesListContext.Provider
