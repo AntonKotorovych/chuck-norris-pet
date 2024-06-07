@@ -1,4 +1,4 @@
-// import { useJokesList } from 'store/JokesListProvider';
+import { useJokesList } from 'store/JokesListProvider';
 import Button from 'components/Button';
 import {
   StyledListElement,
@@ -21,7 +21,15 @@ interface Props {
 }
 
 export default function JokeItem({ categories, value, url, created }: Props) {
-  // const { changeCategory } = useJokesList();
+  const { changeCategory } = useJokesList();
+
+  const handleCategoryClick = (category: string) => {
+    const upperCaseCategory = category.toUpperCase();
+    changeCategory({
+      label: upperCaseCategory,
+      value: upperCaseCategory,
+    });
+  };
 
   return (
     <StyledListElement>
@@ -32,7 +40,11 @@ export default function JokeItem({ categories, value, url, created }: Props) {
               <StyledSpan>Joke category: </StyledSpan>
               {categories.map(category => (
                 <StyledCategoryBtnWrapper key={category}>
-                  <Button variant="secondary">{category}</Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleCategoryClick(category)}>
+                    {category}
+                  </Button>
                 </StyledCategoryBtnWrapper>
               ))}
             </>
