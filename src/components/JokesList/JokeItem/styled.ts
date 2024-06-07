@@ -52,9 +52,15 @@ export const StyledJokeSpan = styled.span<ThemeProps>`
 `;
 
 export const StyledJokeCategory = styled.div`
-  height: 2rem;
+  height: 3rem;
   display: flex;
   align-items: center;
+`;
+
+export const StyledCategoryBtnWrapper = styled.div`
+  width: 5.8rem;
+  display: flex;
+  margin: 0 1rem;
 `;
 
 export const StyledFooterDiv = styled.div`

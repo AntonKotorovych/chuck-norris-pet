@@ -1,13 +1,16 @@
+// import { useJokesList } from 'store/JokesListProvider';
+import Button from 'components/Button';
 import {
   StyledListElement,
   StyledJokeContainer,
-  StyledATag,
   StyledJokeCategory,
+  StyledATag,
   StyledSpan,
   StyledJokeDiv,
   StyledJokeSpan,
   StyledFooterDiv,
   StyledDiv,
+  StyledCategoryBtnWrapper,
 } from './styled';
 
 interface Props {
@@ -18,25 +21,24 @@ interface Props {
 }
 
 export default function JokeItem({ categories, value, url, created }: Props) {
+  // const { changeCategory } = useJokesList();
+
   return (
     <StyledListElement>
       <StyledJokeContainer>
         <StyledJokeCategory>
-          <StyledSpan>
-            {categories?.length ? (
-              <>
-                Joke category:{' '}
-                {categories.map((category, index) => (
-                  <StyledATag href={'#'} target="_blank" key={category}>
-                    {category.toUpperCase()}
-                    {index !== categories.length - 1 ? ', ' : ''}
-                  </StyledATag>
-                ))}
-              </>
-            ) : (
-              'No Categories'
-            )}
-          </StyledSpan>
+          {categories?.length ? (
+            <>
+              <StyledSpan>Joke category: </StyledSpan>
+              {categories.map(category => (
+                <StyledCategoryBtnWrapper key={category}>
+                  <Button variant="secondary">{category}</Button>
+                </StyledCategoryBtnWrapper>
+              ))}
+            </>
+          ) : (
+            <StyledSpan>No Categories</StyledSpan>
+          )}
         </StyledJokeCategory>
         <StyledJokeDiv>
           <StyledJokeSpan>`` {value}</StyledJokeSpan>
