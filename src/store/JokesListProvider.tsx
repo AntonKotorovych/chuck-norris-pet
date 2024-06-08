@@ -13,6 +13,7 @@ import { getBySearchJoke } from 'api/getBySearchJoke';
 import { Joke, JokesList, Option } from 'types/interfaces/CommonInterfaces';
 import { getJokeCategories } from 'api/getJokeCategories';
 import { getRandomCategoryJoke } from 'api/getRandomCategoryJoke';
+import { getJokesByCategoryFilter } from 'api/getJokesByCategoryFilter';
 
 const JOKES_ON_PAGE_COUNT = 10;
 
@@ -80,7 +81,14 @@ export function JokesListProvider({ children }: PropsWithChildren) {
       switch (queryType) {
         case QueryType.SEARCH_BY_QUERY: {
           onChangeParams(value);
-          response = await getBySearchJoke({ query: value });
+          if (selectedCategory) {
+            response = await getJokesByCategoryFilter(
+              { query: value },
+              selectedCategory.value.toLowerCase()
+            );
+          } else {
+            response = await getBySearchJoke({ query: value });
+          }
           break;
         }
         case QueryType.RANDOM_JOKE: {
@@ -94,6 +102,14 @@ export function JokesListProvider({ children }: PropsWithChildren) {
           response = await getRandomCategoryJoke({
             category: value,
           });
+          break;
+        }
+        case QueryType.CATEGORY_JOKES_BY_QUERY: {
+          // onRemoveParams();
+          response = await getJokesByCategoryFilter(
+            { query: searchValue },
+            value
+          );
           break;
         }
       }
@@ -142,7 +158,15 @@ export function JokesListProvider({ children }: PropsWithChildren) {
 
   const changeCategory: ChangeCategoryFunction = async category => {
     setSelectedCategory(category);
-    fetchJokes(QueryType.RANDOM_CATEGORY_JOKE, category.value.toLowerCase());
+
+    const lowerCaseCategory = category.value.toLowerCase();
+
+    if (searchValue.length <= 3) {
+      fetchJokes(QueryType.RANDOM_CATEGORY_JOKE, lowerCaseCategory);
+      return;
+    }
+
+    fetchJokes(QueryType.CATEGORY_JOKES_BY_QUERY, lowerCaseCategory);
   };
 
   useEffect(() => {
@@ -160,6 +184,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     })();
   }, []);
 
+  console.log(jokesList.response);
   return (
     <JokesListContext.Provider
       value={{
