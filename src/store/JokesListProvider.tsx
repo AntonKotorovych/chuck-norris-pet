@@ -105,7 +105,6 @@ export function JokesListProvider({ children }: PropsWithChildren) {
           break;
         }
         case QueryType.CATEGORY_JOKES_BY_QUERY: {
-          // onRemoveParams();
           response = await getJokesByCategoryFilter(
             { query: searchValue },
             value
@@ -184,7 +183,6 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     })();
   }, []);
 
-  console.log(jokesList.response);
   return (
     <JokesListContext.Provider
       value={{
