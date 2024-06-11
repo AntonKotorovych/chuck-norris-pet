@@ -12,6 +12,7 @@ export const StyledSection = styled.section`
 export const StyledList = styled.ul`
   list-style: none;
   width: 100%;
+  text-align: center;
 `;
 
 export const StyledButtonContainer = styled.div`

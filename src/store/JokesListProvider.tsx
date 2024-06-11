@@ -10,8 +10,6 @@ import {
 import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
 import { Joke, JokesList } from 'types/interfaces/CommonInterfaces';
-import { getRandomCategoryJoke } from 'api/getRandomCategoryJoke';
-import { getJokesByCategoryFilter } from 'api/getJokesByCategoryFilter';
 import { QueryParams, useFilters } from './FiltersProvider';
 
 const JOKES_ON_PAGE_COUNT = 10;
@@ -63,14 +61,14 @@ export function JokesListProvider({ children }: PropsWithChildren) {
       let response = null;
 
       if (state.query && state.category) {
-        response = await getJokesByCategoryFilter(
+        response = await getBySearchJoke(
           { query: state.query },
           state.category
         );
       } else if (state.query) {
         response = await getBySearchJoke({ query: state.query });
       } else if (state.category) {
-        response = await getRandomCategoryJoke({ category: state.category });
+        response = await getRandomJoke({ category: state.category });
       } else {
         response = await getRandomJoke();
       }
