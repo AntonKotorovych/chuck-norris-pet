@@ -12,7 +12,7 @@ enum DispatchType {
   CLEAR_FILTERS,
 }
 
-interface QueryParams {
+export interface QueryParams {
   query?: string | null;
   category?: string | null;
 }
@@ -56,7 +56,7 @@ const filterReducer = (state: QueryParams, action: Action): QueryParams => {
     }
 
     case DispatchType.CLEAR_FILTERS: {
-      return {};
+      return { query: '', category: '' };
     }
 
     default:
@@ -88,7 +88,7 @@ export function FiltersProvider({ children }: PropsWithChildren) {
       searchParams.delete(key);
     }
 
-    const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+    const newUrl = `${window.location.pathname}${searchParams.size !== 0 ? '?' + searchParams.toString() : ''}`;
 
     window.history.pushState({}, '', newUrl);
   };

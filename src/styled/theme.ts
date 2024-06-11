@@ -19,6 +19,9 @@ export const theme = {
     primary: '#f3f3f3',
     secondary: '#3498db',
   },
+  textTransform: {
+    primary: 'capitalize',
+  },
   backgroundColor: {
     primary: 'linear-gradient(to right, #131313, #636363, #131313);',
   },

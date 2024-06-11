@@ -1,24 +1,14 @@
 import instance from 'libs/axios';
 
 import { API_ROUTER } from 'constants/apiRoutes';
-import { Option } from 'types/interfaces/CommonInterfaces';
 
-export async function getJokeCategories(): Promise<Option[] | []> {
+export async function getJokeCategories(): Promise<string[] | null> {
   try {
     const response = await instance.get(API_ROUTER.CATEGORY_LIST);
 
-    if (response.data) {
-      return response.data.map((category: string) => {
-        const upperCaseCategory = category.toUpperCase();
+    if (response.data) return response.data;
 
-        return {
-          label: upperCaseCategory,
-          value: upperCaseCategory,
-        };
-      });
-    }
-
-    return [];
+    return null;
   } catch (error) {
     throw error;
   }

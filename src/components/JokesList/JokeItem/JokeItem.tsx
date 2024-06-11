@@ -1,4 +1,4 @@
-import { useJokesList } from 'store/JokesListProvider';
+import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import {
   StyledListElement,
@@ -21,15 +21,9 @@ interface Props {
 }
 
 export default function JokeItem({ categories, value, url, created }: Props) {
-  const { changeCategory } = useJokesList();
+  const { setCategory } = useFilters();
 
-  const handleCategoryClick = (category: string) => {
-    const upperCaseCategory = category.toUpperCase();
-    changeCategory({
-      label: upperCaseCategory,
-      value: upperCaseCategory,
-    });
-  };
+  const handleCategoryClick = (category: string) => setCategory(category);
 
   return (
     <StyledListElement>

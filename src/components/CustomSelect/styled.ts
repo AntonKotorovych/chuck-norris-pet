@@ -20,11 +20,13 @@ export const customSelectStyles = (theme: StyledTheme) => ({
   valueContainer: (baseStyles: CSSObject) => ({
     ...baseStyles,
     padding: '0 1rem',
+    textTransform: theme.textTransform.primary,
   }),
 
   menu: (baseStyles: CSSObject) => ({
     ...baseStyles,
     backgroundColor: theme.btnBackgroundColor.primary,
+    textTransform: theme.textTransform.primary,
   }),
 
   option: (baseStyles: CSSObject, option: OptionProps) => ({

@@ -1,9 +1,7 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
-import useGetQueryParams from 'hooks/useGetQueryParams';
-import { useJokesList } from 'store/JokesListProvider';
+import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import { QueryType } from 'types/enums/queryTypes';
 import {
   MAX_ALLOWED_CHAR_QUANTITY,
   MIN_REQUIRED_CHAR_QUANTITY,
@@ -13,13 +11,12 @@ import { StyledContainer, StyledNotification } from './styled';
 export default function JokeSearchInput() {
   const [searchValue, setSearchValue] = useState('');
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
-  const { fetchJokes } = useJokesList();
 
-  const queryValue = useGetQueryParams('query');
+  const { state, setSearch } = useFilters();
 
   useEffect(() => {
-    queryValue ? setSearchValue(queryValue) : setSearchValue('');
-  }, [queryValue]);
+    state.query ? setSearchValue(state.query) : setSearchValue('');
+  }, [state.query]);
 
   const trimmedSearchValue = searchValue.trim();
 
@@ -31,7 +28,7 @@ export default function JokeSearchInput() {
 
     if (isNotificationVisible) setIsNotificationVisible(false);
 
-    fetchJokes(QueryType.SEARCH_BY_QUERY, trimmedSearchValue);
+    setSearch(trimmedSearchValue);
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -39,9 +36,8 @@ export default function JokeSearchInput() {
   };
 
   const handleCrossButton = () => {
-    setSearchValue('');
+    setSearch('');
     setIsNotificationVisible(false);
-    fetchJokes(QueryType.RANDOM_JOKE, '');
   };
 
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
