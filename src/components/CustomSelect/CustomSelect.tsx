@@ -6,7 +6,7 @@ import { Option } from 'types/interfaces/CommonInterfaces';
 import { customSelectStyles } from './styled';
 
 export interface Props extends SelectProps {
-  options: Option[] | [];
+  options: Option[];
 }
 
 export default function CustomSelect(props: Props) {

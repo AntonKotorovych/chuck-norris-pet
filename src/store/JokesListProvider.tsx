@@ -9,8 +9,7 @@ import {
 } from 'react';
 import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
-import { Joke, JokesList, Option } from 'types/interfaces/CommonInterfaces';
-import { getJokeCategories } from 'api/getJokeCategories';
+import { Joke, JokesList } from 'types/interfaces/CommonInterfaces';
 import { getRandomCategoryJoke } from 'api/getRandomCategoryJoke';
 import { getJokesByCategoryFilter } from 'api/getJokesByCategoryFilter';
 import { QueryParams, useFilters } from './FiltersProvider';
@@ -18,8 +17,6 @@ import { QueryParams, useFilters } from './FiltersProvider';
 const JOKES_ON_PAGE_COUNT = 10;
 
 type FetchJokesFunction = (state: QueryParams) => Promise<void>;
-
-type CategoryList = Option[] | [];
 
 interface LoadMoreAPI {
   loadMore: VoidFunction;
@@ -65,8 +62,15 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     try {
       let response = null;
 
-      if (state.query) {
+      if (state.query && state.category) {
+        response = await getJokesByCategoryFilter(
+          { query: state.query },
+          state.category
+        );
+      } else if (state.query) {
         response = await getBySearchJoke({ query: state.query });
+      } else if (state.category) {
+        response = await getRandomCategoryJoke({ category: state.category });
       } else {
         response = await getRandomJoke();
       }
