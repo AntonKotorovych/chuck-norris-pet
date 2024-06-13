@@ -27,7 +27,7 @@ export const StyledSection = styled.section`
 `;
 
 export const StyledDiv = styled.div<ThemeProps>`
-  color: ${props => props.theme.colors.third};
+  color: ${({ theme }) => theme.colors.third};
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -35,9 +35,9 @@ export const StyledDiv = styled.div<ThemeProps>`
   justify-content: space-between;
 
   & h1 {
-    font-family: ${props => props.theme.fontFamily.secondary};
+    font-family: ${({ theme }) => theme.fontFamily.secondary};
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: ${props => props.theme.colors.secondary};
+    -webkit-text-stroke-color: ${({ theme }) => theme.colors.secondary};
     text-transform: uppercase;
   }
 `;

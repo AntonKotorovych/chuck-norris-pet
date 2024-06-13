@@ -12,13 +12,13 @@ const fadeIn = keyframes`
 `;
 
 export const StyledListElement = styled.li<ThemeProps>`
-  border: 2px ${props => props.theme.borderColor.primary} solid;
-  box-shadow: ${props => props.theme.shadowStyle.primary};
-  border-radius: ${props => props.theme.borderRadius.lg};
+  border: 2px ${({ theme }) => theme.borderColor.primary} solid;
+  box-shadow: ${({ theme }) => theme.shadowStyle.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   margin: 2rem 0;
   min-height: 11rem;
   opacity: 0;
-  background-color: ${props => props.theme.backgroundColorListItem.primary};
+  background-color: ${({ theme }) => theme.backgroundColorListItem.primary};
   animation: ${fadeIn} 1.2s ease forwards;
 `;
 
@@ -36,19 +36,19 @@ export const StyledATag = styled.a<ThemeProps>`
 
   &:hover {
     transform: scale(1.05);
-    color: ${props => props.theme.colors.third};
+    color: ${({ theme }) => theme.colors.third};
   }
 `;
 
 export const StyledSpan = styled.span<ThemeProps>`
-  font-size: ${props => props.theme.fontSizes.tiny};
+  font-size: ${({ theme }) => theme.fontSizes.tiny};
 `;
 
 export const StyledJokeSpan = styled.span<ThemeProps>`
   font-style: italic;
   font-weight: bold;
   align-self: center;
-  color: ${props => props.theme.colors.third};
+  color: ${({ theme }) => theme.colors.third};
 `;
 
 export const StyledJokeCategory = styled.div`
@@ -57,10 +57,14 @@ export const StyledJokeCategory = styled.div`
   align-items: center;
 `;
 
-export const StyledCategoryBtnWrapper = styled.div`
+export const StyledCategoryBtnWrapper = styled.div<ThemeProps>`
   width: 5.8rem;
   display: flex;
   margin: 0 1rem;
+
+  & button {
+    text-transform: ${({ theme }) => theme.textTransform.primary};
+  }
 `;
 
 export const StyledFooterDiv = styled.div`
@@ -70,9 +74,9 @@ export const StyledFooterDiv = styled.div`
 `;
 
 export const StyledJokeDiv = styled.div<ThemeProps>`
-  border: 3px ${props => props.theme.borderColor.primary} solid;
-  border-radius: ${props => props.theme.borderRadius.sm};
-  background-color: ${props => props.theme.backgroundColorListValue.primary};
+  border: 3px ${({ theme }) => theme.borderColor.primary} solid;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  background-color: ${({ theme }) => theme.backgroundColorListValue.primary};
   height: 60%;
   display: flex;
   padding: 2rem;

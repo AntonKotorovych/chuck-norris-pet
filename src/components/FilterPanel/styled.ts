@@ -11,7 +11,7 @@ export const StyledSection = styled.section<ThemeProps>`
   justify-content: space-around;
   position: sticky;
   top: 0.5rem;
-  border-radius: ${props => props.theme.borderRadius.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   height: 5rem;
   z-index: 100;
   display: flex;
@@ -21,5 +21,5 @@ export const StyledSection = styled.section<ThemeProps>`
 export const StyledContainer = styled.div<ThemeProps>`
   height: 60%;
   width: 18%;
-  font-size: ${props => props.theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.small};
 `;

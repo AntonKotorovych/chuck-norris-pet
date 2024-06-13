@@ -36,7 +36,7 @@ export default function JokeSearchInput() {
   };
 
   const handleCrossButton = () => {
-    setSearch('');
+    setSearch();
     setIsNotificationVisible(false);
   };
 

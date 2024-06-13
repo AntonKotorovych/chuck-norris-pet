@@ -5,7 +5,7 @@ import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 export const StyledContainer = styled.div<ThemeProps>`
   height: 60%;
   width: 18%;
-  font-size: ${props => props.theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
 export const StyledNotification = styled.span<ThemeProps>`

@@ -14,9 +14,11 @@ export async function getBySearchJoke(
       params,
     });
 
-    if (category) return filterJokesList(response.data.result, category);
+    const jokes = response.data.result;
 
-    return response.data.result;
+    if (category) return filterJokesList(jokes, category);
+
+    return jokes;
   } catch (error) {
     throw error;
   }

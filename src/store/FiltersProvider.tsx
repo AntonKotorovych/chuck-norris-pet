@@ -1,15 +1,17 @@
 import {
   PropsWithChildren,
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useMemo,
   useReducer,
 } from 'react';
 
 enum DispatchType {
-  SET_SEARCH,
-  SET_CATEGORY,
-  CLEAR_FILTERS,
+  SET_SEARCH = 'SET_SEARCH',
+  SET_CATEGORY = 'SET_CATEGORY',
+  CLEAR_FILTERS = 'CLEAR_FILTERS',
 }
 
 export interface QueryParams {
@@ -45,27 +47,23 @@ const FiltersContext = createContext<FiltersStore>(DEFAULT_FILTERS_STORE);
 
 export const useFilters = () => useContext(FiltersContext);
 
-const filterReducer = (state: QueryParams, action: Action): QueryParams => {
-  switch (action.type) {
+const filterReducer = (
+  state: QueryParams,
+  { type, payload }: Action
+): QueryParams => {
+  switch (type) {
     case DispatchType.SET_SEARCH: {
-      return { ...state, query: action.payload };
+      return { ...state, query: payload };
     }
-
     case DispatchType.SET_CATEGORY: {
-      return { ...state, category: action.payload };
+      return { ...state, category: payload };
     }
-
     case DispatchType.CLEAR_FILTERS: {
       return { query: '', category: '' };
     }
-
     default:
       return state;
   }
-};
-
-const getReducerInitialState = (params: URLSearchParams): QueryParams => {
-  return { query: params.get('query'), category: params.get('category') };
 };
 
 export function FiltersProvider({ children }: PropsWithChildren) {
@@ -74,40 +72,45 @@ export function FiltersProvider({ children }: PropsWithChildren) {
     []
   );
 
-  const [state, dispatch] = useReducer(
-    filterReducer,
-    getReducerInitialState(queryParams)
+  const [state, dispatch] = useReducer(filterReducer, {
+    query: queryParams.get('query'),
+    category: queryParams.get('category'),
+  });
+
+  const updateUrlParams = useCallback(
+    (params: QueryParams) => {
+      const searchParams = queryParams;
+
+      Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+          searchParams.set(key, value);
+        } else {
+          searchParams.delete(key);
+        }
+      });
+
+      const newUrl = `${window.location.pathname}${searchParams.size !== 0 ? '?' + searchParams.toString() : ''}`;
+
+      window.history.pushState({}, '', newUrl);
+    },
+    [queryParams]
   );
-
-  const updateUrlParams = (key: string, value?: string) => {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    if (value) {
-      searchParams.set(key, value);
-    } else {
-      searchParams.delete(key);
-    }
-
-    const newUrl = `${window.location.pathname}${searchParams.size !== 0 ? '?' + searchParams.toString() : ''}`;
-
-    window.history.pushState({}, '', newUrl);
-  };
 
   const setSearch = (value?: string) => {
     dispatch({ type: DispatchType.SET_SEARCH, payload: value });
-    updateUrlParams('query', value);
   };
 
   const setCategory = (value?: string) => {
     dispatch({ type: DispatchType.SET_CATEGORY, payload: value });
-    updateUrlParams('category', value);
   };
 
   const clearAllFilters = () => {
     dispatch({ type: DispatchType.CLEAR_FILTERS });
-    updateUrlParams('query');
-    updateUrlParams('category');
   };
+
+  useEffect(() => {
+    updateUrlParams(state);
+  }, [state, updateUrlParams]);
 
   return (
     <FiltersContext.Provider

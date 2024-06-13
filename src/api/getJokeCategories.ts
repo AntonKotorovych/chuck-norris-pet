@@ -6,9 +6,7 @@ export async function getJokeCategories(): Promise<string[] | null> {
   try {
     const response = await instance.get(API_ROUTER.CATEGORY_LIST);
 
-    if (response.data) return response.data;
-
-    return null;
+    return response.data || [];
   } catch (error) {
     throw error;
   }

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import CustomSelect from 'components/CustomSelect';
 import { useFilters } from 'store/FiltersProvider';
 import { Option } from 'types/interfaces/CommonInterfaces';
@@ -7,18 +8,18 @@ export default function CategorySelect() {
   const { categories } = useGetCategoryList();
   const { state, setCategory } = useFilters();
 
-  const currentCategory = categories?.find(
-    category => state.category === category.label
-  );
+  const currentCategory = useMemo(() => {
+    return categories?.find(category => state.category === category.value);
+  }, [categories, state.category]);
 
   const handleOnChangeCategory = (newValue: unknown) => {
     const category = newValue as Option;
-    setCategory(category.label);
+    setCategory(category.value);
   };
 
   return (
     <CustomSelect
-      value={currentCategory ? currentCategory : null}
+      value={currentCategory || null}
       options={categories}
       placeholder="Category Selector"
       onChange={handleOnChangeCategory}

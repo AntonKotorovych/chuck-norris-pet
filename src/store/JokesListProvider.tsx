@@ -23,7 +23,6 @@ interface LoadMoreAPI {
 }
 
 interface JokesListContextState extends JokesList {
-  fetchJokes: FetchJokesFunction;
   loadMoreAPI: LoadMoreAPI;
 }
 
@@ -31,7 +30,6 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
   response: null,
   isLoading: false,
   error: null,
-  fetchJokes: async () => {},
   loadMoreAPI: {
     loadMore: () => {},
     visibleJokes: [],
@@ -123,7 +121,6 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     <JokesListContext.Provider
       value={{
         ...jokesList,
-        fetchJokes,
         loadMoreAPI: { loadMore, visibleJokes, isLoadMoreAllowed },
       }}>
       {children}
