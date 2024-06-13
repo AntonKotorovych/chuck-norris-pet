@@ -12,8 +12,14 @@ export default function CategorySelect() {
     return categories?.find(category => state.category === category.value);
   }, [categories, state.category]);
 
-  const handleOnChangeCategory = (newValue: unknown) => {
-    const category = newValue as Option;
+  const handleOnChangeCategory = (newValue: unknown): void => {
+    const category = newValue as Option | null;
+
+    if (!category) {
+      setCategory();
+      return;
+    }
+
     setCategory(category.value);
   };
 
@@ -23,6 +29,7 @@ export default function CategorySelect() {
       options={categories}
       placeholder="Category Selector"
       onChange={handleOnChangeCategory}
+      isClearable={true}
     />
   );
 }
