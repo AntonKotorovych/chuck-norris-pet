@@ -8,10 +8,10 @@ export const StyledInputContainer = styled.div`
 `;
 
 export const StyledInput = styled.input<ThemeProps>`
-  border-radius: ${props => props.theme.borderRadius.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   height: 100%;
   width: 100%;
-  font-size: ${props => props.theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   border: none;
   padding: 0 3.5rem;
 `;

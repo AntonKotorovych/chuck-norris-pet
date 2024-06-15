@@ -6,10 +6,13 @@ export const StyledSection = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const StyledList = styled.ul`
   list-style: none;
+  width: 100%;
+  text-align: center;
 `;
 
 export const StyledButtonContainer = styled.div`

@@ -1,23 +1,20 @@
 import {
   PropsWithChildren,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
-import useQueryParams from 'hooks/useQueryParams';
-import { QueryType } from 'types/enums/queryTypes';
 import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
 import { Joke, JokesList } from 'types/interfaces/CommonInterfaces';
+import { QueryParams, useFilters } from './FiltersProvider';
 
 const JOKES_ON_PAGE_COUNT = 10;
 
-type fetchJokesFunction = (
-  queryType: QueryType,
-  value: string
-) => Promise<void>;
+type FetchJokesFunction = (state: QueryParams) => Promise<void>;
 
 interface LoadMoreAPI {
   loadMore: VoidFunction;
@@ -26,7 +23,6 @@ interface LoadMoreAPI {
 }
 
 interface JokesListContextState extends JokesList {
-  fetchJokes: fetchJokesFunction;
   loadMoreAPI: LoadMoreAPI;
 }
 
@@ -34,7 +30,6 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
   response: null,
   isLoading: false,
   error: null,
-  fetchJokes: async () => {},
   loadMoreAPI: {
     loadMore: () => {},
     visibleJokes: [],
@@ -50,12 +45,10 @@ export const useJokesList = () => useContext(JokesListContext);
 export function JokesListProvider({ children }: PropsWithChildren) {
   const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
-  const [searchValue, onChangeParams, onRemoveParams] = useQueryParams(
-    '',
-    'query'
-  );
 
-  const fetchJokes: fetchJokesFunction = async (queryType, value) => {
+  const { state } = useFilters();
+
+  const fetchJokes: FetchJokesFunction = useCallback(async state => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
     setJokesList({
       ...DEFAULT_JOKES_STORE,
@@ -65,17 +58,17 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     try {
       let response = null;
 
-      switch (queryType) {
-        case QueryType.SEARCH_BY_QUERY: {
-          onChangeParams(value);
-          response = await getBySearchJoke({ query: value });
-          break;
-        }
-        case QueryType.RANDOM_JOKE: {
-          onRemoveParams();
-          response = await getRandomJoke();
-          break;
-        }
+      if (state.query && state.category) {
+        response = await getBySearchJoke(
+          { query: state.query },
+          state.category
+        );
+      } else if (state.query) {
+        response = await getBySearchJoke({ query: state.query });
+      } else if (state.category) {
+        response = await getRandomJoke({ category: state.category });
+      } else {
+        response = await getRandomJoke();
       }
 
       setJokesList({
@@ -90,7 +83,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
         });
       }
     }
-  };
+  }, []);
 
   const loadMore = () => {
     const newDisplayCount = displayCount + JOKES_ON_PAGE_COUNT;
@@ -121,18 +114,13 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   }, [jokesList, visibleJokes]);
 
   useEffect(() => {
-    if (searchValue) {
-      fetchJokes(QueryType.SEARCH_BY_QUERY, searchValue);
-    } else {
-      fetchJokes(QueryType.RANDOM_JOKE, '');
-    }
-  }, [searchValue]);
+    fetchJokes(state);
+  }, [state, fetchJokes]);
 
   return (
     <JokesListContext.Provider
       value={{
         ...jokesList,
-        fetchJokes,
         loadMoreAPI: { loadMore, visibleJokes, isLoadMoreAllowed },
       }}>
       {children}
