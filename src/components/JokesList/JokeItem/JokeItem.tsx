@@ -36,7 +36,8 @@ export default function JokeItem({ categories, value, url, created }: Props) {
                 <StyledCategoryBtnWrapper key={category}>
                   <Button
                     variant="secondary"
-                    onClick={() => handleCategoryClick(category)}>
+                    onClick={() => handleCategoryClick(category)}
+                  >
                     {category}
                   </Button>
                 </StyledCategoryBtnWrapper>

@@ -114,7 +114,8 @@ export function FiltersProvider({ children }: PropsWithChildren) {
 
   return (
     <FiltersContext.Provider
-      value={{ state, setSearch, setCategory, clearAllFilters }}>
+      value={{ state, setSearch, setCategory, clearAllFilters }}
+    >
       {children}
     </FiltersContext.Provider>
   );
