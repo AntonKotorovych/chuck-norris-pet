@@ -1,14 +1,15 @@
+import { RouterProvider } from 'react-router-dom';
 import ApplicationStylesProvider from 'styled/ApplicationStylesProvider';
-import HomePage from 'pages/HomePage';
 import { JokesListProvider } from 'store/JokesListProvider';
 import { FiltersProvider } from 'store/FiltersProvider';
+import { router } from 'router';
 
 function App() {
   return (
     <ApplicationStylesProvider>
       <FiltersProvider>
         <JokesListProvider>
-          <HomePage />
+          <RouterProvider router={router} />
         </JokesListProvider>
       </FiltersProvider>
     </ApplicationStylesProvider>
