@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useContext } from 'react';
+import { PropsWithChildren, createContext, useContext, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export interface QueryParams {
@@ -29,10 +29,13 @@ export const useFilters = () => useContext(FiltersContext);
 export function FiltersProvider({ children }: PropsWithChildren) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const queryParams = {
-    query: searchParams.get('query'),
-    category: searchParams.get('category'),
-  };
+  const queryParams = useMemo(
+    () => ({
+      query: searchParams.get('query'),
+      category: searchParams.get('category'),
+    }),
+    [searchParams]
+  );
 
   const updateSearchParams = (param: string, value: string | undefined) => {
     if (!value) {
