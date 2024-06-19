@@ -6,11 +6,12 @@ import { useGetCategoryList } from 'hooks/useGetCategoryList';
 
 export default function CategorySelect() {
   const { categories } = useGetCategoryList();
-  const { state, setCategory } = useFilters();
+  const { queryParams, setCategory } = useFilters();
 
   const currentCategory = useMemo(() => {
-    return categories?.find(category => state.category === category.value);
-  }, [categories, state.category]);
+    const categoryParam = queryParams.category;
+    return categories?.find(category => categoryParam === category.value);
+  }, [queryParams.category, categories]);
 
   const handleOnChangeCategory = (newValue: unknown): void => {
     const category = newValue as Option | null;

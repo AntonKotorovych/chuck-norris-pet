@@ -12,11 +12,16 @@ export default function JokeSearchInput() {
   const [searchValue, setSearchValue] = useState('');
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
-  const { state, setSearch } = useFilters();
+  const { queryParams, setSearch } = useFilters();
 
   useEffect(() => {
-    state.query ? setSearchValue(state.query) : setSearchValue('');
-  }, [state.query]);
+    if (!queryParams.query) {
+      setSearchValue('');
+      return;
+    }
+
+    setSearchValue(queryParams.query);
+  }, [queryParams.query]);
 
   const trimmedSearchValue = searchValue.trim();
 
@@ -36,7 +41,7 @@ export default function JokeSearchInput() {
   };
 
   const handleCrossButton = () => {
-    setSearch();
+    setSearch('');
     setIsNotificationVisible(false);
   };
 
