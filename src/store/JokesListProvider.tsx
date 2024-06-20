@@ -37,8 +37,7 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
   },
 };
 
-const JokesListContext =
-  createContext<JokesListContextState>(DEFAULT_JOKES_STORE);
+const JokesListContext = createContext<JokesListContextState>(DEFAULT_JOKES_STORE);
 
 export const useJokesList = () => useContext(JokesListContext);
 
@@ -46,7 +45,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   const [jokesList, setJokesList] = useState<JokesList>(DEFAULT_JOKES_STORE);
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
 
-  const { queryParams } = useFilters();
+  const { state } = useFilters();
 
   const fetchJokes: FetchJokesFunction = useCallback(async queryParams => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
@@ -114,8 +113,8 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   }, [jokesList, visibleJokes]);
 
   useEffect(() => {
-    fetchJokes(queryParams);
-  }, [queryParams, fetchJokes]);
+    fetchJokes(state);
+  }, [state, fetchJokes]);
 
   return (
     <JokesListContext.Provider

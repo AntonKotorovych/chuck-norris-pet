@@ -9,6 +9,7 @@ export function useGetCategoryList() {
   useEffect(() => {
     (async () => {
       const categories = await getJokeCategories();
+
       if (categories) {
         const convertedCategories = convertCategories(categories);
         setCategories(convertedCategories);

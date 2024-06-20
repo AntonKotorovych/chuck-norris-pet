@@ -9,14 +9,19 @@ export interface QueryParams {
 type SetQueryFunction = (value?: string) => void;
 
 interface FiltersStore {
-  queryParams: QueryParams;
+  state: QueryParams;
   setSearch: SetQueryFunction;
   setCategory: SetQueryFunction;
   clearAllFilters: VoidFunction;
 }
 
+enum Params {
+  QUERY = 'query',
+  CATEGORY = 'category',
+}
+
 const DEFAULT_FILTERS_STORE = {
-  queryParams: { query: null, category: null },
+  state: { query: null, category: null },
   setSearch: () => {},
   setCategory: () => {},
   clearAllFilters: () => {},
@@ -29,15 +34,18 @@ export const useFilters = () => useContext(FiltersContext);
 export function FiltersProvider({ children }: PropsWithChildren) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const queryParams = useMemo(
+  const state = useMemo(
     () => ({
-      query: searchParams.get('query'),
-      category: searchParams.get('category'),
+      query: searchParams.get(Params.QUERY),
+      category: searchParams.get(Params.CATEGORY),
     }),
     [searchParams]
   );
 
-  const updateSearchParams = (param: string, value: string | undefined) => {
+  const updateSearchParams = (
+    param: Params.QUERY | Params.CATEGORY,
+    value: string | undefined
+  ) => {
     if (!value) {
       searchParams.delete(param);
     } else {
@@ -47,18 +55,16 @@ export function FiltersProvider({ children }: PropsWithChildren) {
     setSearchParams(searchParams);
   };
 
-  const setSearch = (value?: string) => updateSearchParams('query', value);
+  const setSearch = (value?: string) => updateSearchParams(Params.QUERY, value);
 
-  const setCategory = (value?: string) => updateSearchParams('category', value);
+  const setCategory = (value?: string) => updateSearchParams(Params.CATEGORY, value);
 
-  const clearAllFilters = () => {
-    setSearchParams({});
-  };
+  const clearAllFilters = () => setSearchParams({});
 
   return (
     <FiltersContext.Provider
       value={{
-        queryParams,
+        state,
         setSearch,
         setCategory,
         clearAllFilters,

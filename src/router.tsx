@@ -5,7 +5,7 @@ import AppProviders from 'components/AppProviders';
 
 export const router = createBrowserRouter([
   {
-    path: ROUTES.HOME_PAGE,
+    path: ROUTES.HOME,
     element: <AppProviders />,
     children: [
       {

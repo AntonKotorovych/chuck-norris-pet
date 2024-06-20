@@ -2,26 +2,18 @@ import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import {
-  MAX_ALLOWED_CHAR_QUANTITY,
-  MIN_REQUIRED_CHAR_QUANTITY,
-} from './constants';
+import { MAX_ALLOWED_CHAR_QUANTITY, MIN_REQUIRED_CHAR_QUANTITY } from './constants';
 import { StyledContainer, StyledNotification } from './styled';
 
 export default function JokeSearchInput() {
   const [searchValue, setSearchValue] = useState('');
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
-  const { queryParams, setSearch } = useFilters();
+  const { state, setSearch } = useFilters();
 
   useEffect(() => {
-    if (!queryParams.query) {
-      setSearchValue('');
-      return;
-    }
-
-    setSearchValue(queryParams.query);
-  }, [queryParams.query]);
+    setSearchValue(state.query || '');
+  }, [state.query]);
 
   const trimmedSearchValue = searchValue.trim();
 
