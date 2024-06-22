@@ -2,10 +2,7 @@ import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import {
-  MAX_ALLOWED_CHAR_QUANTITY,
-  MIN_REQUIRED_CHAR_QUANTITY,
-} from './constants';
+import { MAX_ALLOWED_CHAR_QUANTITY, MIN_REQUIRED_CHAR_QUANTITY } from './constants';
 import { StyledContainer, StyledNotification } from './styled';
 
 export default function JokeSearchInput() {
@@ -15,7 +12,7 @@ export default function JokeSearchInput() {
   const { state, setSearch } = useFilters();
 
   useEffect(() => {
-    state.query ? setSearchValue(state.query) : setSearchValue('');
+    setSearchValue(state.query || '');
   }, [state.query]);
 
   const trimmedSearchValue = searchValue.trim();
@@ -36,7 +33,7 @@ export default function JokeSearchInput() {
   };
 
   const handleCrossButton = () => {
-    setSearch();
+    setSearch('');
     setIsNotificationVisible(false);
   };
 

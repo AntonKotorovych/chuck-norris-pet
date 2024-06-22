@@ -1,18 +1,5 @@
-import {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useReducer,
-} from 'react';
-
-enum DispatchType {
-  SET_SEARCH = 'SET_SEARCH',
-  SET_CATEGORY = 'SET_CATEGORY',
-  CLEAR_FILTERS = 'CLEAR_FILTERS',
-}
+import { PropsWithChildren, createContext, useContext, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export interface QueryParams {
   query?: string | null;
@@ -28,16 +15,13 @@ interface FiltersStore {
   clearAllFilters: VoidFunction;
 }
 
-interface Action {
-  type: DispatchType;
-  payload?: string;
+enum Params {
+  QUERY = 'query',
+  CATEGORY = 'category',
 }
 
 const DEFAULT_FILTERS_STORE = {
-  state: {
-    query: '',
-    category: '',
-  },
+  state: { query: null, category: null },
   setSearch: () => {},
   setCategory: () => {},
   clearAllFilters: () => {},
@@ -47,74 +31,44 @@ const FiltersContext = createContext<FiltersStore>(DEFAULT_FILTERS_STORE);
 
 export const useFilters = () => useContext(FiltersContext);
 
-const filterReducer = (
-  state: QueryParams,
-  { type, payload }: Action
-): QueryParams => {
-  switch (type) {
-    case DispatchType.SET_SEARCH: {
-      return { ...state, query: payload };
-    }
-    case DispatchType.SET_CATEGORY: {
-      return { ...state, category: payload };
-    }
-    case DispatchType.CLEAR_FILTERS: {
-      return { query: '', category: '' };
-    }
-    default:
-      return state;
-  }
-};
-
 export function FiltersProvider({ children }: PropsWithChildren) {
-  const queryParams = useMemo(
-    () => new URLSearchParams(window.location.search),
-    []
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const state = useMemo(
+    () => ({
+      query: searchParams.get(Params.QUERY),
+      category: searchParams.get(Params.CATEGORY),
+    }),
+    [searchParams]
   );
 
-  const [state, dispatch] = useReducer(filterReducer, {
-    query: queryParams.get('query'),
-    category: queryParams.get('category'),
-  });
+  const updateSearchParams = (
+    param: Params.QUERY | Params.CATEGORY,
+    value: string | undefined
+  ) => {
+    if (!value) {
+      searchParams.delete(param);
+    } else {
+      searchParams.set(param, value);
+    }
 
-  const updateUrlParams = useCallback(
-    (params: QueryParams) => {
-      const searchParams = queryParams;
-
-      Object.entries(params).forEach(([key, value]) => {
-        if (value) {
-          searchParams.set(key, value);
-        } else {
-          searchParams.delete(key);
-        }
-      });
-
-      const newUrl = `${window.location.pathname}${searchParams.size !== 0 ? '?' + searchParams.toString() : ''}`;
-
-      window.history.pushState({}, '', newUrl);
-    },
-    [queryParams]
-  );
-
-  const setSearch = (value?: string) => {
-    dispatch({ type: DispatchType.SET_SEARCH, payload: value });
+    setSearchParams(searchParams);
   };
 
-  const setCategory = (value?: string) => {
-    dispatch({ type: DispatchType.SET_CATEGORY, payload: value });
-  };
+  const setSearch = (value?: string) => updateSearchParams(Params.QUERY, value);
 
-  const clearAllFilters = () => {
-    dispatch({ type: DispatchType.CLEAR_FILTERS });
-  };
+  const setCategory = (value?: string) => updateSearchParams(Params.CATEGORY, value);
 
-  useEffect(() => {
-    updateUrlParams(state);
-  }, [state, updateUrlParams]);
+  const clearAllFilters = () => setSearchParams({});
 
   return (
     <FiltersContext.Provider
-      value={{ state, setSearch, setCategory, clearAllFilters }}
+      value={{
+        state,
+        setSearch,
+        setCategory,
+        clearAllFilters,
+      }}
     >
       {children}
     </FiltersContext.Provider>

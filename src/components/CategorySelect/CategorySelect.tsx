@@ -9,8 +9,9 @@ export default function CategorySelect() {
   const { state, setCategory } = useFilters();
 
   const currentCategory = useMemo(() => {
-    return categories?.find(category => state.category === category.value);
-  }, [categories, state.category]);
+    const categoryParam = state.category;
+    return categories?.find(category => categoryParam === category.value);
+  }, [state.category, categories]);
 
   const handleOnChangeCategory = (newValue: unknown): void => {
     const category = newValue as Option | null;

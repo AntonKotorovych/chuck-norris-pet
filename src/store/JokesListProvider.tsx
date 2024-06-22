@@ -37,8 +37,7 @@ const DEFAULT_JOKES_STORE: JokesListContextState = {
   },
 };
 
-const JokesListContext =
-  createContext<JokesListContextState>(DEFAULT_JOKES_STORE);
+const JokesListContext = createContext<JokesListContextState>(DEFAULT_JOKES_STORE);
 
 export const useJokesList = () => useContext(JokesListContext);
 
@@ -48,7 +47,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
 
   const { state } = useFilters();
 
-  const fetchJokes: FetchJokesFunction = useCallback(async state => {
+  const fetchJokes: FetchJokesFunction = useCallback(async queryParams => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
     setJokesList({
       ...DEFAULT_JOKES_STORE,
@@ -58,15 +57,15 @@ export function JokesListProvider({ children }: PropsWithChildren) {
     try {
       let response = null;
 
-      if (state.query && state.category) {
+      if (queryParams.query && queryParams.category) {
         response = await getBySearchJoke(
-          { query: state.query },
-          state.category
+          { query: queryParams.query },
+          queryParams.category
         );
-      } else if (state.query) {
-        response = await getBySearchJoke({ query: state.query });
-      } else if (state.category) {
-        response = await getRandomJoke({ category: state.category });
+      } else if (queryParams.query) {
+        response = await getBySearchJoke({ query: queryParams.query });
+      } else if (queryParams.category) {
+        response = await getRandomJoke({ category: queryParams.category });
       } else {
         response = await getRandomJoke();
       }
@@ -122,7 +121,8 @@ export function JokesListProvider({ children }: PropsWithChildren) {
       value={{
         ...jokesList,
         loadMoreAPI: { loadMore, visibleJokes, isLoadMoreAllowed },
-      }}>
+      }}
+    >
       {children}
     </JokesListContext.Provider>
   );
