@@ -22,7 +22,8 @@ export default function Input({
         <StyledSVGButton
           type="button"
           position={SvgPosition.LEFT}
-          onClick={onSearch}>
+          onClick={onSearch}
+        >
           <img src={leftIcon} alt="" />
         </StyledSVGButton>
       )}
@@ -31,7 +32,8 @@ export default function Input({
         <StyledSVGButton
           type="button"
           position={SvgPosition.RIGHT}
-          onClick={onClear}>
+          onClick={onClear}
+        >
           <img src={rightIcon} alt="" />
         </StyledSVGButton>
       )}

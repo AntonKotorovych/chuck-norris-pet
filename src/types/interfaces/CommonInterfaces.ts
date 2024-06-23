@@ -7,9 +7,9 @@ export interface ThemeProps {
 export interface Joke {
   categories: string[];
   createdAt: string;
-  iconUrl: string;
+  iconUrl?: string;
   id: string;
-  updatedAt: string;
+  updatedAt?: string;
   url: string;
   value: string;
 }

@@ -67,6 +67,12 @@ export const StyledCategoryBtnWrapper = styled.div<ThemeProps>`
   }
 `;
 
+export const StyledHeaderDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const StyledFooterDiv = styled.div`
   height: 20%;
   display: flex;

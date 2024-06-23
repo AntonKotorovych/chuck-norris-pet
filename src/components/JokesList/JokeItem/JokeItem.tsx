@@ -1,5 +1,7 @@
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
+import FavoriteButton from 'components/FavoriteButton';
+
 import {
   StyledListElement,
   StyledJokeContainer,
@@ -11,16 +13,24 @@ import {
   StyledFooterDiv,
   StyledDiv,
   StyledCategoryBtnWrapper,
+  StyledHeaderDiv,
 } from './styled';
 
-interface Props {
+export interface JokeProps {
   categories: string[];
   value: string;
   url: string;
-  created: string;
+  createdAt: string;
+  id: string;
 }
 
-export default function JokeItem({ categories, value, url, created }: Props) {
+export default function JokeItem({
+  categories,
+  value,
+  url,
+  createdAt,
+  id,
+}: JokeProps) {
   const { setCategory } = useFilters();
 
   const handleCategoryClick = (category: string) => setCategory(category);
@@ -28,25 +38,28 @@ export default function JokeItem({ categories, value, url, created }: Props) {
   return (
     <StyledListElement>
       <StyledJokeContainer>
-        <StyledJokeCategory>
-          {categories?.length ? (
-            <>
-              <StyledSpan>Joke category: </StyledSpan>
-              {categories.map(category => (
-                <StyledCategoryBtnWrapper key={category}>
-                  <Button
-                    variant="secondary"
-                    onClick={() => handleCategoryClick(category)}
-                  >
-                    {category}
-                  </Button>
-                </StyledCategoryBtnWrapper>
-              ))}
-            </>
-          ) : (
-            <StyledSpan>No Categories</StyledSpan>
-          )}
-        </StyledJokeCategory>
+        <StyledHeaderDiv>
+          <StyledJokeCategory>
+            {categories?.length ? (
+              <>
+                <StyledSpan>Joke category: </StyledSpan>
+                {categories.map(category => (
+                  <StyledCategoryBtnWrapper key={category}>
+                    <Button
+                      variant="secondary"
+                      onClick={() => handleCategoryClick(category)}
+                    >
+                      {category}
+                    </Button>
+                  </StyledCategoryBtnWrapper>
+                ))}
+              </>
+            ) : (
+              <StyledSpan>No Categories</StyledSpan>
+            )}
+          </StyledJokeCategory>
+          <FavoriteButton joke={{ categories, value, url, createdAt, id }} />
+        </StyledHeaderDiv>
         <StyledJokeDiv>
           <StyledJokeSpan>`` {value}</StyledJokeSpan>
         </StyledJokeDiv>
@@ -58,7 +71,7 @@ export default function JokeItem({ categories, value, url, created }: Props) {
           </StyledDiv>
           <StyledDiv>
             <StyledSpan>
-              Created at: {created.substring(0, created.indexOf('.'))}
+              Created at: {createdAt.substring(0, createdAt.indexOf('.'))}
             </StyledSpan>
           </StyledDiv>
         </StyledFooterDiv>
