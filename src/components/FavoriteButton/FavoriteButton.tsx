@@ -11,7 +11,6 @@ interface Props {
 export default function FavoriteButton({ joke }: Props) {
   const [isClicked, setIsClicked] = useState(false);
 
-  const favoriteJokes = useFavoriteJokesStore(state => state.favoriteJokes);
   const addFavoriteJoke = useFavoriteJokesStore(state => state.addFavoriteJoke);
   const removeFavoriteJoke = useFavoriteJokesStore(
     state => state.removeFavoriteJoke
@@ -26,8 +25,6 @@ export default function FavoriteButton({ joke }: Props) {
       removeFavoriteJoke(joke);
     }
   };
-
-  console.log(favoriteJokes, 'массив фейворит');
 
   return (
     <StyledContainer>
