@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import { JokeProps } from 'components/JokesList/JokeItem/JokeItem';
 import HeartIcon from './HeartIcon';
@@ -9,30 +9,29 @@ interface Props {
 }
 
 export default function FavoriteButton({ joke }: Props) {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
+  const favoriteJokes = useFavoriteJokesStore(state => state.favoriteJokes);
   const addFavoriteJoke = useFavoriteJokesStore(state => state.addFavoriteJoke);
   const removeFavoriteJoke = useFavoriteJokesStore(
     state => state.removeFavoriteJoke
   );
 
   const handleClick = () => {
-    setIsClicked(!isClicked);
-
-    if (!isClicked) {
-      addFavoriteJoke(joke);
-    } else {
-      removeFavoriteJoke(joke);
-    }
+    isFavorite ? removeFavoriteJoke(joke) : addFavoriteJoke(joke);
   };
+
+  useEffect(() => {
+    setIsFavorite(favoriteJokes.some(favoriteJoke => joke.id === favoriteJoke.id));
+  }, [favoriteJokes, joke.id]);
 
   return (
     <StyledContainer>
       <StyledButton
-        title={isClicked ? 'Delete from Favorites' : 'Add to Favorites'}
+        title={isFavorite ? 'Delete from Favorites' : 'Add to Favorites'}
         onClick={handleClick}
       >
-        <HeartIcon isSelected={isClicked} />
+        <HeartIcon isFavorite={isFavorite} />
       </StyledButton>
     </StyledContainer>
   );
