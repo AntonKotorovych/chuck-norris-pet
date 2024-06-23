@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { notifyFavoriteClick } from 'utils/notifyFavoriteClick';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import { JokeProps } from 'components/JokesList/JokeItem/JokeItem';
 import HeartIcon from './HeartIcon';
@@ -19,6 +20,7 @@ export default function FavoriteButton({ joke }: Props) {
 
   const handleClick = () => {
     isFavorite ? removeFavoriteJoke(joke) : addFavoriteJoke(joke);
+    notifyFavoriteClick(isFavorite);
   };
 
   useEffect(() => {
