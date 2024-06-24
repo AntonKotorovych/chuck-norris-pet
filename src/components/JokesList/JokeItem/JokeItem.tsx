@@ -14,6 +14,8 @@ import {
   StyledDiv,
   StyledCategoryBtnWrapper,
   StyledHeaderDiv,
+  StyledLink,
+  StyledLinksContainer,
 } from './styled';
 
 export interface JokeProps {
@@ -27,7 +29,7 @@ export interface JokeProps {
 export default function JokeItem(props: JokeProps) {
   const { setCategory } = useFilters();
 
-  const { categories, value, url, createdAt } = props;
+  const { categories, value, url, createdAt, id } = props;
 
   const handleCategoryClick = (category: string) => setCategory(category);
 
@@ -60,11 +62,14 @@ export default function JokeItem(props: JokeProps) {
           <StyledJokeSpan>`` {value}</StyledJokeSpan>
         </StyledJokeDiv>
         <StyledFooterDiv>
-          <StyledDiv>
+          <StyledLinksContainer>
             <StyledATag href={url} target="_blank">
               <StyledSpan>Look original joke</StyledSpan>
             </StyledATag>
-          </StyledDiv>
+            <StyledLink to={`/joke/${id}`}>
+              <StyledSpan>Read joke</StyledSpan>
+            </StyledLink>
+          </StyledLinksContainer>
           <StyledDiv>
             <StyledSpan>
               Created at: {createdAt.substring(0, createdAt.indexOf('.'))}
