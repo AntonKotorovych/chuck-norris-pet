@@ -29,10 +29,11 @@ export default function JokesList() {
           return (
             <JokeItem
               key={joke.id}
+              id={joke.id}
               categories={joke.categories}
               value={joke.value}
               url={joke.url}
-              created={joke.createdAt}
+              createdAt={joke.createdAt}
             />
           );
         })}
