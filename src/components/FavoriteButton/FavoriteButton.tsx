@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { notifyFavoriteClick } from 'utils/notifyFavoriteClick';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import { JokeProps } from 'components/JokesList/JokeItem/JokeItem';
@@ -10,22 +9,17 @@ interface Props {
 }
 
 export default function FavoriteButton({ joke }: Props) {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const favoriteJokes = useFavoriteJokesStore(state => state.favoriteJokes);
   const addFavoriteJoke = useFavoriteJokesStore(state => state.addFavoriteJoke);
   const removeFavoriteJoke = useFavoriteJokesStore(
     state => state.removeFavoriteJoke
   );
 
+  const isFavorite = useFavoriteJokesStore(state => state.isFavoriteJoke(joke.id));
+
   const handleClick = () => {
     isFavorite ? removeFavoriteJoke(joke) : addFavoriteJoke(joke);
     notifyFavoriteClick(isFavorite);
   };
-
-  useEffect(() => {
-    setIsFavorite(favoriteJokes.some(favoriteJoke => joke.id === favoriteJoke.id));
-  }, [favoriteJokes, joke.id]);
 
   return (
     <StyledContainer>

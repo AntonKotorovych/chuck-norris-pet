@@ -24,14 +24,10 @@ export interface JokeProps {
   id: string;
 }
 
-export default function JokeItem({
-  categories,
-  value,
-  url,
-  createdAt,
-  id,
-}: JokeProps) {
+export default function JokeItem(props: JokeProps) {
   const { setCategory } = useFilters();
+
+  const { categories, value, url, createdAt } = props;
 
   const handleCategoryClick = (category: string) => setCategory(category);
 
@@ -58,7 +54,7 @@ export default function JokeItem({
               <StyledSpan>No Categories</StyledSpan>
             )}
           </StyledJokeCategory>
-          <FavoriteButton joke={{ categories, value, url, createdAt, id }} />
+          <FavoriteButton joke={props} />
         </StyledHeaderDiv>
         <StyledJokeDiv>
           <StyledJokeSpan>`` {value}</StyledJokeSpan>

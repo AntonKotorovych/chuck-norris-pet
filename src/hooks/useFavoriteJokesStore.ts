@@ -3,16 +3,26 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { Joke } from 'types/interfaces/CommonInterfaces';
 
-interface FavoriteJokes {
+interface FavoriteJokesState {
   favoriteJokes: Joke[];
-  addFavoriteJoke: (joke: Joke) => void;
-  removeFavoriteJoke: (joke: Joke) => void;
 }
 
-export const useFavoriteJokesStore = create<FavoriteJokes>()(
+interface FavoriteJokesActions {
+  addFavoriteJoke: (joke: Joke) => void;
+  removeFavoriteJoke: (joke: Joke) => void;
+  isFavoriteJoke: (jokeId: string) => boolean;
+}
+
+const DEFAULT_JOKES_STATE: FavoriteJokesState = {
+  favoriteJokes: [],
+};
+
+type FavoriteJokesStore = FavoriteJokesState & FavoriteJokesActions;
+
+export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
   persist(
-    set => ({
-      favoriteJokes: [],
+    (set, get) => ({
+      ...DEFAULT_JOKES_STATE,
       addFavoriteJoke: joke =>
         set(state => ({ favoriteJokes: [...state.favoriteJokes, joke] })),
       removeFavoriteJoke: joke =>
@@ -21,6 +31,8 @@ export const useFavoriteJokesStore = create<FavoriteJokes>()(
             favoriteJoke => favoriteJoke.id !== joke.id
           ),
         })),
+      isFavoriteJoke: jokeId =>
+        get().favoriteJokes.some(favoriteJoke => jokeId === favoriteJoke.id),
     }),
     {
       name: 'favorite-jokes-storage',
