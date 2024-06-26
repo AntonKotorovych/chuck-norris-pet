@@ -39,6 +39,7 @@ export default function JokeItem(props: JokeProps) {
     if (location.pathname === ROUTES.JOKE(id)) {
       navigate(ROUTES.HOME);
     }
+
     setCategory(category);
   };
 
