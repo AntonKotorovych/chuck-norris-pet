@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import FavoriteButton from 'components/FavoriteButton';
@@ -33,6 +34,8 @@ export default function JokeItem(props: JokeProps) {
 
   const handleCategoryClick = (category: string) => setCategory(category);
 
+  const location = useLocation();
+
   return (
     <StyledListElement>
       <StyledJokeContainer>
@@ -66,9 +69,11 @@ export default function JokeItem(props: JokeProps) {
             <StyledATag href={url} target="_blank">
               <StyledSpan>Look original joke</StyledSpan>
             </StyledATag>
-            <StyledLink to={`/joke/${id}`}>
-              <StyledSpan>Read joke</StyledSpan>
-            </StyledLink>
+            {location.pathname !== `/joke/${id}` && (
+              <StyledLink to={`/joke/${id}`}>
+                <StyledSpan>Read joke</StyledSpan>
+              </StyledLink>
+            )}
           </StyledLinksContainer>
           <StyledDiv>
             <StyledSpan>
