@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 import HomePage from 'pages/HomePage';
 import AppProviders from 'components/AppProviders';
+import JokePage from 'pages/JokePage';
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.JOKE_DETAIL,
-        element: <HomePage />,
+        element: <JokePage />,
       },
     ],
   },
