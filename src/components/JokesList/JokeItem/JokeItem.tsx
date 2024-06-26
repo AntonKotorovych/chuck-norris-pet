@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import FavoriteButton from 'components/FavoriteButton';
+import { ROUTES } from 'constants/routes';
 
 import {
   StyledListElement,
@@ -36,6 +37,8 @@ export default function JokeItem(props: JokeProps) {
 
   const location = useLocation();
 
+  const jokeDetailPath = ROUTES.JOKE(id);
+
   return (
     <StyledListElement>
       <StyledJokeContainer>
@@ -69,8 +72,8 @@ export default function JokeItem(props: JokeProps) {
             <StyledATag href={url} target="_blank">
               <StyledSpan>Look original joke</StyledSpan>
             </StyledATag>
-            {location.pathname !== `/joke/${id}` && (
-              <StyledLink to={`/joke/${id}`}>
+            {location.pathname !== jokeDetailPath && (
+              <StyledLink to={jokeDetailPath}>
                 <StyledSpan>Read joke</StyledSpan>
               </StyledLink>
             )}

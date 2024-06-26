@@ -3,6 +3,7 @@ import { ROUTES } from 'constants/routes';
 import HomePage from 'pages/HomePage';
 import AppProviders from 'components/AppProviders';
 import JokePage from 'pages/JokePage';
+import { jokeLoader } from 'utils/jokeLoader';
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,8 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: ROUTES.JOKE_DETAIL,
+        path: ROUTES.JOKE(':jokeId'),
+        loader: jokeLoader,
         element: <JokePage />,
       },
     ],

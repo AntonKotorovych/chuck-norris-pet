@@ -1,35 +1,27 @@
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useJoke } from 'hooks/useJoke';
-import Spinner from 'components/Spinner';
+import { useLoaderData } from 'react-router-dom';
+import { Joke } from 'types/interfaces/CommonInterfaces';
 import Error from 'components/Error';
 import JokeItem from '../JokeItem';
 import { StyledList, StyledSection } from '../styled';
 
 export default function SingleJoke() {
-  const { jokeId } = useParams();
-
-  const {
-    jokeState: { joke, isLoading, error },
-    fetchSingleJoke,
-  } = useJoke();
-
-  useEffect(() => {
-    if (jokeId) fetchSingleJoke(jokeId);
-  }, [fetchSingleJoke, jokeId]);
+  const joke = useLoaderData() as Joke;
 
   return (
     <StyledSection>
       <StyledList>
-        {error && <Error title={error.name} message={error.message} />}
-        {isLoading && <Spinner />}
-        {joke && (
+        {joke ? (
           <JokeItem
             categories={joke.categories}
             value={joke.value}
             url={joke.url}
             createdAt={joke.createdAt}
             id={joke.id}
+          />
+        ) : (
+          <Error
+            title={'Something went wrong'}
+            message={`Failed to load joke from server`}
           />
         )}
       </StyledList>
