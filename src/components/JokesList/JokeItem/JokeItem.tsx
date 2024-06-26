@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import FavoriteButton from 'components/FavoriteButton';
@@ -30,12 +30,17 @@ export interface JokeProps {
 
 export default function JokeItem(props: JokeProps) {
   const { setCategory } = useFilters();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { categories, value, url, createdAt, id } = props;
 
-  const handleCategoryClick = (category: string) => setCategory(category);
-
-  const location = useLocation();
+  const handleCategoryClick = (category: string) => {
+    if (location.pathname === ROUTES.JOKE(id)) {
+      navigate(ROUTES.HOME);
+    }
+    setCategory(category);
+  };
 
   const jokeDetailPath = ROUTES.JOKE(id);
 
