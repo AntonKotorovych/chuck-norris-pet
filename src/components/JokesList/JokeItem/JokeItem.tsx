@@ -1,6 +1,8 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import FavoriteButton from 'components/FavoriteButton';
+import { ROUTES } from 'constants/routes';
 
 import {
   StyledListElement,
@@ -14,6 +16,8 @@ import {
   StyledDiv,
   StyledCategoryBtnWrapper,
   StyledHeaderDiv,
+  StyledLink,
+  StyledLinksContainer,
 } from './styled';
 
 export interface JokeProps {
@@ -26,10 +30,20 @@ export interface JokeProps {
 
 export default function JokeItem(props: JokeProps) {
   const { setCategory } = useFilters();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const { categories, value, url, createdAt } = props;
+  const { categories, value, url, createdAt, id } = props;
 
-  const handleCategoryClick = (category: string) => setCategory(category);
+  const handleCategoryClick = (category: string) => {
+    if (location.pathname === ROUTES.JOKE(id)) {
+      navigate(ROUTES.HOME);
+    }
+
+    setCategory(category);
+  };
+
+  const jokeDetailPath = ROUTES.JOKE(id);
 
   return (
     <StyledListElement>
@@ -60,11 +74,16 @@ export default function JokeItem(props: JokeProps) {
           <StyledJokeSpan>`` {value}</StyledJokeSpan>
         </StyledJokeDiv>
         <StyledFooterDiv>
-          <StyledDiv>
+          <StyledLinksContainer>
             <StyledATag href={url} target="_blank">
               <StyledSpan>Look original joke</StyledSpan>
             </StyledATag>
-          </StyledDiv>
+            {location.pathname !== jokeDetailPath && (
+              <StyledLink to={jokeDetailPath}>
+                <StyledSpan>Read joke</StyledSpan>
+              </StyledLink>
+            )}
+          </StyledLinksContainer>
           <StyledDiv>
             <StyledSpan>
               Created at: {createdAt.substring(0, createdAt.indexOf('.'))}

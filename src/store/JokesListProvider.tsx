@@ -7,6 +7,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getRandomJoke } from 'api/getRandomJoke';
 import { getBySearchJoke } from 'api/getBySearchJoke';
 import { Joke, JokesList } from 'types/interfaces/CommonInterfaces';
@@ -46,6 +47,7 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   const [displayCount, setDisplayCount] = useState(JOKES_ON_PAGE_COUNT);
 
   const { state } = useFilters();
+  const location = useLocation();
 
   const fetchJokes: FetchJokesFunction = useCallback(async queryParams => {
     setDisplayCount(JOKES_ON_PAGE_COUNT);
@@ -113,8 +115,8 @@ export function JokesListProvider({ children }: PropsWithChildren) {
   }, [jokesList, visibleJokes]);
 
   useEffect(() => {
-    fetchJokes(state);
-  }, [state, fetchJokes]);
+    if (location.pathname === '/') fetchJokes(state);
+  }, [state, fetchJokes, location.pathname]);
 
   return (
     <JokesListContext.Provider

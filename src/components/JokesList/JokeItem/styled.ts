@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 const fadeIn = keyframes`
@@ -28,11 +29,22 @@ export const StyledJokeContainer = styled.div`
 `;
 
 export const StyledATag = styled.a<ThemeProps>`
-  display: inline-block;
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s ease;
   padding: 0 3px;
+
+  &:hover {
+    transform: scale(1.05);
+    color: ${({ theme }) => theme.colors.third};
+  }
+`;
+
+export const StyledLink = styled(Link)<ThemeProps>`
+  text-decoration: none;
+  color: inherit;
+
+  transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
@@ -89,3 +101,9 @@ export const StyledJokeDiv = styled.div<ThemeProps>`
 `;
 
 export const StyledDiv = styled.div``;
+
+export const StyledLinksContainer = styled.div`
+  width: 18%;
+  display: flex;
+  justify-content: space-between;
+`;
