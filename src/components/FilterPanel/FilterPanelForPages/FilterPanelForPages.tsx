@@ -19,7 +19,7 @@ export default function FilterPanelForPages() {
             <Button variant="secondary">Favorite Jokes</Button>
           </Link>
         ) : (
-          <Button variant="secondary">Manage Favorite Jokes</Button>
+          <Button variant="secondary">Manage Jokes</Button>
         )}
       </StyledContainer>
     </StyledSection>
