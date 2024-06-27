@@ -20,6 +20,13 @@ export const StyledSection = styled.section<ThemeProps>`
 
 export const StyledContainer = styled.div<ThemeProps>`
   height: 60%;
-  width: 18%;
+  width: 12%;
   font-size: ${({ theme }) => theme.fontSizes.small};
+`;
+
+export const VerticalLineSeparator = styled.div<ThemeProps>`
+  width: 0.2rem;
+  height: 90%;
+  background-color: ${({ theme }) => theme.colors.third};
+  margin: 0 20px;
 `;

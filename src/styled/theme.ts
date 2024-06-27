@@ -56,7 +56,7 @@ export const theme = {
   },
   fontSizes: {
     tiny: '0.9rem',
-    small: '1.3rem',
+    small: '1.1rem',
     medium: '2rem',
     big: '3rem',
   },
