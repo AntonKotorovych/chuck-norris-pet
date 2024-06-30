@@ -31,6 +31,9 @@ export const theme = {
   backgroundColorListValue: {
     primary: '#00000075',
   },
+  backgroundColorListModal: {
+    primary: '#464646',
+  },
   borderColor: {
     primary: '#0f0f0f',
     secondary: '#909090',
@@ -59,6 +62,9 @@ export const theme = {
     small: '1.1rem',
     medium: '2rem',
     big: '3rem',
+  },
+  modalOverlay: {
+    primary: 'rgba(0, 0, 0, 0.6)',
   },
 } as const;
 
