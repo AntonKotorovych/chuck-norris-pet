@@ -29,10 +29,14 @@ export const StyledModalContent = styled.div<ThemeProps>`
 export const StyledHeader = styled.header<ThemeProps>`
   height: 20%;
   border-bottom: 5px ${({ theme }) => theme.borderColor.primary} solid;
+  display: flex;
+  font-size: ${({ theme }) => theme.fontSizes.medium};
+  justify-content: space-between;
 `;
 
 export const StyledList = styled.ul<ThemeProps>`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   padding: 0 0.7rem;
   height: 67%;
   overflow: auto;
@@ -59,13 +63,14 @@ export const StyledCheckbox = styled.input`
   height: 1.5rem;
   min-width: 1.5rem;
   margin-right: 1.5rem;
+  cursor: pointer;
 `;
 
 export const StyledText = styled.span<ThemeProps>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  /*  */
 `;
 
 export const StyledFooter = styled.footer<ThemeProps>`
@@ -78,4 +83,10 @@ export const StyledFooter = styled.footer<ThemeProps>`
 export const StyledWrapper = styled.div`
   width: 20%;
   height: 100%;
+`;
+
+export const StyledCloseWrapper = styled.div`
+  display: flex;
+  height: 50%;
+  width: 2rem;
 `;

@@ -1,9 +1,10 @@
 import { createPortal } from 'react-dom';
-import { PropsWithChildren } from 'react';
 import Button from 'components/Button';
 import { Joke } from 'types/interfaces/CommonInterfaces';
+
 import {
   StyledCheckbox,
+  StyledCloseWrapper,
   StyledFooter,
   StyledHeader,
   StyledList,
@@ -14,18 +15,13 @@ import {
   StyledWrapper,
 } from './styled';
 
-interface JokesModal extends PropsWithChildren {
+interface JokesModal {
   show: boolean;
   onClose: VoidFunction;
-  jokesList: Joke[];
+  jokesList: Joke[] | null;
 }
 
-export default function ManageJokesModal({
-  jokesList,
-  show,
-  onClose,
-  children,
-}: JokesModal) {
+export default function ManageJokesModal({ jokesList, show, onClose }: JokesModal) {
   if (!show) return null;
 
   const modalContainer = document.getElementById('modal-root');
@@ -35,23 +31,33 @@ export default function ManageJokesModal({
   return createPortal(
     <StyledModalOverlay onClick={onClose}>
       <StyledModalContent onClick={event => event.stopPropagation()}>
-        <StyledHeader>Manage favorite jokes</StyledHeader>
+        <StyledHeader>
+          <StyledText>Manage favorite jokes</StyledText>
+          <StyledCloseWrapper>
+            <Button variant="secondary" onClick={onClose}>
+              ✖
+            </Button>
+          </StyledCloseWrapper>
+        </StyledHeader>
         <StyledList>
-          {jokesList.map(joke => {
-            return (
-              <StyledListItem key={joke.id} title={joke.value}>
-                <StyledCheckbox type="checkbox" />
-                <StyledText>{joke.value}</StyledText>
-              </StyledListItem>
-            );
-          })}
+          {jokesList?.length !== 0 && jokesList !== null ? (
+            jokesList.map(joke => {
+              return (
+                <StyledListItem key={joke.id} title={joke.value}>
+                  <StyledCheckbox type="checkbox" />
+                  <StyledText>{joke.value}</StyledText>
+                </StyledListItem>
+              );
+            })
+          ) : (
+            <StyledText>No Jokes</StyledText>
+          )}
         </StyledList>
         <StyledFooter>
           <StyledWrapper>
             <Button variant="main">Save</Button>
           </StyledWrapper>
         </StyledFooter>
-        {children}
       </StyledModalContent>
     </StyledModalOverlay>,
     modalContainer
