@@ -52,6 +52,7 @@ export const StyledListItem = styled.li<ThemeProps>`
   display: flex;
   background-color: ${({ theme }) => theme.backgroundColorListItem.primary};
   align-items: center;
+  transition: box-shadow 0.1s ease;
 
   &:hover {
     box-shadow: ${({ theme }) => theme.shadowStyle.secondary};
