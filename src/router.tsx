@@ -4,6 +4,7 @@ import HomePage from 'pages/HomePage';
 import AppProviders from 'components/AppProviders';
 import JokePage from 'pages/JokePage';
 import { jokeLoader } from 'utils/jokeLoader';
+import FavoriteJokesPage from 'pages/FavoriteJokesPage';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
         path: ROUTES.JOKE(':jokeId'),
         loader: jokeLoader,
         element: <JokePage />,
+      },
+      {
+        path: ROUTES.FAVORITE_JOKES,
+        element: <FavoriteJokesPage />,
       },
     ],
   },

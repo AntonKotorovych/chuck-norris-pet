@@ -10,7 +10,6 @@ export const StyledButton = styled.button<Props>`
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   height: 100%;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSizes.medium};
   background-color: ${props =>
     props.variant === 'main'
       ? props.theme.btnBackgroundColor.primary
