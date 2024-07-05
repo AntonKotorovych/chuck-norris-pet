@@ -1,4 +1,5 @@
 import { createPortal } from 'react-dom';
+import { useRef } from 'react';
 import Button from 'components/Button';
 import { Joke } from 'types/interfaces/CommonInterfaces';
 
@@ -22,7 +23,14 @@ interface JokesModal {
 }
 
 export default function ManageJokesModal({ jokesList, show, onClose }: JokesModal) {
-  if (!show) return null;
+  const bodyRef = useRef(document.body);
+
+  if (!show) {
+    bodyRef.current.style.overflow = 'visible';
+    return null;
+  } else {
+    bodyRef.current.style.overflow = 'hidden';
+  }
 
   const modalContainer = document.getElementById('modal-root');
 
