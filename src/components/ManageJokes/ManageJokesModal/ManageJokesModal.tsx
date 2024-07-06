@@ -5,12 +5,7 @@ import JokesContentModal from '../JokesContentModal';
 import JokesHeaderModal from '../JokesHeaderModal';
 import JokesFooterModal from '../JokesFooterModal';
 
-import {
-  StyledList,
-  StyledModalContent,
-  StyledModalOverlay,
-  StyledText,
-} from './styled';
+import { StyledList, StyledModal, StyledModalOverlay, StyledText } from './styled';
 
 interface JokesModal {
   content: Joke[] | null;
@@ -34,7 +29,7 @@ export default function ManageJokesModal({ content, isOpen, onClose }: JokesModa
 
   return createPortal(
     <StyledModalOverlay onClick={onClose}>
-      <StyledModalContent onClick={event => event.stopPropagation()}>
+      <StyledModal onClick={event => event.stopPropagation()}>
         <JokesHeaderModal onClose={onClose} />
         <StyledList>
           {content?.length !== 0 && content !== null ? (
@@ -44,7 +39,7 @@ export default function ManageJokesModal({ content, isOpen, onClose }: JokesModa
           )}
         </StyledList>
         <JokesFooterModal />
-      </StyledModalContent>
+      </StyledModal>
     </StyledModalOverlay>,
     modalContainer
   );

@@ -14,13 +14,13 @@ export const StyledModalOverlay = styled.div<ThemeProps>`
   z-index: 1000;
 `;
 
-export const StyledModalContent = styled.div<ThemeProps>`
+export const StyledModal = styled.div<ThemeProps>`
   background: ${({ theme }) => theme.backgroundColorListModal.primary};
   padding: 20px 10px;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   max-width: 600px;
   width: 100%;
-  height: 40%;
+  height: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
