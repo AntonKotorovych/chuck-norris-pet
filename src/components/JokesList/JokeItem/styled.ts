@@ -103,7 +103,7 @@ export const StyledJokeDiv = styled.div<ThemeProps>`
 export const StyledDiv = styled.div``;
 
 export const StyledLinksContainer = styled.div`
-  width: 18%;
+  gap: 1rem;
   display: flex;
   justify-content: space-between;
 `;

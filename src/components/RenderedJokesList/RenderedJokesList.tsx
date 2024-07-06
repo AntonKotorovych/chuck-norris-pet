@@ -1,7 +1,11 @@
 import JokeItem from 'components/JokesList/JokeItem';
 import { Joke } from 'types/interfaces/CommonInterfaces';
 
-export const renderJokes = (jokes: Joke[]) => {
+interface Props {
+  jokes: Joke[];
+}
+
+export default function RenderedJokesList({ jokes }: Props) {
   return jokes.map(joke => (
     <JokeItem
       key={joke.id}
@@ -12,4 +16,4 @@ export const renderJokes = (jokes: Joke[]) => {
       createdAt={joke.createdAt}
     />
   ));
-};
+}

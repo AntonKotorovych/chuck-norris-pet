@@ -1,5 +1,5 @@
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
-import { renderJokes } from 'utils/renderJokes';
+import RenderedJokesList from 'components/RenderedJokesList';
 import { StyledList, StyledNoJokesContainer, StyledSection } from '../styled';
 
 export default function FavoriteJokesList() {
@@ -11,7 +11,7 @@ export default function FavoriteJokesList() {
         {favoriteJokes.length === 0 && (
           <StyledNoJokesContainer>There is no favorite jokes</StyledNoJokesContainer>
         )}
-        {renderJokes(favoriteJokes)}
+        <RenderedJokesList jokes={favoriteJokes} />
       </StyledList>
     </StyledSection>
   );

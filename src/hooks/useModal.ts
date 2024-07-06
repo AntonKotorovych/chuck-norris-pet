@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { create } from 'zustand';
 
-export const useModal = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
+interface ModalState {
+  isOpen: boolean;
+}
 
-  const handleOpenModal = () => setIsShowModal(true);
-  const handleCloseModal = () => setIsShowModal(false);
+interface ModalActions {
+  onOpen: VoidFunction;
+  onClose: VoidFunction;
+}
 
-  return { isShowModal, handleOpenModal, handleCloseModal };
+type Modal = ModalState & ModalActions;
+
+const DEFAULT_MODAL_STATE = {
+  isOpen: false,
 };
+
+export const useModal = create<Modal>(set => ({
+  ...DEFAULT_MODAL_STATE,
+  onOpen: () => set(() => ({ isOpen: true })),
+  onClose: () => set(() => ({ isOpen: false })),
+}));

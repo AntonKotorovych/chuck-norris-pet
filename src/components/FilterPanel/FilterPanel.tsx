@@ -4,13 +4,11 @@ import Button from 'components/Button';
 import CategorySelect from 'components/CategorySelect';
 import JokeSearchInput from 'components/JokeSearchInput';
 import { ROUTES } from 'constants/routes';
-import { useModal } from 'hooks/useModal';
-import ManageJokesModal from 'components/ManageJokesModal';
 import { useJokesList } from 'store/JokesListProvider';
+import ManageJokes from 'components/ManageJokes';
 import { StyledContainer, StyledSection, VerticalLineSeparator } from './styled';
 
 export default function FilterPanel() {
-  const { isShowModal, handleOpenModal, handleCloseModal } = useModal();
   const {
     loadMoreAPI: { visibleJokes },
   } = useJokesList();
@@ -32,20 +30,13 @@ export default function FilterPanel() {
       </StyledContainer>
       <VerticalLineSeparator />
       <StyledContainer>
-        <Button variant="main" onClick={handleOpenModal}>
-          Add Favorite Jokes
-        </Button>
+        <ManageJokes jokesList={visibleJokes} buttonText={'Add Favorite Jokes'} />
       </StyledContainer>
       <StyledContainer>
         <Link to={ROUTES.FAVORITE_JOKES}>
           <Button variant="secondary">Favorite Jokes</Button>
         </Link>
       </StyledContainer>
-      <ManageJokesModal
-        jokesList={visibleJokes}
-        show={isShowModal}
-        onClose={handleCloseModal}
-      />
     </StyledSection>
   );
 }
