@@ -12,5 +12,5 @@ export const StyledHeader = styled.header<ThemeProps>`
 export const StyledCloseWrapper = styled.div`
   display: flex;
   height: 50%;
-  width: 3rem;
+  width: 2.5rem;
 `;
