@@ -17,7 +17,7 @@ interface FavoriteJokesActions {
   isChosenJoke: (jokeId: string) => boolean;
   toggleSelectedJoke: (joke: Joke) => void;
   selectAllJokes: (jokes: Joke[]) => void;
-  deselectAllJokes: VoidFunction;
+  deselectAllJokes: (jokes: Joke[]) => void;
   saveSelectedJokes: VoidFunction;
 }
 
@@ -69,8 +69,8 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
           }
         });
       },
-      selectAllJokes: jokes => set({ selectedJokes: jokes }),
-      deselectAllJokes: () => set({ selectedJokes: [] }),
+      selectAllJokes: jokes => set({ selectedJokes: jokes, jokesToRemove: [] }),
+      deselectAllJokes: jokes => set({ selectedJokes: [], jokesToRemove: jokes }),
       saveSelectedJokes: () => {
         set(state => {
           const filteredFavoriteJokes = state.favoriteJokes.filter(

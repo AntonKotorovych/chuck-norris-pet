@@ -38,3 +38,7 @@ export const StyledText = styled.span<ThemeProps>`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const StyledNoJokesContainer = styled.div`
+  margin-top: 1rem;
+`;
