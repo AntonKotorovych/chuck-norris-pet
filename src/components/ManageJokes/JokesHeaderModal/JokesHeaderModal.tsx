@@ -1,6 +1,7 @@
 import Button from 'components/Button';
+import SelectAllCheckbox from 'components/SelectAllCheckbox';
 import { StyledText } from '../ManageJokesModal/styled';
-import { StyledCloseWrapper, StyledHeader } from './styled';
+import { StyledCloseWrapper, StyledContainer, StyledHeader } from './styled';
 
 interface Props {
   onClose: VoidFunction;
@@ -11,12 +12,17 @@ export default function JokesHeaderModal({ onClose }: Props) {
 
   return (
     <StyledHeader>
-      <StyledText>Manage favorite jokes</StyledText>
-      <StyledCloseWrapper>
-        <Button variant="secondary" onClick={handleClick}>
-          ✖
-        </Button>
-      </StyledCloseWrapper>
+      <StyledContainer>
+        <StyledText>Manage favorite jokes</StyledText>
+        <StyledCloseWrapper>
+          <Button variant="secondary" onClick={handleClick}>
+            ✖
+          </Button>
+        </StyledCloseWrapper>
+      </StyledContainer>
+      <StyledContainer>
+        <SelectAllCheckbox />
+      </StyledContainer>
     </StyledHeader>
   );
 }
