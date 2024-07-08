@@ -27,6 +27,7 @@ export const StyledContainer = styled.div<ThemeProps>`
 export const VerticalLineSeparator = styled.div<ThemeProps>`
   width: 2px;
   height: 90%;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   background-color: ${({ theme }) => theme.colors.third};
   margin: 0 20px;
 `;
