@@ -6,6 +6,7 @@ import { Joke } from 'types/interfaces/CommonInterfaces';
 interface FavoriteJokesState {
   favoriteJokes: Joke[];
   selectedJokes: Joke[];
+  jokesToRemove: Joke[];
 }
 
 interface FavoriteJokesActions {
@@ -15,11 +16,13 @@ interface FavoriteJokesActions {
   initializeSelectedJokes: VoidFunction;
   isChosenJoke: (jokeId: string) => boolean;
   toggleSelectedJoke: (joke: Joke) => void;
+  saveSelectedJokes: VoidFunction;
 }
 
 const DEFAULT_JOKES_STATE: FavoriteJokesState = {
   favoriteJokes: [],
   selectedJokes: [],
+  jokesToRemove: [],
 };
 
 type FavoriteJokesStore = FavoriteJokesState & FavoriteJokesActions;
@@ -39,7 +42,10 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
       isFavoriteJoke: jokeId =>
         get().favoriteJokes.some(favoriteJoke => jokeId === favoriteJoke.id),
       initializeSelectedJokes: () =>
-        set(state => ({ selectedJokes: [...state.favoriteJokes] })),
+        set(state => ({
+          selectedJokes: [...state.favoriteJokes],
+          jokesToRemove: [],
+        })),
       isChosenJoke: jokeId =>
         get().selectedJokes.some(selectedJoke => jokeId === selectedJoke.id),
       toggleSelectedJoke: joke => {
@@ -53,12 +59,39 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
               selectedJokes: state.selectedJokes.filter(
                 selectedJoke => selectedJoke.id !== joke.id
               ),
+              jokesToRemove: [...state.jokesToRemove, joke],
             };
           } else {
             return {
+              jokesToRemove: state.jokesToRemove.filter(
+                jokeToRemove => jokeToRemove.id !== joke.id
+              ),
               selectedJokes: [...state.selectedJokes, joke],
             };
           }
+        });
+      },
+      saveSelectedJokes: () => {
+        set(state => {
+          const filteredFavoriteJokes = state.favoriteJokes.filter(
+            favoriteJoke =>
+              !state.jokesToRemove.some(
+                jokeToRemove => favoriteJoke.id === jokeToRemove.id
+              )
+          );
+
+          const jokesToAdd = state.selectedJokes.filter(
+            selectedJoke =>
+              !filteredFavoriteJokes.some(
+                favoriteJoke => selectedJoke.id === favoriteJoke.id
+              )
+          );
+
+          return {
+            favoriteJokes: [...filteredFavoriteJokes, ...jokesToAdd],
+            selectedJokes: [],
+            jokesToRemove: [],
+          };
         });
       },
     }),

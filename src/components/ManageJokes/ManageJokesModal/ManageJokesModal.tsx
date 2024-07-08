@@ -38,7 +38,7 @@ export default function ManageJokesModal({ content, isOpen, onClose }: JokesModa
             <StyledText>No Jokes</StyledText>
           )}
         </StyledList>
-        <JokesFooterModal />
+        <JokesFooterModal onClose={onClose} />
       </StyledModal>
     </StyledModalOverlay>,
     modalContainer

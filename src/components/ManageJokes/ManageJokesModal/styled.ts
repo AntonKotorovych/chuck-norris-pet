@@ -34,9 +34,7 @@ export const StyledList = styled.ul<ThemeProps>`
   overflow: auto;
 `;
 
-export const StyledText = styled.label<ThemeProps>`
+export const StyledText = styled.span<ThemeProps>`
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
 `;

@@ -25,3 +25,8 @@ export const StyledCheckbox = styled.input`
   margin-right: 1.5rem;
   cursor: pointer;
 `;
+
+export const StyledLabel = styled.label`
+  white-space: nowrap;
+  cursor: pointer;
+`;
