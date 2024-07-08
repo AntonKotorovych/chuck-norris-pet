@@ -50,11 +50,7 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
         get().selectedJokes.some(selectedJoke => jokeId === selectedJoke.id),
       toggleSelectedJoke: joke => {
         set(state => {
-          const isChosen = state.selectedJokes.some(
-            selectedJoke => selectedJoke.id === joke.id
-          );
-
-          if (isChosen) {
+          if (state.isChosenJoke(joke.id)) {
             return {
               selectedJokes: state.selectedJokes.filter(
                 selectedJoke => selectedJoke.id !== joke.id
