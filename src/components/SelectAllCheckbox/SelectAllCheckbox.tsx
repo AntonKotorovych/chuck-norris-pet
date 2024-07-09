@@ -16,6 +16,9 @@ export default function SelectAllCheckbox({ jokesList }: Props) {
   const allSelected = selectedJokes.length === jokesList?.length;
   const someSelected =
     selectedJokes.length > 0 && selectedJokes.length < jokesList.length;
+  const noSelectedInJokesList = selectedJokes.every(
+    selectedJoke => !jokesList.some(joke => joke.id === selectedJoke.id)
+  );
 
   const selectAllRef = useRef<HTMLInputElement>(null);
 
@@ -29,9 +32,10 @@ export default function SelectAllCheckbox({ jokesList }: Props) {
 
   useEffect(() => {
     if (selectAllRef.current) {
-      selectAllRef.current.indeterminate = !allSelected && someSelected;
+      selectAllRef.current.indeterminate =
+        !allSelected && someSelected && !noSelectedInJokesList;
     }
-  }, [allSelected, someSelected]);
+  }, [allSelected, someSelected, noSelectedInJokesList]);
 
   return (
     <StyledLabel htmlFor="selectAll">
