@@ -28,11 +28,7 @@ export default function JokesList() {
         <RenderedJokesList jokes={visibleJokes} />
       </StyledList>
       <StyledButtonContainer>
-        {isLoadMoreAllowed && (
-          <Button variant="main" onClick={loadMore}>
-            Load More
-          </Button>
-        )}
+        {isLoadMoreAllowed && <Button onClick={loadMore}>Load More</Button>}
       </StyledButtonContainer>
     </StyledSection>
   );

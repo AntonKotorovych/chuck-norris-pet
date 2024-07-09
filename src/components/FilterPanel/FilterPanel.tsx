@@ -30,7 +30,7 @@ export default function FilterPanel() {
       </StyledContainer>
       <VerticalLineSeparator />
       <StyledContainer>
-        <ManageJokes jokesList={visibleJokes} buttonText={'Add Favorite Jokes'} />
+        <ManageJokes jokesList={visibleJokes} buttonText="Add Favorite Jokes" />
       </StyledContainer>
       <StyledContainer>
         <Link to={ROUTES.FAVORITE_JOKES}>

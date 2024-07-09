@@ -10,14 +10,12 @@ interface Props {
 }
 
 export default function JokesHeaderModal({ onClose, jokesList }: Props) {
-  const handleClick = () => onClose();
-
   return (
     <StyledHeader isSelectAll={jokesList.length > 0}>
       <StyledContainer>
         <StyledText>Manage favorite jokes</StyledText>
         <StyledCloseWrapper>
-          <Button variant="secondary" onClick={handleClick}>
+          <Button variant="secondary" onClick={onClose}>
             ✖
           </Button>
         </StyledCloseWrapper>

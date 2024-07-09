@@ -25,9 +25,7 @@ export default function ManageJokes({ jokesList, buttonText }: Props) {
 
   return (
     <>
-      <Button variant="main" onClick={handleOpen}>
-        {buttonText}
-      </Button>
+      <Button onClick={handleOpen}>{buttonText}</Button>
       <ManageJokesModal content={jokesList} isOpen={isOpen} onClose={onClose} />
     </>
   );

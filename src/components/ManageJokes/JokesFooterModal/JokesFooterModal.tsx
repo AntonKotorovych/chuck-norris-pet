@@ -17,9 +17,7 @@ export default function JokesFooterModal({ onClose }: Props) {
   return (
     <StyledFooter>
       <StyledWrapper>
-        <Button variant="main" onClick={handleSave}>
-          Save
-        </Button>
+        <Button onClick={handleSave}>Save</Button>
       </StyledWrapper>
     </StyledFooter>
   );
