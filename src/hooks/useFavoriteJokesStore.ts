@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { Joke } from 'types/interfaces/CommonInterfaces';
-import { notifySaveJokesClick } from 'utils/notifySaveJokesClick';
+import { notifyClick } from 'utils/notifyClick';
 
 interface FavoriteJokesState {
   favoriteJokes: Joke[];
@@ -88,7 +88,7 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
               )
           );
 
-          notifySaveJokesClick();
+          notifyClick('✅Saved to favorites!');
 
           return {
             favoriteJokes: [...filteredFavoriteJokes, ...jokesToAdd],

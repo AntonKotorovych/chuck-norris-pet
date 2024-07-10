@@ -1,4 +1,4 @@
-import { notifyFavoriteClick } from 'utils/notifyFavoriteClick';
+import { notifyClick } from 'utils/notifyClick';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import { JokeProps } from 'components/JokesList/JokeItem/JokeItem';
 import HeartIcon from './HeartIcon';
@@ -18,7 +18,7 @@ export default function FavoriteButton({ joke }: Props) {
 
   const handleClick = () => {
     isFavorite ? removeFavoriteJoke(joke) : addFavoriteJoke(joke);
-    notifyFavoriteClick(isFavorite);
+    notifyClick(isFavorite ? '❎removed from favorites!' : '✅added to favorites!');
   };
 
   return (
