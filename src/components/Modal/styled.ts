@@ -25,3 +25,27 @@ export const StyledModal = styled.div<ThemeProps>`
   flex-direction: column;
   justify-content: space-between;
 `;
+
+export const StyledCloseWrapper = styled.div`
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+`;
+
+export const StyledHeaderContainer = styled.header<ThemeProps>`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 5px ${({ theme }) => theme.borderColor.primary} solid;
+  padding-bottom: 1rem;
+`;
+
+export const StyledContentContainer = styled.div`
+  height: 60%;
+`;
+
+export const StyledFooterContainer = styled.footer<ThemeProps>`
+  border-top: 5px ${({ theme }) => theme.borderColor.primary} solid;
+  height: 4.5rem;
+  display: flex;
+  align-items: center;
+`;

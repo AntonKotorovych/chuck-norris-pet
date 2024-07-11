@@ -8,10 +8,11 @@ export default function FavoriteJokesList() {
   return (
     <StyledSection>
       <StyledList>
-        {Boolean(!favoriteJokes.length) && (
+        {favoriteJokes.length ? (
+          <RenderedJokesList jokes={favoriteJokes} />
+        ) : (
           <StyledNoJokesContainer>There is no favorite jokes</StyledNoJokesContainer>
         )}
-        <RenderedJokesList jokes={favoriteJokes} />
       </StyledList>
     </StyledSection>
   );

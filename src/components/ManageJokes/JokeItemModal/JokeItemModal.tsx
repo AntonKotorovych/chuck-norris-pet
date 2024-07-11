@@ -1,7 +1,7 @@
 import { Joke } from 'types/interfaces/CommonInterfaces';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
-import { StyledText } from '../ManageJokesModal/styled';
-import { StyledCheckbox, StyledLabel, StyledListItem } from './styled';
+import Checkbox from 'components/Checkbox';
+import { StyledLabel, StyledListItem, StyledText } from './styled';
 
 interface Props {
   joke: Joke;
@@ -18,12 +18,7 @@ export default function JokeItemModal({ joke }: Props) {
   return (
     <StyledLabel htmlFor={joke.id}>
       <StyledListItem title={joke.value}>
-        <StyledCheckbox
-          type="checkbox"
-          id={joke.id}
-          checked={isChosenJoke}
-          onChange={handleItemClick}
-        />
+        <Checkbox id={joke.id} checked={isChosenJoke} onChange={handleItemClick} />
         <StyledText>{joke.value}</StyledText>
       </StyledListItem>
     </StyledLabel>

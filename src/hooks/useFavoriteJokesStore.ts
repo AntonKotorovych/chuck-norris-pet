@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { Joke } from 'types/interfaces/CommonInterfaces';
-import { notifyClick } from 'utils/notifyClick';
 
 interface FavoriteJokesState {
   favoriteJokes: Joke[];
@@ -20,6 +19,9 @@ interface FavoriteJokesActions {
   selectAllJokes: (jokes: Joke[]) => void;
   deselectAllJokes: (jokes: Joke[]) => void;
   saveSelectedJokes: VoidFunction;
+  allSelected: (jokesList: Joke[]) => boolean;
+  someSelected: (jokesList: Joke[]) => boolean;
+  noSelectedInJokesList: (jokesList: Joke[]) => boolean;
 }
 
 const DEFAULT_JOKES_STATE: FavoriteJokesState = {
@@ -88,8 +90,6 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
               )
           );
 
-          notifyClick('✅Saved to favorites!');
-
           return {
             favoriteJokes: [...filteredFavoriteJokes, ...jokesToAdd],
             selectedJokes: [],
@@ -97,6 +97,16 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
           };
         });
       },
+      allSelected: jokesList => get().selectedJokes.length === jokesList.length,
+
+      someSelected: jokesList =>
+        get().selectedJokes.length > 0 &&
+        get().selectedJokes.length < jokesList.length,
+
+      noSelectedInJokesList: jokesList =>
+        get().selectedJokes.every(
+          selectedJoke => !jokesList.some(joke => joke.id === selectedJoke.id)
+        ),
     }),
     {
       name: 'favorite-jokes-storage',

@@ -1,27 +1,25 @@
 import styled from '@emotion/styled';
+import { textTruncateStyles } from 'styled/truncateStyles';
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
-interface HeaderProps {
-  isSelectAll: boolean;
+interface WrapperProps {
+  hasJokes: boolean;
 }
 
-export const StyledHeader = styled.header<ThemeProps & HeaderProps>`
-  height: ${({ isSelectAll }) => (isSelectAll ? '30%' : '20%')};
-  border-bottom: 5px ${({ theme }) => theme.borderColor.primary} solid;
+export const StyledWrapper = styled.div<ThemeProps & WrapperProps>`
+  height: ${({ hasJokes }) => (hasJokes ? '6rem' : '3rem')};
   display: flex;
   flex-direction: column;
   gap: 2rem;
   font-size: ${({ theme }) => theme.fontSizes.medium};
 `;
 
-export const StyledCloseWrapper = styled.div`
-  display: flex;
-  height: 100%;
-  width: 2.5rem;
-`;
-
 export const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const StyledText = styled.span`
+  ${textTruncateStyles}
 `;

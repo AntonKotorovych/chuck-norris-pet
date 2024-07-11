@@ -1,14 +1,30 @@
-import { ReactNode, useRef } from 'react';
+import { ComponentType, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { StyledModal, StyledModalOverlay } from './styled';
+import Button from 'components/Button';
+import {
+  StyledCloseWrapper,
+  StyledContentContainer,
+  StyledFooterContainer,
+  StyledHeaderContainer,
+  StyledModal,
+  StyledModalOverlay,
+} from './styled';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: VoidFunction;
-  children: ReactNode;
+  Header: ComponentType;
+  Content: ComponentType;
+  Footer: ComponentType;
 }
 
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
+export default function Modal({
+  isOpen,
+  onClose,
+  Header,
+  Content,
+  Footer,
+}: ModalProps) {
   const bodyRef = useRef(document.body);
 
   if (!isOpen) {
@@ -25,7 +41,20 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   return createPortal(
     <StyledModalOverlay onClick={onClose}>
       <StyledModal onClick={event => event.stopPropagation()}>
-        {children}
+        <StyledHeaderContainer>
+          <Header />
+          <StyledCloseWrapper>
+            <Button variant="secondary" onClick={onClose}>
+              ✖
+            </Button>
+          </StyledCloseWrapper>
+        </StyledHeaderContainer>
+        <StyledContentContainer>
+          <Content />
+        </StyledContentContainer>
+        <StyledFooterContainer>
+          <Footer />
+        </StyledFooterContainer>
       </StyledModal>
     </StyledModalOverlay>,
     modalContainer

@@ -2,7 +2,10 @@ import Button from 'components/Button';
 import { useModal } from 'hooks/useModal';
 import { Joke } from 'types/interfaces/CommonInterfaces';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
-import ManageJokesModal from './ManageJokesModal';
+import Modal from 'components/Modal';
+import JokesHeaderModal from './JokesHeaderModal';
+import JokesContentModal from './JokesContentModal';
+import JokesFooterModal from './JokesFooterModal';
 
 interface Props {
   jokesList: Joke[];
@@ -26,7 +29,13 @@ export default function ManageJokes({ jokesList, buttonText }: Props) {
   return (
     <>
       <Button onClick={handleOpen}>{buttonText}</Button>
-      <ManageJokesModal content={jokesList} isOpen={isOpen} onClose={onClose} />
+      <Modal
+        Header={() => <JokesHeaderModal jokesList={jokesList} />}
+        Content={() => <JokesContentModal jokesList={jokesList} />}
+        Footer={() => <JokesFooterModal onClose={onClose} />}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </>
   );
 }

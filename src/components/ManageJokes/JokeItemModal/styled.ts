@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { textTruncateStyles } from 'styled/truncateStyles';
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 export const StyledListItem = styled.li<ThemeProps>`
@@ -19,14 +20,11 @@ export const StyledListItem = styled.li<ThemeProps>`
   }
 `;
 
-export const StyledCheckbox = styled.input`
-  height: 1.5rem;
-  min-width: 1.5rem;
-  margin-right: 1.5rem;
-  cursor: pointer;
-`;
-
 export const StyledLabel = styled.label`
   white-space: nowrap;
   cursor: pointer;
+`;
+
+export const StyledText = styled.span`
+  ${textTruncateStyles}
 `;

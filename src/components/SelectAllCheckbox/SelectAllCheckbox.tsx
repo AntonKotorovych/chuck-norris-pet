@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
-import { StyledCheckbox } from 'components/ManageJokes/JokeItemModal/styled';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import { Joke } from 'types/interfaces/CommonInterfaces';
+import Checkbox from 'components/Checkbox';
 import { StyledLabel, StyledText } from './styled';
 
 interface Props {
@@ -9,15 +9,12 @@ interface Props {
 }
 
 export default function SelectAllCheckbox({ jokesList }: Props) {
-  const selectedJokes = useFavoriteJokesStore(state => state.selectedJokes);
   const selectAllJokes = useFavoriteJokesStore(state => state.selectAllJokes);
   const deselectAllJokes = useFavoriteJokesStore(state => state.deselectAllJokes);
-
-  const allSelected = selectedJokes.length === jokesList?.length;
-  const someSelected =
-    selectedJokes.length > 0 && selectedJokes.length < jokesList.length;
-  const noSelectedInJokesList = selectedJokes.every(
-    selectedJoke => !jokesList.some(joke => joke.id === selectedJoke.id)
+  const allSelected = useFavoriteJokesStore(state => state.allSelected(jokesList));
+  const someSelected = useFavoriteJokesStore(state => state.someSelected(jokesList));
+  const noSelectedInJokesList = useFavoriteJokesStore(state =>
+    state.noSelectedInJokesList(jokesList)
   );
 
   const selectAllRef = useRef<HTMLInputElement>(null);
@@ -39,8 +36,7 @@ export default function SelectAllCheckbox({ jokesList }: Props) {
 
   return (
     <StyledLabel htmlFor="selectAll">
-      <StyledCheckbox
-        type="checkbox"
+      <Checkbox
         id="selectAll"
         ref={selectAllRef}
         checked={allSelected}

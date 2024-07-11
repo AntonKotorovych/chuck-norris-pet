@@ -1,5 +1,6 @@
 import Button from 'components/Button';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
+import { notify } from 'utils/notify';
 import { StyledFooter, StyledWrapper } from './styled';
 
 interface Props {
@@ -12,6 +13,7 @@ export default function JokesFooterModal({ onClose }: Props) {
   const handleSave = () => {
     saveSelectedJokes();
     onClose();
+    notify('✅Saved to favorites!');
   };
 
   return (
