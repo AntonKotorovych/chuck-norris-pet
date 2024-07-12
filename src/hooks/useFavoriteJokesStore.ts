@@ -19,9 +19,9 @@ interface FavoriteJokesActions {
   selectAllJokes: (jokes: Joke[]) => void;
   deselectAllJokes: (jokes: Joke[]) => void;
   saveSelectedJokes: VoidFunction;
-  allSelected: (jokesList: Joke[]) => boolean;
-  someSelected: (jokesList: Joke[]) => boolean;
-  noSelectedInJokesList: (jokesList: Joke[]) => boolean;
+  areAllSelected: (jokesList: Joke[]) => boolean;
+  areSomeSelected: (jokesList: Joke[]) => boolean;
+  isNotSelected: (jokesList: Joke[]) => boolean;
 }
 
 const DEFAULT_JOKES_STATE: FavoriteJokesState = {
@@ -97,13 +97,13 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
           };
         });
       },
-      allSelected: jokesList => get().selectedJokes.length === jokesList.length,
+      areAllSelected: jokesList => get().selectedJokes.length === jokesList.length,
 
-      someSelected: jokesList =>
+      areSomeSelected: jokesList =>
         get().selectedJokes.length > 0 &&
         get().selectedJokes.length < jokesList.length,
 
-      noSelectedInJokesList: jokesList =>
+      isNotSelected: jokesList =>
         get().selectedJokes.every(
           selectedJoke => !jokesList.some(joke => joke.id === selectedJoke.id)
         ),

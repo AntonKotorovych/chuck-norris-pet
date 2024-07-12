@@ -30,9 +30,9 @@ export default function ManageJokes({ jokesList, buttonText }: Props) {
     <>
       <Button onClick={handleOpen}>{buttonText}</Button>
       <Modal
-        Header={() => <JokesHeaderModal jokesList={jokesList} />}
-        Content={() => <JokesContentModal jokesList={jokesList} />}
-        Footer={() => <JokesFooterModal onClose={onClose} />}
+        header={<JokesHeaderModal jokesList={jokesList} />}
+        content={<JokesContentModal jokesList={jokesList} />}
+        footer={<JokesFooterModal onClose={onClose} />}
         isOpen={isOpen}
         onClose={onClose}
       />

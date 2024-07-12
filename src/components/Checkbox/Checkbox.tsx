@@ -1,13 +1,7 @@
-import { ChangeEvent, forwardRef } from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 import { StyledCheckbox } from './styled';
 
-interface Props {
-  id: string;
-  checked: boolean;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}
-
-const Checkbox = forwardRef<HTMLInputElement, Props>(
+const Checkbox = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
   ({ id, checked, onChange }, ref) => (
     <StyledCheckbox
       type="checkbox"

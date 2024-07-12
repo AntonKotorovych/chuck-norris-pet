@@ -9,4 +9,5 @@ export const StyledLabel = styled.label`
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-left: 1.65rem;
 `;

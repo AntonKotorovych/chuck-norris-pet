@@ -11,10 +11,14 @@ interface Props {
 export default function SelectAllCheckbox({ jokesList }: Props) {
   const selectAllJokes = useFavoriteJokesStore(state => state.selectAllJokes);
   const deselectAllJokes = useFavoriteJokesStore(state => state.deselectAllJokes);
-  const allSelected = useFavoriteJokesStore(state => state.allSelected(jokesList));
-  const someSelected = useFavoriteJokesStore(state => state.someSelected(jokesList));
-  const noSelectedInJokesList = useFavoriteJokesStore(state =>
-    state.noSelectedInJokesList(jokesList)
+  const areAllSelected = useFavoriteJokesStore(state =>
+    state.areAllSelected(jokesList)
+  );
+  const areSomeSelected = useFavoriteJokesStore(state =>
+    state.areSomeSelected(jokesList)
+  );
+  const isNotSelected = useFavoriteJokesStore(state =>
+    state.isNotSelected(jokesList)
   );
 
   const selectAllRef = useRef<HTMLInputElement>(null);
@@ -30,16 +34,16 @@ export default function SelectAllCheckbox({ jokesList }: Props) {
   useEffect(() => {
     if (selectAllRef.current) {
       selectAllRef.current.indeterminate =
-        !allSelected && someSelected && !noSelectedInJokesList;
+        !areAllSelected && areSomeSelected && !isNotSelected;
     }
-  }, [allSelected, someSelected, noSelectedInJokesList]);
+  }, [areAllSelected, areSomeSelected, isNotSelected]);
 
   return (
     <StyledLabel htmlFor="selectAll">
       <Checkbox
         id="selectAll"
         ref={selectAllRef}
-        checked={allSelected}
+        checked={areAllSelected}
         onChange={handleSelectAll}
       />
       <StyledText>Select all</StyledText>

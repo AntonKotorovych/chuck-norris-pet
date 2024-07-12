@@ -1,4 +1,4 @@
-import { ComponentType, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Button from 'components/Button';
 import {
@@ -13,17 +13,17 @@ import {
 interface ModalProps {
   isOpen: boolean;
   onClose: VoidFunction;
-  Header: ComponentType;
-  Content: ComponentType;
-  Footer: ComponentType;
+  header: ReactNode;
+  content: ReactNode;
+  footer: ReactNode;
 }
 
 export default function Modal({
   isOpen,
   onClose,
-  Header,
-  Content,
-  Footer,
+  header,
+  content,
+  footer,
 }: ModalProps) {
   const bodyRef = useRef(document.body);
 
@@ -42,19 +42,15 @@ export default function Modal({
     <StyledModalOverlay onClick={onClose}>
       <StyledModal onClick={event => event.stopPropagation()}>
         <StyledHeaderContainer>
-          <Header />
+          {header}
           <StyledCloseWrapper>
             <Button variant="secondary" onClick={onClose}>
               ✖
             </Button>
           </StyledCloseWrapper>
         </StyledHeaderContainer>
-        <StyledContentContainer>
-          <Content />
-        </StyledContentContainer>
-        <StyledFooterContainer>
-          <Footer />
-        </StyledFooterContainer>
+        <StyledContentContainer>{content}</StyledContentContainer>
+        <StyledFooterContainer>{footer}</StyledFooterContainer>
       </StyledModal>
     </StyledModalOverlay>,
     modalContainer
