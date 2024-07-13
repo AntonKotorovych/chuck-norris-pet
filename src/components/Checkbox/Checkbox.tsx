@@ -1,18 +1,20 @@
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, useEffect, useRef } from 'react';
 import { StyledCheckbox } from './styled';
 
-const Checkbox = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
-  ({ id, checked, onChange }, ref) => (
-    <StyledCheckbox
-      type="checkbox"
-      id={id}
-      ref={ref}
-      checked={checked}
-      onChange={onChange}
-    />
-  )
-);
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  isPartiallySelected?: boolean;
+}
 
-Checkbox.displayName = 'Checkbox';
+const Checkbox: React.FC<Props> = ({ isPartiallySelected, ...props }: Props) => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (ref.current && typeof isPartiallySelected === 'boolean') {
+      ref.current.indeterminate = isPartiallySelected;
+    }
+  }, [isPartiallySelected]);
+
+  return <StyledCheckbox {...props} type="checkbox" ref={ref} />;
+};
 
 export default Checkbox;

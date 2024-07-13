@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef } from 'react';
+import { ChangeEvent } from 'react';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import { Joke } from 'types/interfaces/CommonInterfaces';
 import Checkbox from 'components/Checkbox';
@@ -21,8 +21,6 @@ export default function SelectAllCheckbox({ jokesList }: Props) {
     state.isNotSelected(jokesList)
   );
 
-  const selectAllRef = useRef<HTMLInputElement>(null);
-
   const handleSelectAll = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked && jokesList) {
       selectAllJokes(jokesList);
@@ -31,18 +29,11 @@ export default function SelectAllCheckbox({ jokesList }: Props) {
     }
   };
 
-  useEffect(() => {
-    if (selectAllRef.current) {
-      selectAllRef.current.indeterminate =
-        !areAllSelected && areSomeSelected && !isNotSelected;
-    }
-  }, [areAllSelected, areSomeSelected, isNotSelected]);
-
   return (
     <StyledLabel htmlFor="selectAll">
       <Checkbox
         id="selectAll"
-        ref={selectAllRef}
+        isPartiallySelected={!areAllSelected && areSomeSelected && !isNotSelected}
         checked={areAllSelected}
         onChange={handleSelectAll}
       />

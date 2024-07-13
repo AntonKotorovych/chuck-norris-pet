@@ -91,7 +91,7 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
           );
 
           return {
-            favoriteJokes: [...filteredFavoriteJokes, ...jokesToAdd],
+            favoriteJokes: filteredFavoriteJokes.concat(jokesToAdd),
             selectedJokes: [],
             jokesToRemove: [],
           };
@@ -99,9 +99,10 @@ export const useFavoriteJokesStore = create<FavoriteJokesStore>()(
       },
       areAllSelected: jokesList => get().selectedJokes.length === jokesList.length,
 
-      areSomeSelected: jokesList =>
-        get().selectedJokes.length > 0 &&
-        get().selectedJokes.length < jokesList.length,
+      areSomeSelected: jokesList => {
+        const selectedJokesLength = get().selectedJokes.length;
+        return selectedJokesLength > 0 && selectedJokesLength < jokesList.length;
+      },
 
       isNotSelected: jokesList =>
         get().selectedJokes.every(
