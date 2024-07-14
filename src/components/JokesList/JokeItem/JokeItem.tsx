@@ -1,5 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useFilters } from 'store/FiltersProvider';
+import { Link } from 'react-router-dom';
 import Button from 'components/Button';
 import FavoriteButton from 'components/FavoriteButton';
 import { ROUTES } from 'constants/routes';
@@ -29,19 +28,7 @@ export interface JokeProps {
 }
 
 export default function JokeItem(props: JokeProps) {
-  const { setCategory } = useFilters();
-  const location = useLocation();
-  const navigate = useNavigate();
-
   const { categories, value, url, createdAt, id } = props;
-
-  const handleCategoryClick = (category: string) => {
-    if (location.pathname === ROUTES.JOKE(id)) {
-      navigate(ROUTES.HOME);
-    }
-
-    setCategory(category);
-  };
 
   const jokeDetailPath = ROUTES.JOKE(id);
 
@@ -54,14 +41,11 @@ export default function JokeItem(props: JokeProps) {
               <>
                 <StyledSpan>Joke category: </StyledSpan>
                 {categories.map(category => (
-                  <StyledCategoryBtnWrapper key={category}>
-                    <Button
-                      variant="secondary"
-                      onClick={() => handleCategoryClick(category)}
-                    >
-                      {category}
-                    </Button>
-                  </StyledCategoryBtnWrapper>
+                  <Link key={category} to={`${ROUTES.HOME}?category=${category}`}>
+                    <StyledCategoryBtnWrapper>
+                      <Button variant="secondary">{category}</Button>
+                    </StyledCategoryBtnWrapper>
+                  </Link>
                 ))}
               </>
             ) : (

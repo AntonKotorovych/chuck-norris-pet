@@ -4,7 +4,7 @@ import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 export const StyledContainer = styled.div<ThemeProps>`
   height: 60%;
-  width: 18%;
+  width: 15%;
   font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
