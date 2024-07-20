@@ -7,6 +7,7 @@ export const HamburgerButton = styled.button<ThemeProps>`
   width: 2rem;
   height: 2rem;
   border-radius: ${({ theme }) => theme.borderRadius.tiny};
+  cursor: pointer;
 `;
 
 export const StyledIcon = styled.img`

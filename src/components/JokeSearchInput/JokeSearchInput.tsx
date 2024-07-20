@@ -5,7 +5,11 @@ import Input from 'components/Input';
 import { MAX_ALLOWED_CHAR_QUANTITY, MIN_REQUIRED_CHAR_QUANTITY } from './constants';
 import { StyledContainer, StyledNotification } from './styled';
 
-export default function JokeSearchInput() {
+interface Props {
+  setIsOpenMenu?: (isOpen: boolean) => void;
+}
+
+export default function JokeSearchInput({ setIsOpenMenu }: Props) {
   const [searchValue, setSearchValue] = useState('');
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
@@ -26,6 +30,7 @@ export default function JokeSearchInput() {
     if (isNotificationVisible) setIsNotificationVisible(false);
 
     setSearch(trimmedSearchValue);
+    if (setIsOpenMenu) setIsOpenMenu(false);
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {

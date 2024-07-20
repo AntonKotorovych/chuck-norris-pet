@@ -12,6 +12,10 @@ export const StyledWrapper = styled.div<ThemeProps & WrapperProps>`
   flex-direction: column;
   gap: 2rem;
   font-size: ${({ theme }) => theme.fontSizes.medium};
+
+  @media screen and (max-width: 900px) {
+    font-size: ${({ theme }) => theme.fontSizes.regular};
+  }
 `;
 
 export const StyledContainer = styled.div`

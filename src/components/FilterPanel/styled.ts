@@ -4,15 +4,17 @@ import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 export const StyledFilterPanel = styled.div`
   @media screen and (max-width: 900px) {
-    display: none;
+    height: 100%;
   }
 `;
 
 export const StyledSection = styled.section<ThemeProps>`
   width: 100%;
+  padding: 20px 10px;
   margin: auto;
   height: 5rem;
   display: flex;
+  gap: 20px;
   background-color: ${({ theme }) => theme.filterPanelBackgroundColor.primary};
   justify-content: space-around;
   position: sticky;
@@ -27,31 +29,30 @@ export const StyledSection = styled.section<ThemeProps>`
     font-size: ${({ theme }) => theme.fontSizes.tiny};
   }
 
-  @media screen and (max-width: 800px) {
-    height: 3.5rem;
+  @media screen and (max-width: 900px) {
+    height: 100%;
+    width: 60%;
+    flex-direction: column;
   }
 `;
 
 export const StyledContainer = styled.div<ThemeProps>`
-  height: 60%;
-  width: 14rem;
+  height: 100%;
+  flex: 1;
 
-  @media screen and (max-width: 1800px) {
-    width: 13rem;
-  }
-
-  @media screen and (max-width: 1650px) {
-    width: 10rem;
-  }
-
-  @media screen and (max-width: 1350px) {
-    width: 9rem;
+  @media screen and (max-width: 900px) {
+    width: 100%;
   }
 `;
 
 export const VerticalLineSeparator = styled.div<ThemeProps>`
   width: 2px;
-  height: 90%;
+  height: 120%;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   background-color: ${({ theme }) => theme.colors.third};
+
+  @media screen and (max-width: 900px) {
+    width: 120%;
+    height: 2px;
+  }
 `;

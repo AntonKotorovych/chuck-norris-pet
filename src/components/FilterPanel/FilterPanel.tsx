@@ -13,14 +13,25 @@ import {
   VerticalLineSeparator,
 } from './styled';
 
-export default function FilterPanel() {
+interface Props {
+  setIsOpenMenu?: (isOpen: boolean) => void;
+}
+
+export default function FilterPanel({ setIsOpenMenu }: Props) {
   const {
     loadMoreAPI: { visibleJokes },
   } = useJokesList();
 
   const { clearAllFilters } = useFilters();
 
-  const handleOnClear = () => clearAllFilters();
+  const handleOnClear = () => {
+    if (setIsOpenMenu) setIsOpenMenu(false);
+    clearAllFilters();
+  };
+
+  const handleClick = () => {
+    if (setIsOpenMenu) setIsOpenMenu(false);
+  };
 
   return (
     <StyledFilterPanel>
@@ -28,7 +39,7 @@ export default function FilterPanel() {
         <StyledContainer>
           <CategorySelect />
         </StyledContainer>
-        <JokeSearchInput />
+        <JokeSearchInput setIsOpenMenu={setIsOpenMenu} />
         <StyledContainer>
           <Button variant="secondary" onClick={handleOnClear}>
             Clear Filtering
@@ -36,11 +47,17 @@ export default function FilterPanel() {
         </StyledContainer>
         <VerticalLineSeparator />
         <StyledContainer>
-          <ManageJokes jokesList={visibleJokes} buttonText="Add Favorite Jokes" />
+          <ManageJokes
+            jokesList={visibleJokes}
+            buttonText="Add Favorite Jokes"
+            setIsOpenMenu={setIsOpenMenu}
+          />
         </StyledContainer>
         <StyledContainer>
           <Link to={ROUTES.FAVORITE_JOKES}>
-            <Button variant="secondary">Favorite Jokes</Button>
+            <Button variant="secondary" onClick={handleClick}>
+              Favorite Jokes
+            </Button>
           </Link>
         </StyledContainer>
       </StyledSection>

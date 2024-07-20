@@ -19,7 +19,7 @@ export default function HamburgerMenu() {
           alt="Menu"
         />
       </HamburgerButton>
-      <MenuContainer isOpen={isOpen}></MenuContainer>
+      <MenuContainer isOpen={isOpen} setIsOpenMenu={setIsOpen} />
     </>
   );
 }

@@ -16,7 +16,7 @@ export const StyledModalOverlay = styled.div<ThemeProps>`
 
 export const StyledModal = styled.div<ThemeProps>`
   background: ${({ theme }) => theme.backgroundColorListModal.primary};
-  padding: 20px 10px;
+  padding: 0 10px;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   max-width: 600px;
   width: 100%;
@@ -24,12 +24,21 @@ export const StyledModal = styled.div<ThemeProps>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (max-width: 900px) {
+    position: absolute;
+    max-width: 100%;
+    height: calc(100vh - 3rem);
+    border-radius: 0;
+    top: 3rem;
+  }
 `;
 
-export const StyledCloseWrapper = styled.div`
+export const StyledCloseWrapper = styled.div<ThemeProps>`
   display: flex;
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 2rem;
+  width: 2rem;
+  font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
 export const StyledHeaderContainer = styled.header<ThemeProps>`
@@ -37,6 +46,7 @@ export const StyledHeaderContainer = styled.header<ThemeProps>`
   justify-content: space-between;
   border-bottom: 5px ${({ theme }) => theme.borderColor.primary} solid;
   padding-bottom: 1rem;
+  margin-top: 15px;
 `;
 
 export const StyledContentContainer = styled.div`

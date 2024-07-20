@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
 export const StyledContainer = styled.div<ThemeProps>`
-  height: 60%;
+  height: 100%;
   width: 15rem;
   font-size: inherit;
 
@@ -16,7 +16,7 @@ export const StyledContainer = styled.div<ThemeProps>`
   }
 
   @media (max-width: 900px) {
-    width: 60%;
+    width: 100%;
     height: 2.5rem;
   }
 `;

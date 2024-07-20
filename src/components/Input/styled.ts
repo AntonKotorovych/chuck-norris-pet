@@ -18,6 +18,10 @@ export const StyledInput = styled.input<ThemeProps>`
   @media screen and (max-width: 1350px) {
     padding-left: 1.5rem;
   }
+
+  @media screen and (max-width: 900px) {
+    padding-left: 3rem;
+  }
 `;
 
 export enum SvgPosition {
@@ -42,7 +46,7 @@ export const StyledSVGButton = styled.button<StyledSVGButtonProps>`
   cursor: pointer;
   transition: transform 0.2s ease;
 
-  @media screen and (max-width: 1350px) {
+  @media screen and (min-width: 900px) and (max-width: 1350px) {
     width: 18px;
     height: 18px;
     left: ${props => (props.position === SvgPosition.LEFT ? '0.2rem' : 'auto')};

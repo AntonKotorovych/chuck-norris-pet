@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
-export const StyledFooter = styled.footer<ThemeProps>`
+export const StyledContainer = styled.div<ThemeProps>`
   display: flex;
   justify-content: flex-end;
   width: 100%;

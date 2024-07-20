@@ -10,9 +10,14 @@ import JokesFooterModal from './JokesFooterModal';
 interface Props {
   jokesList: Joke[];
   buttonText: string;
+  setIsOpenMenu?: (isOpen: boolean) => void;
 }
 
-export default function ManageJokes({ jokesList, buttonText }: Props) {
+export default function ManageJokes({
+  jokesList,
+  buttonText,
+  setIsOpenMenu,
+}: Props) {
   const isOpen = useModal(state => state.isOpen);
   const onOpen = useModal(state => state.onOpen);
   const onClose = useModal(state => state.onClose);
@@ -24,6 +29,7 @@ export default function ManageJokes({ jokesList, buttonText }: Props) {
   const handleOpen = () => {
     initializeSelectedJokes();
     onOpen();
+    if (setIsOpenMenu) setIsOpenMenu(false);
   };
 
   return (
