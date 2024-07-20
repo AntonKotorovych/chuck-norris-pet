@@ -21,6 +21,9 @@ export const customSelectStyles = (theme: StyledTheme) => ({
     ...baseStyles,
     padding: '0 1rem',
     textTransform: theme.textTransform.primary,
+    '@media screen and (max-width: 1350px)': {
+      padding: '0 0.5rem',
+    },
   }),
 
   menu: (baseStyles: CSSObject) => ({

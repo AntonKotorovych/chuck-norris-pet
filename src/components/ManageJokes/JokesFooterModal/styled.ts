@@ -5,6 +5,7 @@ export const StyledFooter = styled.footer<ThemeProps>`
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
 export const StyledWrapper = styled.div`

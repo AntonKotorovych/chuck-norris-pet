@@ -34,11 +34,18 @@ export const theme = {
   backgroundColorListModal: {
     primary: '#464646',
   },
+  backgroundColorHamburgerHeader: {
+    primary: '#2b2b2b',
+  },
+  backgroundColorHamburgerMenu: {
+    primary: '#414141',
+  },
   borderColor: {
     primary: '#0f0f0f',
     secondary: '#909090',
   },
   borderRadius: {
+    tiny: '10px',
     sm: '20px',
     lg: '50px',
   },
@@ -58,8 +65,10 @@ export const theme = {
     secondary: '0 0 25px rgba(0, 0, 0, 0.877)',
   },
   fontSizes: {
+    superTiny: '0.7rem',
     tiny: '0.9rem',
     small: '1.1rem',
+    regular: '1.4rem',
     medium: '2rem',
     big: '3rem',
   },

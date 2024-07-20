@@ -2,6 +2,11 @@ import styled from '@emotion/styled';
 
 export const StyledContainer = styled.div`
   height: 2.5rem;
+  display: flex;
+
+  @media screen and (max-width: 800px) {
+    height: 1.9rem;
+  }
 `;
 
 export const StyledButton = styled.button`

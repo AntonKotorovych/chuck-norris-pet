@@ -15,9 +15,13 @@ export const StyledList = styled.ul`
   text-align: center;
 `;
 
-export const StyledButtonContainer = styled.div`
+export const StyledButtonContainer = styled.div<ThemeProps>`
   height: 2.5rem;
-  width: 13%;
+  width: 15rem;
+
+  @media screen and (max-width: 800px) {
+    font-size: ${({ theme }) => theme.fontSizes.small};
+  }
 `;
 
 export const StyledNoJokesContainer = styled.div<ThemeProps>`
@@ -25,4 +29,13 @@ export const StyledNoJokesContainer = styled.div<ThemeProps>`
   background-color: ${({ theme }) => theme.backgroundColorListItem.primary};
   border: 3px ${({ theme }) => theme.borderColor.secondary} solid;
   color: ${({ theme }) => theme.colors.third};
+
+  @media screen and (max-width: 800px) {
+    padding: 2rem;
+  }
+
+  @media screen and (max-width: 520px) {
+    padding: 1rem;
+    font-size: ${({ theme }) => theme.fontSizes.regular};
+  }
 `;

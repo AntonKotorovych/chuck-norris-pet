@@ -11,9 +11,13 @@ export const StyledInput = styled.input<ThemeProps>`
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   height: 100%;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: inherit;
   border: none;
-  padding: 0 3.5rem;
+  padding-left: 3.5rem;
+
+  @media screen and (max-width: 1350px) {
+    padding-left: 1.5rem;
+  }
 `;
 
 export enum SvgPosition {
@@ -37,6 +41,13 @@ export const StyledSVGButton = styled.button<StyledSVGButtonProps>`
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease;
+
+  @media screen and (max-width: 1350px) {
+    width: 18px;
+    height: 18px;
+    left: ${props => (props.position === SvgPosition.LEFT ? '0.2rem' : 'auto')};
+    right: ${props => (props.position === SvgPosition.RIGHT ? '0.2rem' : 'auto')};
+  }
 
   & img {
     width: 100%;
