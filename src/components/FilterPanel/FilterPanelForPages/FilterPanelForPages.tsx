@@ -4,7 +4,8 @@ import Button from 'components/Button';
 import { ROUTES } from 'constants/routes';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import Spinner from 'components/Spinner';
-import { StyledContainer, StyledSection } from '../styled';
+import { StyledSection } from '../styled';
+import { StyledContainer } from './styled';
 
 interface Props {
   setIsOpenMenu?: (isOpen: boolean) => void;
