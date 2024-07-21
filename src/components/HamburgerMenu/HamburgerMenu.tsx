@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useHamburgerMenu } from 'hooks/useHamburgerMenu';
 import { HamburgerButton, StyledIcon } from './styled';
 import MenuContainer from './MenuContainer';
 
 export default function HamburgerMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
 
-  const handleHamburgerClick = () => setIsOpen(!isOpen);
+  const handleHamburgerClick = () => (isOpen ? closeMenu() : openMenu());
 
   return (
     <>
@@ -19,7 +19,7 @@ export default function HamburgerMenu() {
           alt="Menu"
         />
       </HamburgerButton>
-      <MenuContainer isOpen={isOpen} setIsOpenMenu={setIsOpen} />
+      <MenuContainer />
     </>
   );
 }

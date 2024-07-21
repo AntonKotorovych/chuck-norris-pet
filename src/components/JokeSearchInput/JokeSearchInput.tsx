@@ -2,16 +2,14 @@ import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useFilters } from 'store/FiltersProvider';
 import Button from 'components/Button';
 import Input from 'components/Input';
+import { useHamburgerMenu } from 'hooks/useHamburgerMenu';
 import { MAX_ALLOWED_CHAR_QUANTITY, MIN_REQUIRED_CHAR_QUANTITY } from './constants';
 import { StyledContainer, StyledNotification } from './styled';
 
-interface Props {
-  setIsOpenMenu?: (isOpen: boolean) => void;
-}
-
-export default function JokeSearchInput({ setIsOpenMenu }: Props) {
+export default function JokeSearchInput() {
   const [searchValue, setSearchValue] = useState('');
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const { closeMenu } = useHamburgerMenu();
 
   const { state, setSearch } = useFilters();
 
@@ -30,7 +28,7 @@ export default function JokeSearchInput({ setIsOpenMenu }: Props) {
     if (isNotificationVisible) setIsNotificationVisible(false);
 
     setSearch(trimmedSearchValue);
-    if (setIsOpenMenu) setIsOpenMenu(false);
+    closeMenu();
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {

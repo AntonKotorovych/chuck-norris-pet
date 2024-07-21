@@ -51,6 +51,10 @@ export const StyledHeaderContainer = styled.header<ThemeProps>`
 
 export const StyledContentContainer = styled.div`
   height: 60%;
+
+  @media screen and (max-width: 900px) {
+    height: 70%;
+  }
 `;
 
 export const StyledFooterContainer = styled.footer<ThemeProps>`

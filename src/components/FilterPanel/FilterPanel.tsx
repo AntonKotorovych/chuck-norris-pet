@@ -6,6 +6,7 @@ import JokeSearchInput from 'components/JokeSearchInput';
 import { ROUTES } from 'constants/routes';
 import { useJokesList } from 'store/JokesListProvider';
 import ManageJokes from 'components/ManageJokes';
+import { useHamburgerMenu } from 'hooks/useHamburgerMenu';
 import {
   StyledContainer,
   StyledFilterPanel,
@@ -13,24 +14,17 @@ import {
   VerticalLineSeparator,
 } from './styled';
 
-interface Props {
-  setIsOpenMenu?: (isOpen: boolean) => void;
-}
-
-export default function FilterPanel({ setIsOpenMenu }: Props) {
+export default function FilterPanel() {
   const {
     loadMoreAPI: { visibleJokes },
   } = useJokesList();
+  const { closeMenu } = useHamburgerMenu();
 
   const { clearAllFilters } = useFilters();
 
   const handleOnClear = () => {
-    if (setIsOpenMenu) setIsOpenMenu(false);
+    closeMenu();
     clearAllFilters();
-  };
-
-  const handleClick = () => {
-    if (setIsOpenMenu) setIsOpenMenu(false);
   };
 
   return (
@@ -39,7 +33,7 @@ export default function FilterPanel({ setIsOpenMenu }: Props) {
         <StyledContainer>
           <CategorySelect />
         </StyledContainer>
-        <JokeSearchInput setIsOpenMenu={setIsOpenMenu} />
+        <JokeSearchInput />
         <StyledContainer>
           <Button variant="secondary" onClick={handleOnClear}>
             Clear Filtering
@@ -47,15 +41,11 @@ export default function FilterPanel({ setIsOpenMenu }: Props) {
         </StyledContainer>
         <VerticalLineSeparator />
         <StyledContainer>
-          <ManageJokes
-            jokesList={visibleJokes}
-            buttonText="Add Favorite Jokes"
-            setIsOpenMenu={setIsOpenMenu}
-          />
+          <ManageJokes jokesList={visibleJokes} buttonText="Add Favorite Jokes" />
         </StyledContainer>
         <StyledContainer>
           <Link to={ROUTES.FAVORITE_JOKES}>
-            <Button variant="secondary" onClick={handleClick}>
+            <Button variant="secondary" onClick={closeMenu}>
               Favorite Jokes
             </Button>
           </Link>
