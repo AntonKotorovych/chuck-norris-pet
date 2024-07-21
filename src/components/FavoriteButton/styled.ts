@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
-export const StyledContainer = styled.div`
+export const StyledContainer = styled.div<ThemeProps>`
   height: 2.5rem;
   display: flex;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     height: 1.9rem;
   }
 `;

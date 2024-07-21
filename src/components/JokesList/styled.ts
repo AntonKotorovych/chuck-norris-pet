@@ -18,8 +18,9 @@ export const StyledList = styled.ul`
 export const StyledButtonContainer = styled.div<ThemeProps>`
   height: 2.5rem;
   width: 15rem;
+  font-size: ${({ theme }) => theme.fontSizes.regular};
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes.small};
   }
 `;
@@ -30,11 +31,11 @@ export const StyledNoJokesContainer = styled.div<ThemeProps>`
   border: 3px ${({ theme }) => theme.borderColor.secondary} solid;
   color: ${({ theme }) => theme.colors.third};
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 2rem;
   }
 
-  @media screen and (max-width: 520px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 1rem;
     font-size: ${({ theme }) => theme.fontSizes.regular};
   }

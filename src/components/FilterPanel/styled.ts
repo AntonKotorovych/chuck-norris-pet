@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
-export const StyledFilterPanel = styled.div`
-  @media screen and (max-width: 900px) {
+export const StyledFilterPanel = styled.div<ThemeProps>`
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     height: 100%;
   }
 `;
@@ -25,11 +25,11 @@ export const StyledSection = styled.section<ThemeProps>`
   align-items: center;
   font-size: ${({ theme }) => theme.fontSizes.small};
 
-  @media screen and (max-width: 1800px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.desktopHD}) {
     font-size: ${({ theme }) => theme.fontSizes.tiny};
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     height: 100%;
     width: 60%;
     flex-direction: column;
@@ -40,7 +40,7 @@ export const StyledContainer = styled.div<ThemeProps>`
   height: 100%;
   flex: 1;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: 100%;
   }
 `;
@@ -51,7 +51,7 @@ export const VerticalLineSeparator = styled.div<ThemeProps>`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   background-color: ${({ theme }) => theme.colors.third};
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: 120%;
     height: 2px;
   }

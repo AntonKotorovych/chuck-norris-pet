@@ -21,7 +21,7 @@ export const customSelectStyles = (theme: StyledTheme) => ({
     ...baseStyles,
     padding: '0 1rem',
     textTransform: theme.textTransform.primary,
-    '@media screen and (max-width: 1350px)': {
+    [`@media screen and (max-width: ${theme.breakpoints.desktop})`]: {
       padding: '0 0.5rem',
     },
   }),

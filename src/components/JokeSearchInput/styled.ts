@@ -7,15 +7,15 @@ export const StyledContainer = styled.div<ThemeProps>`
   width: 15rem;
   font-size: inherit;
 
-  @media screen and (max-width: 1800px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.desktopHD}) {
     width: 12rem;
   }
 
-  @media screen and (max-width: 1350px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     width: 8rem;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: 100%;
     height: 2.5rem;
   }

@@ -11,7 +11,7 @@ export const StyledHeader = styled.header<ThemeProps>`
   z-index: 2000;
   justify-content: center;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
   }
 `;

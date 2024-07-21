@@ -15,11 +15,11 @@ export const StyledInput = styled.input<ThemeProps>`
   border: none;
   padding-left: 3.5rem;
 
-  @media screen and (max-width: 1350px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     padding-left: 1.5rem;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding-left: 3rem;
   }
 `;
@@ -29,7 +29,7 @@ export enum SvgPosition {
   RIGHT = 'right',
 }
 
-interface StyledSVGButtonProps {
+interface StyledSVGButtonProps extends ThemeProps {
   position?: SvgPosition;
 }
 
@@ -46,7 +46,8 @@ export const StyledSVGButton = styled.button<StyledSVGButtonProps>`
   cursor: pointer;
   transition: transform 0.2s ease;
 
-  @media screen and (min-width: 900px) and (max-width: 1350px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) 
+  and (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     width: 18px;
     height: 18px;
     left: ${props => (props.position === SvgPosition.LEFT ? '0.2rem' : 'auto')};

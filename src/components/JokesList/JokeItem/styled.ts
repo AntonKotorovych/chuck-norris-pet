@@ -55,7 +55,7 @@ export const StyledLink = styled(Link)<ThemeProps>`
 export const StyledSpan = styled.span<ThemeProps>`
   font-size: ${({ theme }) => theme.fontSizes.tiny};
 
-  @media screen and (max-width: 510px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: ${({ theme }) => theme.fontSizes.superTiny};
   }
 `;
@@ -66,17 +66,17 @@ export const StyledJokeSpan = styled.span<ThemeProps>`
   align-self: center;
   color: ${({ theme }) => theme.colors.third};
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes.small};
   }
 `;
 
-export const StyledJokeCategory = styled.div`
+export const StyledJokeCategory = styled.div<ThemeProps>`
   height: 3rem;
   display: flex;
   align-items: center;
 
-  @media screen and (max-width: 520px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     height: 2rem;
   }
 `;
@@ -87,12 +87,12 @@ export const StyledCategoryBtnWrapper = styled.div<ThemeProps>`
   margin: 0 1rem;
   font-size: ${({ theme }) => theme.fontSizes.small};
 
-  @media screen and (max-width: 510px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: ${({ theme }) => theme.fontSizes.tiny};
     width: 4.8rem;
   }
 
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin: 0 0.5rem;
   }
 
@@ -114,7 +114,7 @@ export const StyledFooterDiv = styled.div<ThemeProps>`
   align-items: center;
   font-size: ${({ theme }) => theme.fontSizes.tiny};
 
-  @media screen and (max-width: 520px) {
+  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
     height: 2rem;
   }
 `;
@@ -128,18 +128,18 @@ export const StyledJokeDiv = styled.div<ThemeProps>`
   padding: 2rem;
 `;
 
-export const StyledDiv = styled.div`
-  @media screen and (max-width: 425px) {
+export const StyledDiv = styled.div<ThemeProps>`
+  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
     width: 33%;
   }
 `;
 
-export const StyledLinksContainer = styled.div`
+export const StyledLinksContainer = styled.div<ThemeProps>`
   gap: 1rem;
   display: flex;
   justify-content: space-between;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 58%;
   }
 `;

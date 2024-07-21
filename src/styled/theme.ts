@@ -75,6 +75,12 @@ export const theme = {
   modalOverlay: {
     primary: 'rgba(0, 0, 0, 0.6)',
   },
+  breakpoints: {
+    mobile: '550px',
+    tablet: '900px',
+    desktop: '1350px',
+    desktopHD: '1800px',
+  },
 } as const;
 
 export type StyledTheme = typeof theme;

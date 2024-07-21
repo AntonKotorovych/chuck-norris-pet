@@ -13,7 +13,7 @@ export const StyledWrapper = styled.div<ThemeProps & WrapperProps>`
   gap: 2rem;
   font-size: ${({ theme }) => theme.fontSizes.medium};
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes.regular};
   }
 `;

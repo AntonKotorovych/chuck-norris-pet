@@ -25,7 +25,7 @@ export const StyledModal = styled.div<ThemeProps>`
   flex-direction: column;
   justify-content: space-between;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     position: absolute;
     max-width: 100%;
     height: calc(100vh - 3rem);
@@ -49,10 +49,10 @@ export const StyledHeaderContainer = styled.header<ThemeProps>`
   margin-top: 15px;
 `;
 
-export const StyledContentContainer = styled.div`
+export const StyledContentContainer = styled.div<ThemeProps>`
   height: 60%;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     height: 70%;
   }
 `;
