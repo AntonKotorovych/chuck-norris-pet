@@ -12,7 +12,9 @@ export default function MenuContainer() {
 
   return (
     <StyledMenuContainer isOpen={isOpen}>
-      {location.pathname === ROUTES.HOME ? <FilterPanel /> : <FilterPanelForPages />}
+      {location.pathname === ROUTES.HOME && <FilterPanel />}
+      {location.pathname === ROUTES.FAVORITE_JOKES && <FilterPanelForPages />}
+      {location.pathname.startsWith('/joke') && <FilterPanelForPages />}
     </StyledMenuContainer>
   );
 }

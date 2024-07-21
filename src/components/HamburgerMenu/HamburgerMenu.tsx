@@ -5,7 +5,7 @@ import MenuContainer from './MenuContainer';
 export default function HamburgerMenu() {
   const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
 
-  const handleHamburgerClick = () => (isOpen ? closeMenu() : openMenu());
+  const handleHamburgerClick = isOpen ? closeMenu : openMenu;
 
   return (
     <>
