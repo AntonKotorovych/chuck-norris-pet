@@ -12,7 +12,7 @@ const closeMenuAnimation = css`
 
 export const StyledMenuContainer = styled.div<ThemeProps & { isOpen: boolean }>`
   background-color: ${({ theme }) => theme.backgroundColorHamburgerMenu.primary};
-  height: 25rem;
+  height: 24rem;
   width: 100%;
   position: absolute;
   ${({ isOpen }) => (isOpen ? openMenuAnimation : closeMenuAnimation)}

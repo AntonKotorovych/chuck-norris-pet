@@ -9,10 +9,14 @@ export const StyledSection = styled.section`
   width: 100%;
 `;
 
-export const StyledList = styled.ul`
+export const StyledList = styled.ul<ThemeProps>`
   list-style: none;
   width: 100%;
   text-align: center;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: 6rem;
+  }
 `;
 
 export const StyledButtonContainer = styled.div<ThemeProps>`
@@ -32,6 +36,7 @@ export const StyledNoJokesContainer = styled.div<ThemeProps>`
   color: ${({ theme }) => theme.colors.third};
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 2rem;
     padding: 2rem;
   }
 
