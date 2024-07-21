@@ -4,12 +4,15 @@ import Button from 'components/Button';
 import { ROUTES } from 'constants/routes';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import Spinner from 'components/Spinner';
-import { StyledContainer, StyledSection } from '../styled';
+import { useHamburgerMenu } from 'hooks/useHamburgerMenu';
+import { StyledSection } from '../styled';
+import { StyledContainer } from './styled';
 
 const ManageJokes = lazy(() => import('components/ManageJokes'));
 
 export default function FilterPanelForPages() {
   const location = useLocation();
+  const { closeMenu } = useHamburgerMenu();
 
   const favoriteJokes = useFavoriteJokesStore(state => state.favoriteJokes);
 
@@ -17,7 +20,7 @@ export default function FilterPanelForPages() {
     <StyledSection>
       <StyledContainer>
         <Link to={ROUTES.HOME}>
-          <Button>Back to Homepage</Button>
+          <Button onClick={closeMenu}>Back to Homepage</Button>
         </Link>
       </StyledContainer>
       <StyledContainer>
@@ -27,7 +30,9 @@ export default function FilterPanelForPages() {
           </Suspense>
         ) : (
           <Link to={ROUTES.FAVORITE_JOKES}>
-            <Button variant="secondary">Favorite Jokes</Button>
+            <Button variant="secondary" onClick={closeMenu}>
+              Favorite Jokes
+            </Button>
           </Link>
         )}
       </StyledContainer>

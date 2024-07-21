@@ -2,32 +2,57 @@ import styled from '@emotion/styled';
 
 import { ThemeProps } from 'types/interfaces/CommonInterfaces';
 
+export const StyledFilterPanel = styled.div<ThemeProps>`
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 100%;
+  }
+`;
+
 export const StyledSection = styled.section<ThemeProps>`
   width: 100%;
+  padding: 20px 10px;
   margin: auto;
-  height: 3rem;
+  height: 5rem;
   display: flex;
+  gap: 20px;
   background-color: ${({ theme }) => theme.filterPanelBackgroundColor.primary};
   justify-content: space-around;
   position: sticky;
   top: 0.5rem;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  height: 5rem;
   z-index: 100;
   display: flex;
   align-items: center;
+  font-size: ${({ theme }) => theme.fontSizes.small};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.desktopHD}) {
+    font-size: ${({ theme }) => theme.fontSizes.tiny};
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 100%;
+    width: 60%;
+    flex-direction: column;
+  }
 `;
 
 export const StyledContainer = styled.div<ThemeProps>`
-  height: 60%;
-  width: 12%;
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  height: 100%;
+  flex: 1;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 100%;
+  }
 `;
 
 export const VerticalLineSeparator = styled.div<ThemeProps>`
   width: 2px;
-  height: 90%;
+  height: 120%;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   background-color: ${({ theme }) => theme.colors.third};
-  margin: 0 20px;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 120%;
+    height: 2px;
+  }
 `;

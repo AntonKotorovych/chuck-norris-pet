@@ -17,8 +17,8 @@ export const StyledButton = styled.button<Props>`
   color: ${({ theme }) => theme.colors.primary};
   border: none;
   transition: box-shadow 0.2s ease;
+  font-size: inherit;
   cursor: pointer;
-  font-size: ${({ theme }) => theme.fontSizes.small};
   &:hover {
     box-shadow: ${({ theme }) => theme.shadowStyle.primary};
   }

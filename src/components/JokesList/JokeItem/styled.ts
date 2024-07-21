@@ -54,6 +54,10 @@ export const StyledLink = styled(Link)<ThemeProps>`
 
 export const StyledSpan = styled.span<ThemeProps>`
   font-size: ${({ theme }) => theme.fontSizes.tiny};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.superTiny};
+  }
 `;
 
 export const StyledJokeSpan = styled.span<ThemeProps>`
@@ -61,18 +65,36 @@ export const StyledJokeSpan = styled.span<ThemeProps>`
   font-weight: bold;
   align-self: center;
   color: ${({ theme }) => theme.colors.third};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.small};
+  }
 `;
 
-export const StyledJokeCategory = styled.div`
+export const StyledJokeCategory = styled.div<ThemeProps>`
   height: 3rem;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    height: 2rem;
+  }
 `;
 
 export const StyledCategoryBtnWrapper = styled.div<ThemeProps>`
   width: 5.8rem;
   display: flex;
   margin: 0 1rem;
+  font-size: ${({ theme }) => theme.fontSizes.small};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.tiny};
+    width: 4.8rem;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin: 0 0.5rem;
+  }
 
   & button {
     text-transform: ${({ theme }) => theme.textTransform.primary};
@@ -85,10 +107,16 @@ export const StyledHeaderDiv = styled.div`
   align-items: center;
 `;
 
-export const StyledFooterDiv = styled.div`
-  height: 20%;
+export const StyledFooterDiv = styled.div<ThemeProps>`
+  height: 2.5rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: ${({ theme }) => theme.fontSizes.tiny};
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
+    height: 2rem;
+  }
 `;
 
 export const StyledJokeDiv = styled.div<ThemeProps>`
@@ -100,10 +128,18 @@ export const StyledJokeDiv = styled.div<ThemeProps>`
   padding: 2rem;
 `;
 
-export const StyledDiv = styled.div``;
+export const StyledDiv = styled.div<ThemeProps>`
+  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
+    width: 33%;
+  }
+`;
 
-export const StyledLinksContainer = styled.div`
+export const StyledLinksContainer = styled.div<ThemeProps>`
   gap: 1rem;
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 58%;
+  }
 `;

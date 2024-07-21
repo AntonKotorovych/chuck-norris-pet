@@ -14,4 +14,11 @@ export const StyledSpinner = styled.div<ThemeProps>`
   width: 120px;
   height: 120px;
   animation: ${spin} 2s linear infinite;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 80px;
+    height: 80px;
+    border: 10px solid ${({ theme }) => theme.spinnerBorderColor.primary};
+    border-top: 10px solid ${({ theme }) => theme.spinnerBorderColor.secondary};
+  }
 `;

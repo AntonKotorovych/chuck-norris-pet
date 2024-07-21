@@ -3,6 +3,7 @@ import { useModal } from 'hooks/useModal';
 import { Joke } from 'types/interfaces/CommonInterfaces';
 import { useFavoriteJokesStore } from 'hooks/useFavoriteJokesStore';
 import Modal from 'components/Modal';
+import { useHamburgerMenu } from 'hooks/useHamburgerMenu';
 import JokesHeaderModal from './JokesHeaderModal';
 import JokesContentModal from './JokesContentModal';
 import JokesFooterModal from './JokesFooterModal';
@@ -17,6 +18,8 @@ export default function ManageJokes({ jokesList, buttonText }: Props) {
   const onOpen = useModal(state => state.onOpen);
   const onClose = useModal(state => state.onClose);
 
+  const { closeMenu } = useHamburgerMenu();
+
   const initializeSelectedJokes = useFavoriteJokesStore(
     state => state.initializeSelectedJokes
   );
@@ -24,6 +27,7 @@ export default function ManageJokes({ jokesList, buttonText }: Props) {
   const handleOpen = () => {
     initializeSelectedJokes();
     onOpen();
+    closeMenu();
   };
 
   return (

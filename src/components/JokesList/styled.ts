@@ -9,15 +9,24 @@ export const StyledSection = styled.section`
   width: 100%;
 `;
 
-export const StyledList = styled.ul`
+export const StyledList = styled.ul<ThemeProps>`
   list-style: none;
   width: 100%;
   text-align: center;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: 6rem;
+  }
 `;
 
-export const StyledButtonContainer = styled.div`
+export const StyledButtonContainer = styled.div<ThemeProps>`
   height: 2.5rem;
-  width: 13%;
+  width: 15rem;
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.small};
+  }
 `;
 
 export const StyledNoJokesContainer = styled.div<ThemeProps>`
@@ -25,4 +34,14 @@ export const StyledNoJokesContainer = styled.div<ThemeProps>`
   background-color: ${({ theme }) => theme.backgroundColorListItem.primary};
   border: 3px ${({ theme }) => theme.borderColor.secondary} solid;
   color: ${({ theme }) => theme.colors.third};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 2rem;
+    padding: 2rem;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 1rem;
+    font-size: ${({ theme }) => theme.fontSizes.regular};
+  }
 `;
